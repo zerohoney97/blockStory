@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./myPage.css">
+</head>
+<body>
+    <div class="nav">
+
+    </div>
+        <div class="nickName">
+            <h3>사용할 닉네임을 입력해주세요.</h3>
+            <input type="text" class="userNic" placeholder="2~12자, 문자와 숫자만 가능">
+            <p class="cautionText"></p>
+            <button>확인</button>
+        </div>
+    <div class="myPage">
+        <h2>마이페이지</h2>
+        <div class="accessInfo">
+            <p><span>1chori</span>님은 거래 및 원화 입출금이 가능합니다.</p>
+        </div>
+        <!-- 내 정보 -->
+        <div class="myInfo">
+            <h3>내 정보</h3>
+            <div class="group">
+                <div class="infoText">
+                    <p class="title">개인정보 관리</p>
+                    <p class="descrip">닉네임 및 기본정보 등을 변경하실 수 있습니다.</p>
+                </div>
+                <button class="changeNic" onclick="popup()">닉네임 변경</button>
+                <button class="changeInfo">개인정보 변경</button>
+            </div>
+        </div>
+        <!-- 내 계좌 -->
+        <div class="account">
+            <h3>내 계좌</h3>
+            <div class="group">
+                <div class="accountText">
+                    <p class="title">개인 계좌 관리</p>
+                    <p class="descrip">본인 소유로 인증된 계좌로만 입출금이 가능합니다<div class=""></div></p>
+                </div>
+                <button class="manage">관리하기</button>
+            </div>
+        </div>
+        <!-- 문의 내역 -->
+        <div class="QnA">
+            <h3>문의 내역</h3>
+            <div class="QnAlist">
+                <ul class="bar">
+                    <li class="num">번호</li>
+                    <li class="category">문의 유형</li>
+                    <li class="title">문의 제목</li>
+                    <li class="date">문의 날짜</li>
+                    <li class="state">상태</li>
+                </ul>
+                <div class="alert">등록된 문의 내역이 없습니다.</div>
+            </div>
+        </div>
+        <!-- 관심 종목 -->
+        <div class="interested">
+            <h3>관심 종목</h3>
+            <div class="list">
+                <ul class="bar">
+                    <li class="star"></li>
+                    <li class="coin">종목</li>
+                    <li class="price">현재가</li>
+                    <li class="ratio">전일대비</li>
+                </ul>
+                <div class="interested-alert">등록된 관심 코인이 없습니다.</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./myPage.js"></script>
+</html>
