@@ -3,6 +3,7 @@ let changNicBtn = document.querySelector('.changeNic');
 let subBtn = document.querySelector('.submit');
 let closeBtn = document.querySelector('.close');
 let nickPopup = document.querySelector('.nickName');
+console.log(closeBtn);
 
 // 닉네임 변경 팝업창 활성화하는 함수
 function popup() {
@@ -41,3 +42,67 @@ if (storageNic) {
     nickName.innerHTML = storageNic;
 }
 
+
+let accountPopup = document.querySelector('.bankAccount');
+let closeAccount = document.querySelector('.close_account');
+console.log(closeAccount);
+
+
+
+// 계좌관리 팝업창 활성화 함수
+function bankPopup() {
+    document.body.classList.toggle('active');
+    accountPopup.classList.toggle('active');
+}
+
+
+
+// 계좌관리 팝업창 close
+closeAccount.addEventListener('click', () => {
+    document.body.classList.remove('active');
+    accountPopup.classList.remove('active');
+
+})
+
+
+// 계좌관리 내 코인소유량 표시
+
+let coinName = document.querySelector('.list-descrip .name');
+let coinPercentage = document.querySelector('.list-descrip .percent');
+let coinQuantity = document.querySelector('.list-descrip .haveNum');
+let listDescrip = document.querySelectorAll('.list-descrip');
+
+function MyCoin(coin, percentage, quantity) {
+    this.coin = coin;
+    this.percentage = percentage;
+    this.quantity = quantity;
+}
+
+let KRW = new MyCoin('원화', '0.00%', '0 KRW');
+let BTC = new MyCoin('비트코인', '100.00%', '0.000567 BTC');
+
+let coins = [KRW, BTC];
+
+coins.forEach((coin, index) => {
+    listDescrip[index].querySelector('.percent').innerHTML = coin.percentage;
+    listDescrip[index].querySelector('.haveNum').innerHTML = coin.quantity;
+    listDescrip[index].querySelector('.name').innerHTML = coin.coin;
+})
+
+
+
+// 유저 보유 코인 로컬스토리지
+const coinDummy = [
+    {
+        coin: '원화',
+        percentage: '0.00%',
+        quantity: '0 KRW'
+    },
+    {
+        coin: '비트코인',
+        percentage: '100.00%',
+        quantity: '0.000567 BTC'
+    }
+]
+
+localStorage.setItem("userCoinData", JSON.stringify(coinDummy));

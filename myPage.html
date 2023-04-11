@@ -19,10 +19,76 @@
         <p class="cautionText"></p>
         <button class="submit">확인</button>
     </div>
-
     <!-- 계좌관리 팝업 창 -->
-    <div class="account">
-        
+    <div class="bankAccount">
+        <button class="close_account">X</button>
+        <div class="myAsset">
+            <div class="totalAsset">
+                <p class="total">총 보유자산</p>
+                <p class="money"><span class="moneyNum">0</span> KRW</p>
+            </div>
+            <div class="searchCoin">
+                <input type="text" class="findCoin" placeholder="코인명/심볼검색">
+                <a href="#" class="findImg"><img src="./1093183.png" alt=""></a>
+            </div>
+            <div class="accountList">
+                <ul class="list-title">
+                    <li class="name">코인명</li>
+                    <li class="percent">보유비중</li>
+                    <li class="haveNum">보유수량(평가금액)</li>
+                </ul>
+                <ul class="list-descrip">
+                    <li class="name"></li>
+                    <li class="percent"></li>
+                    <li class="haveNum"></li>
+                </ul>
+                <ul class="list-descrip">
+                    <li class="name"></li>
+                    <li class="percent"></li>
+                    <li class="haveNum"></li>
+                </ul>
+                <ul class="list-descrip">
+                    <li class="name"></li>
+                    <li class="percent"></li>
+                    <li class="haveNum"></li>
+                </ul>
+                <ul class="list-descrip">
+                    <li class="name"></li>
+                    <li class="percent"></li>
+                    <li class="haveNum"></li>
+                </ul>
+                <ul class="list-descrip">
+                    <li class="name"></li>
+                    <li class="percent"></li>
+                    <li class="haveNum"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="trade">
+            <div class="tradeName">KRW 입출금</div>
+            <div class="haveMoney">
+                <p>보유금액</p>
+                <p>1 <span>KRW</span></p>
+            </div>
+            <div class="tradeContent">
+                <input class="charge" type="text" type="radio" checked>
+                <label for="">KRW충전</label>
+                <input class="withdraw" type="text" type="radio">
+                <label for="">출금신청</label>
+                <input class="history" type="text" type="radio">
+                <label for="">입출금내역</label>
+            </div>
+            <div class="myAccount">
+                <div class="thisAccount">
+                    <p class="whatBank">연계계좌</p>
+                    <p class="thisBank">11*****3314 신한 홍길동</p>
+                </div>
+            </div>
+            <div class="inputMoney">
+                <p class="howMuch">입금금액(KRW)</p>
+                <input type="text" placeholder="최소 5,000 KRW">
+            </div>
+        </div>
     </div>
     <div class="myPage">
         <h2>마이페이지</h2>
@@ -50,7 +116,7 @@
                     <p class="title">개인 계좌 관리</p>
                     <p class="descrip">본인 소유로 인증된 계좌로만 입출금이 가능합니다<div class=""></div></p>
                 </div>
-                <button class="manage">관리하기</button>
+                <button class="accountManage" onclick="bankPopup()">관리하기</button>
             </div>
         </div>
         <!-- 문의 내역 -->
@@ -82,5 +148,6 @@
         </div>
     </div>
 </body>
+<script src="./allData.js"></script>
 <script src="./myPage.js"></script>
 </html>

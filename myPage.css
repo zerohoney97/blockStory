@@ -188,6 +188,238 @@ body.active::before{
     font-weight: 600;
 }
 
+/* 계좌조회 팝업창 */
+
+.bankAccount{
+    background-color: rgb(237, 237, 237);
+    width: 100%;
+    max-width: 900px;
+    height: 46.042vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px 20px;
+    position: fixed;
+    /* display: none; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.bankAccount.active{
+    background-color: rgb(237, 237, 237);
+    width: 100%;
+    max-width: 900px;
+    height: 46.042vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px 20px;
+    position: fixed;
+    display: block;
+}
+
+.close_account{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    background-color: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+/* 보유자산 */
+
+
+.myAsset, .trade{
+    width: 100%;
+    max-width: 420px;
+    height: 100%;
+    background-color: white;
+}
+
+.totalAsset{
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.totalAsset .total{
+    font-weight: bolder;
+    font-size: 17px;
+}
+
+.totalAsset .money{
+    font-size: 13px;
+}
+
+.totalAsset .moneyNum{
+    font-size: 30px;
+    font-weight: bolder;
+    color: red;
+}
+
+.searchCoin{
+    position: relative;
+}
+
+.searchCoin .findCoin{
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    border: none;
+    border-top: 1px solid rgb(199, 199, 199);
+    border-bottom: 1px solid rgb(199, 199, 199);
+}
+
+.searchCoin img{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.list-title{
+    list-style: none;
+    display: flex;
+    background-color: rgb(250, 244, 235);
+}
+
+.list-title li{
+    height: 30px;
+    text-align: center;
+    line-height: 2.2;
+    font-size: 13px;
+}
+
+.list-title .name,
+.list-descrip .name{
+    width: 150px;
+}
+
+.list-descrip .name{
+    border: none;
+    border-top: 1px solid rgb(214, 214, 214);
+    border-bottom: 1px solid rgb(214, 214, 214);
+    font-weight: bold;
+}
+
+.list-title .percent,
+.list-descrip .percent{
+    width: 110px;
+}
+
+.list-title .haveNum,
+.list-descrip .haveNum{
+    width: 160px;
+}
+
+.list-descrip .haveNum{
+    border: none;
+    border-top: 1px solid rgb(214, 214, 214);
+    border-bottom: 1px solid rgb(214, 214, 214);
+    font-weight: bold;
+}
+
+.list-descrip{
+    display: flex;
+}
+
+.list-descrip li{
+    border: 1px solid rgb(214, 214, 214);
+    list-style: none;
+    display: flex;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 입출금 */
+
+.tradeName{
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(199, 199, 199);
+    height: 50px;
+    padding: 0 20px;
+    line-height: 2.5;
+}
+
+.haveMoney{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid rgb(199, 199, 199);
+    height: 45px;
+    line-height: 2.5;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.haveMoney span{
+    font-size: 12px;
+    font-weight: 100;
+}
+
+.tradeContent{
+    display: flex;
+    justify-content: space-between;
+}
+
+.tradeContent > input + label{
+    cursor: pointer;
+}
+
+.tradeContent > input:checked + label{
+    color: dodgerblue;
+}
+
+.tradeContent input{
+    display: none;
+}
+
+.tradeContent label{
+    width: 140px;
+    height: 50px;
+    border-bottom: 1px solid rgb(199, 199, 199);
+    text-align: center;
+    font-size: 15px;
+    line-height: 3;
+}
+
+.thisAccount{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+}
+
+.thisAccount .thisBank{
+    font-weight: 600;
+}
+
+.inputMoney{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid rgb(199, 199, 199);
+    height: 60px;
+}
+
+.inputMoney input{
+    width: 250px;
+    height: 40px;
+    padding: 0 10px;
+    text-align: right;
+    border: 1px solid rgb(199, 199, 199);
+}
+
 /* 문의 내역 */
 
 .QnA{
@@ -216,11 +448,6 @@ body.active::before{
     border-bottom: 1px solid rgb(178, 176, 176);
 }
 
-/* .QnAlist .num,.QnAlist .category,
-.QnAlist .title,.QnAlist .date,
-.QnAlist .state{
-    height: 30px;
-} */
 
 .bar .num{
     width: 100px;
