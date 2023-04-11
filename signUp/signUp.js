@@ -7,7 +7,8 @@ const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
 // 유저데이터를 가져옴
-
+const adminUserData = JSON.parse(localStorage.getItem("admin"));
+console.log(adminUserData);
 // 이메일과 패스워드에서 커서가 벗어났을 때 실행하는 함수
 email.addEventListener("blur", () => {
   validateInputBlurEmail();
@@ -28,18 +29,35 @@ function validateInput() {
     showModalPassword();
     return;
   }
-
+  if (adminUserData == null) {
+    localStorage.setItem(
+      "admin",
+      JSON.stringify([
+        {
+          id: undefined,
+          name: nickname.value,
+          email: email.value,
+          password: password.value,
+          isAdmin: false,
+        },
+      ])
+    );
+  } else {
+    localStorage.setItem(
+      "admin",
+      JSON.stringify([
+        ...adminUserData,
+        {
+          id: undefined,
+          name: nickname.value,
+          email: email.value,
+          password: password.value,
+          isAdmin: false,
+        },
+      ])
+    );
+  }
   // JSON객체로 변경후 삽입
-  localStorage.setItem(
-    "admin",
-    JSON.stringify({
-      id: undefined,
-      name: nickname.value,
-      email: email.value,
-      password: password.value,
-      isAdmin: false,
-    })
-  );
 }
 function validateInputBlurEmail() {
   if (!emailRegex.test(email.value)) {
