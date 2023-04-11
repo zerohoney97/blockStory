@@ -1,5 +1,14 @@
 class User {
-  constructor(id, name, email, password, isAdmin, coin = null, tradeSum = 0) {
+  constructor(
+    id,
+    name,
+    email,
+    password,
+    isAdmin,
+    coin = null,
+    tradeSum = 0,
+    account
+  ) {
     this.id = id;
     this.name = name;
     this.email = email;
@@ -8,6 +17,7 @@ class User {
     this.tradeSum = tradeSum;
     this.coin = coin;
     this.tradeSum = tradeSum;
+    this.account = 0;
   }
 }
 
@@ -264,6 +274,8 @@ let dummyDataCoin = [
     circulatingSupply: "10200",
   },
 ];
+
+let requestSignUpUser = [{}];
 
 localStorage.setItem("userInformation", JSON.stringify(dummyDataUser));
 localStorage.setItem("coinInformation", JSON.stringify(dummyDataCoin));
