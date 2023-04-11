@@ -53,3 +53,19 @@ body {
   cursor: pointer;
 }
 
+.validateEmail,
+.validatePassword {
+  position: absolute;
+}
+
+.validateEmail {
+  color: red;
+  
+  top: 32%;
+}
+.validatePassword {
+  color: red;
+
+  top: 65%;
+}
+
