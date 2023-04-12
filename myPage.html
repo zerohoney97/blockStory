@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./myPage.css">
+</head>
+<body>
+    <div class="nav">
+
+    </div>
+    <!-- 닉네임 변경 팝업 창 -->
+    <div class="nickName">
+        <button class="close">X</button>
+        <h3>사용할 닉네임을 입력해주세요.</h3>
+        <input type="text" class="inputNic" placeholder="2~12자, 문자와 숫자만 가능">
+        <p class="cautionText"></p>
+        <button class="submit">확인</button>
+    </div>
+    <!-- 계좌관리 팝업 창 -->
+    <div class="bankAccount">
+        <button class="close_account">X</button>
+        <div class="myAsset">
+            <div class="totalAsset">
+                <p class="total">총 보유자산</p>
+                <p class="money"><span class="moneyNum">0</span> KRW</p>
+            </div>
+            <div class="searchCoin">
+                <input type="text" class="findCoin" placeholder="코인명/심볼검색">
+                <a href="#" class="findImg"><img src="./1093183.png" alt=""></a>
+            </div>
+            <div class="accountList">
+                <ul class="list-title">
+                    <li class="name">코인명</li>
+                    <li class="percent">보유비중</li>
+                    <li class="haveNum">보유수량(평가금액)</li>
+                </ul>
+                <ul class="list-descrip">
+                    <li class="name"></li>
+                    <li class="percent"></li>
+                    <li class="haveNum"></li>
+                </ul>
+                <ul class="list-descrip">
+                    <li class="name"></li>
+                    <li class="percent"></li>
+                    <li class="haveNum"></li>
+                </ul>
+                <ul class="list-descrip">
+                    <li class="name"></li>
+                    <li class="percent"></li>
+                    <li class="haveNum"></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 입출금 및 내역 -->
+        <div class="KRW-trade">
+            <div class="tradeName"><span>KRW</span> 입출금</div>
+            <div class="haveMoney">
+                <p>보유금액</p>
+                <p>1 <span>KRW</span></p>
+            </div>
+            <div class="tradeContent">
+                <input class="charge" type="radio" id="charging" checked>
+                <label for="charging"><span>KRW</span>충전</label>
+                <input class="withdraw" type="radio" id="withdrawing">
+                <label for="withdrawing">출금신청</label>
+                <input class="history" type="radio" id="historing">
+                <label for="historing">입출금내역</label>
+            </div>
+                <div class="charge-tab">
+                    <div class="myAccount">
+                        <div class="thisAccount">
+                            <p class="whatBank">연계계좌</p>
+                            <p class="thisBank">11*****3314 신한 홍길동</p>
+                        </div>
+                    </div>
+                    <div class="inputMoney">
+                        <p class="howMuch">입금금액(<span>KRW</span>)</p>
+                        <input type="text" placeholder="최소 5,000 KRW">
+                    </div>
+                    <button class="applyInput">입금신청</button>
+                </div>
+                <div class="withdraw-tab">
+                    <div class="user-out-account">
+                        <p class="out-account">출금계좌</p>
+                        <!-- <input class="out-account-num" type="text" placeholder="신한 11*****3314"> -->
+                        <div class="out-account-num">신한 11*****3314</div>
+                    </div>
+                    <div class="user-out-money">
+                        <p class="out-money">출금금액<br>(KRW)</p>
+                        <input class="out-money-num" type="text" placeholder="최소 5,000 KRW">
+                    </div>
+                    <button class="applyout">출금신청</button>
+                </div>
+                <div class="history-tab">
+                    <ul>
+                        <li class="Name">입금</li>
+                        <li class="Money">1,000,000 <span>KRW</span></li>
+                        <li class="state">입금완료</li>
+                        <li class="Date">2000.10.10 18:20</li>
+                    </ul>
+                </div>
+        </div>
+        <!-- <div class="BTC-trade box">
+            <div class="tradeName">BTC 입출금</div>
+            <div class="haveMoney">
+                <p>보유수량</p>
+                <p>1 <span>BTC</span></p>
+            </div>
+            <div class="tradeContent">
+                <input class="charge" type="radio" id="charging" checked>
+                <label for="charging">BTC충전</label>
+                <input class="withdraw" type="radio" id="withdrawing">
+                <label for="withdrawing">출금신청</label>
+                <input class="history" type="radio" id="historing">
+                <label for="historing">입출금내역</label>
+            </div>
+                <div class="charge-tab">
+                    <div class="myAccount">
+                        <div class="thisAccount">
+                            <p class="whatBank">연계계좌</p>
+                            <p class="thisBank">11*****3314 신한 홍길동</p>
+                        </div>
+                    </div>
+                    <div class="inputMoney">
+                        <p class="howMuch">입금금액(KRW)</p>
+                        <input type="text" placeholder="최소 5,000 KRW">
+                    </div>
+                    <button class="applyInput">입금신청</button>
+                </div>
+                <div class="withdraw-tab">
+                    <div class="user-out-account">
+                        <p class="out-account">출금계좌</p>
+                        <div class="out-account-num">신한 11*****3314</div>
+                    </div>
+                    <div class="user-out-money">
+                        <p class="out-money">출금금액<br>(KRW)</p>
+                        <input class="out-money-num" type="text" placeholder="최소 5,000 KRW">
+                    </div>
+                    <button class="applyout">출금신청</button>
+                </div>
+                <div class="history-tab">
+                    <ul>
+                        <li class="Name">입금</li>
+                        <li class="Money">1,000,000 <span>KRW</span></li>
+                        <li class="state">입금완료</li>
+                        <li class="Date">2000.10.10 18:20</li>
+                    </ul>
+                </div>
+        </div> -->
+    </div>
+    <div class="myPage">
+        <h2>마이페이지</h2>
+        <div class="accessInfo">
+            <p><span>1chori</span>님은 거래 및 원화 입출금이 가능합니다.</p>
+        </div>
+
+        <!-- 내 정보 -->
+        <div class="myInfo">
+            <h3>내 정보</h3>
+            <div class="group">
+                <div class="infoText">
+                    <p class="title">개인정보 관리</p>
+                    <p class="descrip">닉네임 및 기본정보 등을 변경하실 수 있습니다.</p>
+                </div>
+                <button class="changeNic" onclick="popup()">닉네임 변경</button>
+                <button class="changeInfo">개인정보 변경</button>
+            </div>
+        </div>
+        <!-- 내 계좌 -->
+        <div class="account">
+            <h3>내 계좌</h3>
+            <div class="group">
+                <div class="accountText">
+                    <p class="title">개인 계좌 관리</p>
+                    <p class="descrip">본인 소유로 인증된 계좌로만 입출금이 가능합니다<div class=""></div></p>
+                </div>
+                <button class="accountManage" onclick="bankPopup()">관리하기</button>
+            </div>
+        </div>
+        <!-- 문의 내역 -->
+        <div class="QnA">
+            <h3>문의 내역</h3>
+            <div class="QnAlist">
+                <ul class="bar">
+                    <li class="num">번호</li>
+                    <li class="category">문의 유형</li>
+                    <li class="title">문의 제목</li>
+                    <li class="date">문의 날짜</li>
+                    <li class="state">상태</li>
+                </ul>
+                <div class="alert">등록된 문의 내역이 없습니다.</div>
+            </div>
+        </div>
+        <!-- 관심 종목 -->
+        <div class="interested">
+            <h3>관심 종목</h3>
+            <div class="list">
+                <ul class="bar">
+                    <li class="star"></li>
+                    <li class="coin">종목</li>
+                    <li class="price">현재가</li>
+                    <li class="ratio">전일대비</li>
+                </ul>
+                <div class="interested-alert">등록된 관심 코인이 없습니다.</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./allData.js"></script>
+<script src="./myPage.js"></script>
+</html>
