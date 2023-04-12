@@ -58,6 +58,7 @@ function validateInput() {
     );
   }
   // JSON객체로 변경후 삽입
+  location.href='/main/main.html'
 }
 function validateInputBlurEmail() {
   if (!emailRegex.test(email.value)) {
