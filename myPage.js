@@ -1,3 +1,5 @@
+// const { json } = require("formidable");
+
 let nickName = document.querySelector('.accessInfo span');
 let changNicBtn = document.querySelector('.changeNic');
 let subBtn = document.querySelector('.submit');
@@ -72,79 +74,51 @@ let coinName = document.querySelector('.list-descrip .name');
 let coinPercentage = document.querySelector('.list-descrip .percent');
 let coinQuantity = document.querySelector('.list-descrip .haveNum');
 let listDescrip = document.querySelectorAll('.list-descrip');
-console.log(listDescrip);
+
 
 listDescrip.forEach((a, i) => {
     a.addEventListener('click', () => {
-        document.querySelector('.tradeName span').innerHTML = coins[i].unit;
-        document.querySelector('.haveMoney span').innerHTML = coins[i].unit;
-        document.querySelector('.tradeContent span').innerHTML = coins[i].unit;
-        document.querySelector('.inputMoney span').innerHTML = coins[i].unit;
+        document.querySelector('.tradeName span').innerHTML = coins[i].symbol;
+        document.querySelector('.haveCoin span').innerHTML = coins[i].symbol;
+        document.querySelector('.tradeContent span').innerHTML = coins[i].symbol;
+        document.querySelector('.inputMoney span').innerHTML = coins[i].symbol;
     })
 })
 
-function MyCoin(coin, unit, percentage, quantity) {
-    this.coin = coin;
-    this.unit = unit;
-    this.percentage = percentage;
-    this.quantity = quantity;
-}
-
-let KRW = new MyCoin('원화', 'KRW', '0.00%', '0 KRW');
-let BTC = new MyCoin('비트코인', 'BTC', '100.00%', '0.000567 BTC');
-
-let coins = [KRW, BTC];
-
-coins.forEach((coin, index) => {
-    listDescrip[index].querySelector('.percent').innerHTML = coin.percentage;
-    listDescrip[index].querySelector('.haveNum').innerHTML = coin.quantity;
-    listDescrip[index].querySelector('.name').innerHTML = coin.coin;
-})
-
-
-
-// 유저 보유 코인 로컬스토리지
-const coinDummy = [
-    {
-        coin: '원화',
-        percentage: '0.00%',
-        quantity: '0 KRW'
-    },
-    {
-        coin: '비트코인',
-        percentage: '100.00%',
-        quantity: '0.000567 BTC'
-    }
-]
-
-localStorage.setItem("userCoinData", JSON.stringify(coinDummy));
-
 // 계좌관리 내 코인별 보유자산
 
-// let krwBox = document.querySelector('.KRW-trade');
-// let btcBox = document.querySelector('.BTC-trade');
+let coins = JSON.parse(localStorage.getItem('coinInformation'));
 
-// krwBox.style.display = 'block';
-// btcBox.style.display = 'none';
 
-// function coinTab(openTab) {
-//     krwBox.style.display = 'none';
-//     btcBox.style.display = 'none';
+coins.forEach((coin, index) => {
+    if (listDescrip[index]) {
+        listDescrip[index].querySelector('.name').innerHTML = coin.name;
 
-//     if (openTab === listDescrip[0]) {
-//         krwBox.style.display = 'block';
-//     } else if (openTab === listDescrip[1]) {
-//         btcBox.style.display = 'block';
-//     }
+    }
+})
+
+// function MyCoin(coin, unit, percentage, quantity) {
+//     this.coin = coin;
+//     this.unit = unit;
+//     this.percentage = percentage;
+//     this.quantity = quantity;
 // }
 
-// listDescrip[0].onclick = function () {
-//     openTab(listDescrip[0]);
-// }
+// let KRW = new MyCoin('원화', 'KRW', '0.00%', '0 KRW');
+// let BTC = new MyCoin('비트코인', 'BTC', '100.00%', '0.000567 BTC');
 
-// listDescrip[1].onclick = function () {
-//     openTab(listDescrip[1]);
-// }
+// let coins = [KRW, BTC];
+
+// coins.forEach((coin, index) => {
+//     listDescrip[index].querySelector('.percent').innerHTML = coin.percentage;
+//     listDescrip[index].querySelector('.haveNum').innerHTML = coin.quantity;
+//     listDescrip[index].querySelector('.name').innerHTML = coin.coin;
+// })
+
+
+
+
+
 
 
 // 계좌관리 내 입출금 섹터
@@ -157,22 +131,42 @@ let chargeBox = document.querySelector('.charge-tab');
 let withdrawBox = document.querySelector('.withdraw-tab');
 let historyBox = document.querySelector('.history-tab');
 
+let chargeLabel = document.getElementById('charge');
+let withdrawLabel = document.getElementById('withdraw');
+let historyLabel = document.getElementById('history');
+
 
 chargeBox.style.display = 'block';
 withdrawBox.style.display = 'none';
 historyBox.style.display = 'none';
+chargeLabel.style.backgroundColor = 'rgb(199, 199, 199)';
+chargeLabel.style.fontWeight = 'bold';
 
 function switchTabs(activeTab) {
     chargeBox.style.display = 'none';
     withdrawBox.style.display = 'none';
     historyBox.style.display = 'none';
 
+    chargeLabel.style.backgroundColor = '';
+    withdrawLabel.style.backgroundColor = '';
+    historyLabel.style.backgroundColor = '';
+
+    chargeLabel.style.fontWeight = '';
+    withdrawLabel.style.fontWeight = '';
+    historyLabel.style.fontWeight = '';
+
     if (activeTab === 'charge') {
         chargeBox.style.display = 'block';
+        chargeLabel.style.backgroundColor = 'rgb(199, 199, 199)';
+        chargeLabel.style.fontWeight = 'bold';
     } else if (activeTab === 'withdraw') {
         withdrawBox.style.display = 'block';
+        withdrawLabel.style.backgroundColor = 'rgb(199, 199, 199)';
+        withdrawLabel.style.fontWeight = 'bold';
     } else if (activeTab === 'history') {
         historyBox.style.display = 'block';
+        historyLabel.style.backgroundColor = 'rgb(199, 199, 199)';
+        historyLabel.style.fontWeight = 'bold';
     }
 }
 
@@ -187,3 +181,49 @@ withdrawTab.onclick = function () {
 historyTab.onclick = function () {
     switchTabs('history');
 };
+
+
+// function setActiveStyles(label, box) {
+//     label.style.backgroundColor = 'rgb(199, 199, 199)';
+//     label.style.fontWeight = 'bold';
+//     box.style.display = 'block';
+// }
+
+// function resetStyles(label) {
+//     label.style.backgroundColor = '';
+//     label.style.fontWeight = '';
+// }
+
+// function switchTabs(activeTab) {
+//     resetStyles(chargeLabel);
+//     resetStyles(withdrawLabel);
+//     resetStyles(historyLabel);
+
+//     chargeBox.style.display = 'none';
+//     withdrawBox.style.display = 'none';
+//     historyBox.style.display = 'none';
+
+//     if (activeTab === 'charge') {
+//         setActiveStyles(chargeLabel, chargeBox);
+//     } else if (activeTab === 'withdraw') {
+//         setActiveStyles(withdrawLabel, withdrawBox);
+//     } else if (activeTab === 'history') {
+//         setActiveStyles(historyLabel, historyBox);
+//     }
+// }
+
+// chargeTab.onclick = function () {
+//     switchTabs('charge');
+// };
+
+// withdrawTab.onclick = function () {
+//     switchTabs('withdraw');
+// };
+
+// historyTab.onclick = function () {
+//     switchTabs('history');
+// };
+
+// // Set initial styles
+// setActiveStyles(chargeLabel, chargeBox);
+

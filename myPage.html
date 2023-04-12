@@ -60,15 +60,23 @@
             <div class="tradeName"><span>KRW</span> 입출금</div>
             <div class="haveMoney">
                 <p>보유금액</p>
-                <p>1 <span>KRW</span></p>
+                <p>0 KRW</p>
+            </div>
+            <div class="haveCoin">
+                <p>보유수량</p>
+                <p>0 <span>BTC</span></p>
+            </div>
+            <div class="change-to-won">
+                <p>평가금액</p>
+                <p>0 KRW</p>
             </div>
             <div class="tradeContent">
                 <input class="charge" type="radio" id="charging" checked>
-                <label for="charging"><span>KRW</span>충전</label>
+                <label for="charging" id="charge"><span>KRW</span>충전</label>
                 <input class="withdraw" type="radio" id="withdrawing">
-                <label for="withdrawing">출금신청</label>
+                <label for="withdrawing" id="withdraw">출금신청</label>
                 <input class="history" type="radio" id="historing">
-                <label for="historing">입출금내역</label>
+                <label for="historing" id="history">입출금내역</label>
             </div>
                 <div class="charge-tab">
                     <div class="myAccount">
@@ -79,7 +87,7 @@
                     </div>
                     <div class="inputMoney">
                         <p class="howMuch">입금금액(<span>KRW</span>)</p>
-                        <input type="text" placeholder="최소 5,000 KRW">
+                        <input type="text">
                     </div>
                     <button class="applyInput">입금신청</button>
                 </div>
