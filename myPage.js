@@ -6,7 +6,6 @@ let subBtn = document.querySelector('.submit');
 let closeBtn = document.querySelector('.close');
 let nickPopup = document.querySelector('.nickName');
 
-
 // 닉네임 변경 팝업창 활성화하는 함수
 function popup() {
     document.body.classList.toggle('active');
