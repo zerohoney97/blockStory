@@ -72,15 +72,26 @@ let coinName = document.querySelector('.list-descrip .name');
 let coinPercentage = document.querySelector('.list-descrip .percent');
 let coinQuantity = document.querySelector('.list-descrip .haveNum');
 let listDescrip = document.querySelectorAll('.list-descrip');
+console.log(listDescrip);
 
-function MyCoin(coin, percentage, quantity) {
+listDescrip.forEach((a, i) => {
+    a.addEventListener('click', () => {
+        document.querySelector('.tradeName span').innerHTML = coins[i].unit;
+        document.querySelector('.haveMoney span').innerHTML = coins[i].unit;
+        document.querySelector('.tradeContent span').innerHTML = coins[i].unit;
+        document.querySelector('.inputMoney span').innerHTML = coins[i].unit;
+    })
+})
+
+function MyCoin(coin, unit, percentage, quantity) {
     this.coin = coin;
+    this.unit = unit;
     this.percentage = percentage;
     this.quantity = quantity;
 }
 
-let KRW = new MyCoin('원화', '0.00%', '0 KRW');
-let BTC = new MyCoin('비트코인', '100.00%', '0.000567 BTC');
+let KRW = new MyCoin('원화', 'KRW', '0.00%', '0 KRW');
+let BTC = new MyCoin('비트코인', 'BTC', '100.00%', '0.000567 BTC');
 
 let coins = [KRW, BTC];
 
@@ -108,6 +119,33 @@ const coinDummy = [
 
 localStorage.setItem("userCoinData", JSON.stringify(coinDummy));
 
+// 계좌관리 내 코인별 보유자산
+
+// let krwBox = document.querySelector('.KRW-trade');
+// let btcBox = document.querySelector('.BTC-trade');
+
+// krwBox.style.display = 'block';
+// btcBox.style.display = 'none';
+
+// function coinTab(openTab) {
+//     krwBox.style.display = 'none';
+//     btcBox.style.display = 'none';
+
+//     if (openTab === listDescrip[0]) {
+//         krwBox.style.display = 'block';
+//     } else if (openTab === listDescrip[1]) {
+//         btcBox.style.display = 'block';
+//     }
+// }
+
+// listDescrip[0].onclick = function () {
+//     openTab(listDescrip[0]);
+// }
+
+// listDescrip[1].onclick = function () {
+//     openTab(listDescrip[1]);
+// }
+
 
 // 계좌관리 내 입출금 섹터
 
@@ -120,26 +158,32 @@ let withdrawBox = document.querySelector('.withdraw-tab');
 let historyBox = document.querySelector('.history-tab');
 
 
-
 chargeBox.style.display = 'block';
 withdrawBox.style.display = 'none';
 historyBox.style.display = 'none';
 
-
-chargeTab.onclick = function () {
-    chargeBox.style.display = 'block';
+function switchTabs(activeTab) {
+    chargeBox.style.display = 'none';
     withdrawBox.style.display = 'none';
     historyBox.style.display = 'none';
+
+    if (activeTab === 'charge') {
+        chargeBox.style.display = 'block';
+    } else if (activeTab === 'withdraw') {
+        withdrawBox.style.display = 'block';
+    } else if (activeTab === 'history') {
+        historyBox.style.display = 'block';
+    }
+}
+
+chargeTab.onclick = function () {
+    switchTabs('charge');
 };
 
 withdrawTab.onclick = function () {
-    chargeBox.style.display = 'none';
-    withdrawBox.style.display = 'block';
-    historyBox.style.display = 'none';
+    switchTabs('withdraw');
 };
 
 historyTab.onclick = function () {
-    chargeBox.style.display = 'none';
-    withdrawBox.style.display = 'none';
-    historyBox.style.display = 'block';
-}
+    switchTabs('history');
+};
