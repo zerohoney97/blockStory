@@ -277,5 +277,7 @@ let dummyDataCoin = [
 
 let requestSignUpUser = [{}];
 
+
+
 localStorage.setItem("userInformation", JSON.stringify(dummyDataUser));
 localStorage.setItem("coinInformation", JSON.stringify(dummyDataCoin));
