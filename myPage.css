@@ -200,8 +200,7 @@ body.active::before{
     transform: translate(-50%, -50%);
     padding: 30px 20px;
     position: fixed;
-    /* display: none; */
-    display: flex;
+    display: none;
     justify-content: space-between;
 }
 
@@ -215,7 +214,6 @@ body.active::before{
     transform: translate(-50%, -50%);
     padding: 30px 20px;
     position: fixed;
-    display: block;
 }
 
 .close_account{
@@ -232,7 +230,7 @@ body.active::before{
 /* 보유자산 */
 
 
-.myAsset, .trade{
+.myAsset, .KRW-trade{
     width: 100%;
     max-width: 420px;
     height: 100%;
@@ -365,24 +363,18 @@ body.active::before{
     font-weight: 100;
 }
 
+
 .tradeContent{
     display: flex;
     justify-content: space-between;
 }
 
-.tradeContent > input + label{
-    cursor: pointer;
-}
-
-.tradeContent > input:checked + label{
-    color: dodgerblue;
-}
-
-.tradeContent input{
+.tradeContent > input{
     display: none;
 }
 
-.tradeContent label{
+.tradeContent > input + label{
+    cursor: pointer;
     width: 140px;
     height: 50px;
     border-bottom: 1px solid rgb(199, 199, 199);
@@ -390,6 +382,13 @@ body.active::before{
     font-size: 15px;
     line-height: 3;
 }
+
+.box{
+    position: absolute;
+    display: none;
+}
+
+/* 충전 */
 
 .thisAccount{
     display: flex;
@@ -418,6 +417,96 @@ body.active::before{
     padding: 0 10px;
     text-align: right;
     border: 1px solid rgb(199, 199, 199);
+}
+
+.applyInput, .applyout{
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+    border: none;
+    background-color: dodgerblue;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.applyInput:active{
+    transform: scale(0.98);
+}
+
+/* 출금신청 */
+
+.user-out-account{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 50px;
+}
+
+.out-account-num{
+    width: 260px;
+    height: 30px;
+    padding: 0 10px;
+    border: 1px solid rgb(196, 192, 192);
+    color: rgb(117, 116, 116);
+    font-size: 12px;
+    line-height: 2.3;
+}
+
+.user-out-money{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+    border-bottom: 1px solid rgb(199, 199, 199);
+}
+
+.out-money-num{
+    width: 260px;
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid rgb(196, 192, 192);
+}
+
+/* 입출금내역 */
+
+.history-tab ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    height: 50px;
+}
+
+.history-tab li{
+    text-align: center;
+}
+
+.Name{
+    width: 50px;
+    color: red;
+}
+
+.Money{
+    width: 120px;
+    font-weight: bold;
+}
+
+.Money span{
+    font-weight: 100;
+    font-size: 13px;
+}
+
+.state{
+    width: 100px;
+}
+
+.Date{
+    width: 100px;
+    font-size: 14px;
 }
 
 /* 문의 내역 */

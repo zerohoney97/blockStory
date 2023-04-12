@@ -53,6 +53,7 @@ console.log(closeAccount);
 function bankPopup() {
     document.body.classList.toggle('active');
     accountPopup.classList.toggle('active');
+    accountPopup.style.display = 'flex';
 }
 
 
@@ -61,7 +62,7 @@ function bankPopup() {
 closeAccount.addEventListener('click', () => {
     document.body.classList.remove('active');
     accountPopup.classList.remove('active');
-
+    accountPopup.style.display = 'none';
 })
 
 
@@ -106,3 +107,39 @@ const coinDummy = [
 ]
 
 localStorage.setItem("userCoinData", JSON.stringify(coinDummy));
+
+
+// 계좌관리 내 입출금 섹터
+
+let chargeTab = document.querySelector('.charge');
+let withdrawTab = document.querySelector('.withdraw');
+let historyTab = document.querySelector('.history');
+
+let chargeBox = document.querySelector('.charge-tab');
+let withdrawBox = document.querySelector('.withdraw-tab');
+let historyBox = document.querySelector('.history-tab');
+
+
+
+chargeBox.style.display = 'block';
+withdrawBox.style.display = 'none';
+historyBox.style.display = 'none';
+
+
+chargeTab.onclick = function () {
+    chargeBox.style.display = 'block';
+    withdrawBox.style.display = 'none';
+    historyBox.style.display = 'none';
+};
+
+withdrawTab.onclick = function () {
+    chargeBox.style.display = 'none';
+    withdrawBox.style.display = 'block';
+    historyBox.style.display = 'none';
+};
+
+historyTab.onclick = function () {
+    chargeBox.style.display = 'none';
+    withdrawBox.style.display = 'none';
+    historyBox.style.display = 'block';
+}

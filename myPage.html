@@ -52,42 +52,57 @@
                     <li class="percent"></li>
                     <li class="haveNum"></li>
                 </ul>
-                <ul class="list-descrip">
-                    <li class="name"></li>
-                    <li class="percent"></li>
-                    <li class="haveNum"></li>
-                </ul>
-                <ul class="list-descrip">
-                    <li class="name"></li>
-                    <li class="percent"></li>
-                    <li class="haveNum"></li>
-                </ul>
             </div>
         </div>
-        <div class="trade">
+
+        <!-- 입출금 및 내역 -->
+        <div class="KRW-trade">
             <div class="tradeName">KRW 입출금</div>
             <div class="haveMoney">
                 <p>보유금액</p>
                 <p>1 <span>KRW</span></p>
             </div>
             <div class="tradeContent">
-                <input class="charge" type="text" type="radio" checked>
-                <label for="">KRW충전</label>
-                <input class="withdraw" type="text" type="radio">
-                <label for="">출금신청</label>
-                <input class="history" type="text" type="radio">
-                <label for="">입출금내역</label>
+                <input class="charge" type="radio" id="charging" checked>
+                <label for="charging">KRW충전</label>
+                <input class="withdraw" type="radio" id="withdrawing">
+                <label for="withdrawing">출금신청</label>
+                <input class="history" type="radio" id="historing">
+                <label for="historing">입출금내역</label>
             </div>
-            <div class="myAccount">
-                <div class="thisAccount">
-                    <p class="whatBank">연계계좌</p>
-                    <p class="thisBank">11*****3314 신한 홍길동</p>
+                <div class="charge-tab">
+                    <div class="myAccount">
+                        <div class="thisAccount">
+                            <p class="whatBank">연계계좌</p>
+                            <p class="thisBank">11*****3314 신한 홍길동</p>
+                        </div>
+                    </div>
+                    <div class="inputMoney">
+                        <p class="howMuch">입금금액(KRW)</p>
+                        <input type="text" placeholder="최소 5,000 KRW">
+                    </div>
+                    <button class="applyInput">입금신청</button>
                 </div>
-            </div>
-            <div class="inputMoney">
-                <p class="howMuch">입금금액(KRW)</p>
-                <input type="text" placeholder="최소 5,000 KRW">
-            </div>
+                <div class="withdraw-tab">
+                    <div class="user-out-account">
+                        <p class="out-account">출금계좌</p>
+                        <!-- <input class="out-account-num" type="text" placeholder="신한 11*****3314"> -->
+                        <div class="out-account-num">신한 11*****3314</div>
+                    </div>
+                    <div class="user-out-money">
+                        <p class="out-money">출금금액<br>(KRW)</p>
+                        <input class="out-money-num" type="text" placeholder="최소 5,000 KRW">
+                    </div>
+                    <button class="applyout">출금신청</button>
+                </div>
+                <div class="history-tab">
+                    <ul>
+                        <li class="Name">입금</li>
+                        <li class="Money">1,000,000 <span>KRW</span></li>
+                        <li class="state">입금완료</li>
+                        <li class="Date">2000.10.10 18:20</li>
+                    </ul>
+                </div>
         </div>
     </div>
     <div class="myPage">
