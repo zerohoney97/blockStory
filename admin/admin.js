@@ -133,14 +133,16 @@ window.addEventListener("hashchange", function () {
   let x = 5 * (currentPage - 1);
 
   for (let i = 0; i < perpage; i++) {
-    document.querySelector("#c_list" + i + " .c_left").innerHTML =
-      master2[x].name;
-    document.querySelector("#c_list" + i + " .c_lrcenter").innerHTML =
-      master2[x].age;
-    document.querySelector(
-      "#c_list" + i + " .c_right"
-    ).innerHTML = `<button onclick='btn(${master2[x]})'>수락</button>`;
-    x++;
+    if (master2[x]) {
+      document.querySelector("#c_list" + i + " .c_left").innerHTML =
+        master2[x].name;
+      document.querySelector("#c_list" + i + " .c_lrcenter").innerHTML =
+        master2[x].age;
+      document.querySelector(
+        "#c_list" + i + " .c_right"
+      ).innerHTML = `<button onclick='btn(${master2[x]})'>수락</button>`;
+      x++;
+    }
   }
 });
 
