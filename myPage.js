@@ -5,7 +5,7 @@ let changNicBtn = document.querySelector('.changeNic');
 let subBtn = document.querySelector('.submit');
 let closeBtn = document.querySelector('.close');
 let nickPopup = document.querySelector('.nickName');
-console.log(closeBtn);
+
 
 // 닉네임 변경 팝업창 활성화하는 함수
 function popup() {
@@ -47,7 +47,7 @@ if (storageNic) {
 
 let accountPopup = document.querySelector('.bankAccount');
 let closeAccount = document.querySelector('.close_account');
-console.log(closeAccount);
+let coins = JSON.parse(localStorage.getItem('coinInformation'));
 
 
 
@@ -66,6 +66,9 @@ closeAccount.addEventListener('click', () => {
     accountPopup.classList.remove('active');
     accountPopup.style.display = 'none';
 })
+
+
+// 코인 검색 기능
 
 
 // 계좌관리 내 코인소유량 표시
@@ -87,7 +90,7 @@ listDescrip.forEach((a, i) => {
 
 // 계좌관리 내 코인별 보유자산
 
-let coins = JSON.parse(localStorage.getItem('coinInformation'));
+
 
 
 coins.forEach((coin, index) => {
