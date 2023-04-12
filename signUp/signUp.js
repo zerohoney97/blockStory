@@ -7,6 +7,7 @@ const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
 // 유저데이터를 가져옴
+const userDataArr=JSON.parse(localStorage.getItem('userInformation'));
 const adminUserData = JSON.parse(localStorage.getItem("admin"));
 console.log(adminUserData);
 // 이메일과 패스워드에서 커서가 벗어났을 때 실행하는 함수
@@ -34,7 +35,7 @@ function validateInput() {
       "admin",
       JSON.stringify([
         {
-          id: undefined,
+          id: userDataArr.length+1,
           name: nickname.value,
           email: email.value,
           password: password.value,
@@ -48,7 +49,7 @@ function validateInput() {
       JSON.stringify([
         ...adminUserData,
         {
-          id: undefined,
+          id: userDataArr.length+1,
           name: nickname.value,
           email: email.value,
           password: password.value,

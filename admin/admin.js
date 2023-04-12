@@ -13,7 +13,9 @@
 
 // 내 코드
 const master = window.localStorage.getItem("admin");
-
+const userDataArray = JSON.parse(
+  window.localStorage.getItem("userInformation")
+);
 // console.log(master); // 무헌이꺼
 const master2 = JSON.parse(master);
 // console.log(master2);
@@ -135,7 +137,7 @@ window.addEventListener("hashchange", function () {
         document.querySelector("#c_list" + i + " .c_lrcenter").innerHTML =
           master2[x].id;
         document.querySelector("#c_list" + i + " .c_right").innerHTML =
-          "<button onclick='btn(" + i + ")'>수락</button>";
+          "<button onclick='btn(" + x + ")'>수락</button>";
       }
       x++;
     }
@@ -143,15 +145,16 @@ window.addEventListener("hashchange", function () {
 });
 
 function btn(val) {
-  console.log(val);
   const master2 = JSON.parse(master);
   // console.log(master); // 무헌이꺼
-  console.log(master2[val]);
+  userDataArray.push(master2[val]);
   alert(master2[val].name + "님을 액세스 허용하셨습니다.");
   // alert(val);
   master2.splice(val, 1);
-  console.log(master2);
+  console.log(userDataArray);
   window.localStorage.setItem("admin", JSON.stringify(master2));
+  window.localStorage.setItem("userInformation", JSON.stringify(userDataArray));
+
   location.reload();
 
   // let userDataArr = JSON.parse(localStorage.getItem("userInformation"));
