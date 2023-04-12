@@ -12,7 +12,7 @@ body{
     justify-content: space-between;
     background-color:rgb(244, 245, 248);
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     top :0
 
 }
@@ -23,7 +23,7 @@ body{
     
 }
 .header li{
-   margin: 20px;
+   margin: 15px;
    font-size: 15px;
    color: rgb(0, 0, 0);
 }
@@ -158,17 +158,23 @@ position: relative;
     justify-content: center;
     color: white;
     text-align: center;
-    transform: translateX(25%);
+    position: absolute;
 }
 .phone{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
+  z-index: 1;
 }
 .phone-text{
     display: flex;
     flex-direction: column;
+}
+.button-icon{
+  background-color: #ffffff00;
+  position: absolute;
+
 }
 .app-info2{
     background-color:rgb(244, 245, 248);
