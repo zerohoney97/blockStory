@@ -11,7 +11,7 @@
     justify-content: space-between;
     background-color:rgb(244, 245, 248);
     position: fixed;
-    z-index: 2;
+    z-index: 1;
     top :0
 
 }
@@ -266,6 +266,7 @@ body.active::before{
     position: fixed;
     display: none;
     justify-content: space-between;
+    z-index: 2;
 }
 
 .bankAccount.active{
