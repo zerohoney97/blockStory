@@ -52,11 +52,26 @@ function dot4() {
 //     //로그인,회원가입을 로그아웃
 // }
 if (JSON.parse(localStorage.getItem("nowLogin")).isAdmin == true) {
-    
-} else {
+    document.getElementById("logIn").innerHTML = "Admin";
+    document.getElementById("signUp").innerHTML = "LogOut";
+    let admin = document.getElementById("logIn");
+    admin.href = "../admin/admin.html";
+    let logOut = document.getElementById("signUp")
+    logOut.href="./main.html"
+    logOut.onclick = function(){
+        window.localStorage.removeItem('nowLogin');
+        
+    }
 
-  document.getElementById("logIn").innerHTML = "로그아웃";
-  document.getElementById("signUp").innerHTML = "MyPage";
-  let myPage = document.getElementById("signUp");
-  myPage.href = "../mypage/myPage.html";
+}else if(JSON.parse(localStorage.getItem("nowLogin")).isAdmin==false){
+    document.getElementById("logIn").innerHTML = "로그아웃";
+    document.getElementById("signUp").innerHTML = "MyPage";
+    let myPage = document.getElementById("signUp");
+    myPage.href = "../mypage/myPage.html";
+    let logOut = document.getElementById("logIn")
+    logOut.href="./main.html"
+    logOut.onclick = function(){
+    window.localStorage.removeItem('nowLogin')
+    }
+}else{ 
 }
