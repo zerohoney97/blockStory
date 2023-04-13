@@ -124,18 +124,35 @@ position: relative;
 }
 
 .validateEmail,
-.validatePassword {
+.validatePassword,
+.validatePasswordAgain {
   position: absolute;
 }
 
-.validateEmail {
+.validateEmail  {
   color: red;
-  
-  top: 32%;
+
+  top: 24%;
 }
 .validatePassword {
   color: red;
 
-  top: 65%;
+  top: 45%;
 }
-
+.validatePasswordAgain{
+  color:red;
+  bottom: 11%;
+}
+.duplicate-btn {
+  width: 65px;
+  height: 40px;
+  /* border: 1px solid; */
+  position: absolute;
+  top: 12.5%;
+  right: 0;
+  background: #77a7ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

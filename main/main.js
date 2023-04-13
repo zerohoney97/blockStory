@@ -29,6 +29,7 @@ function dot2() {
     appimg2.style.display='block';
     imageSub.style.display='none';
 }
+
 function dot3() {
     image.src='./img/dot.png';
     image2.src='./img/dot.png';
@@ -46,4 +47,16 @@ function dot4() {
     appimg.style.display='none';
     appimg2.style.display='none';
     imageSub.style.display='none';
+}
+// if(//로그인을 헸다면??
+// ){
+//     //로그인,회원가입을 러그아웃
+// }
+if(localStorage.getItem('nowLogin').isAdmin==true){
+ console.log("어드민 됨")
+}else{
+    document.getElementById("logIn").innerHTML="로그아웃"
+    document.getElementById("signUp").innerHTML="MyPage"
+    let myPage = document.getElementById("signUp");
+    myPage.href = "../mypage/myPage.html"
 }

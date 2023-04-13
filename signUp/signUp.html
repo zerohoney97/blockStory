@@ -43,17 +43,29 @@
       <div class="sign-up-input-container">
         <label for="email"></label>
         <input type="text" id="email" placeholder="이메일을 입력해 주세요" />
-        <div id="myModal" style="display: none" class="validateEmail">
-          <p>이메일 형식으로 작성해 주세요</p>
+        <div id="myModal1"  class="validateEmail">
+          <p style="display: none">이메일 형식으로 작성해 주세요</p>
+          <p style="display: none">이미 존재하는 이메일 입니다</p>
+          <p style="display: none">사용 가능한 이메일 입니다!</p>
         </div>
+        <div class="duplicate-btn">중복확인</div>
         <label for="password"></label>
         <input
           type="password"
           id="password"
           placeholder="비밀번호를 입력해 주세요"
         />
-        <div id="myModal" style="display: none" class="validatePassword">
+        <div id="myModal2" style="display: none" class="validatePassword">
           <p>소문자,대문자,특수문자를 섞어 8글자 이상 입력해주세요</p>
+        </div>
+        <label for="passwordAgain"></label>
+        <input
+          type="password"
+          id="passwordAgain"
+          placeholder="비밀번호를 다시 입력해 주세요"
+        />
+        <div id="myModal3" style="display: none" class="validatePasswordAgain">
+          <p>비밀번호가 다릅니다.</p>
         </div>
         <label for="nickName"></label>
         <input type="text" id="nickName" placeholder="닉네임을 입력해 주세요" />
@@ -61,7 +73,8 @@
       <div class="sign-up-button" onclick="validateInput()">회원가입</div>
       <!-- Modal -->
     </div>
-    <script src="../allData.js"></script>
     <script src="./signUp.js"></script>
+
+    <script src="../allData.js"></script>
   </body>
 </html>
