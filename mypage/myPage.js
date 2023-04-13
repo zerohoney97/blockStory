@@ -1,4 +1,4 @@
-// const { json } = require("formidable");
+
 
 let nickName = document.querySelector('.accessInfo span');
 let changNicBtn = document.querySelector('.changeNic');
@@ -43,11 +43,30 @@ if (storageNic) {
     nickName.innerHTML = storageNic;
 }
 
+//------------test----------------
+
+let totalMoney = document.querySelector('.moneyNum');
+let accountNum = document.querySelectorAll('.thisBank');
+let Peter = JSON.parse(localStorage.getItem('link'));
+
+accountNum.forEach(function (element) {
+    element.innerHTML = Peter.accountNumber;
+});
+// console.log(accountNum);
+console.log(Peter);
+console.log(Peter.name);
+console.log(Peter.coin.gyunil.name);
+
+if (Peter) {
+    nickName.innerHTML = Peter.name;
+    totalMoney.innerHTML = Peter.account;
+}
+
+//--------------------------------
 
 let accountPopup = document.querySelector('.bankAccount');
 let closeAccount = document.querySelector('.close_account');
 let coins = JSON.parse(localStorage.getItem('coinInformation'));
-
 
 
 // 계좌관리 팝업창 활성화 함수
@@ -79,48 +98,34 @@ let listDescrip = document.querySelectorAll('.list-descrip');
 
 
 listDescrip.forEach((a, i) => {
+    listDescrip[0].style.backgroundColor = 'rgb(241, 236, 236)';
     a.addEventListener('click', () => {
+
+        // 선택되지 않은 인덱스의 배경섹 제거
+        listDescrip.forEach((element, index) => {
+            if (index !== i) {
+                listDescrip[index].style.backgroundColor = '';
+            }
+        });
+
+        listDescrip[i].style.backgroundColor = 'rgb(241, 236, 236)';
         document.querySelector('.tradeName span').innerHTML = coins[i].symbol;
         document.querySelector('.haveCoin span').innerHTML = coins[i].symbol;
         document.querySelector('.tradeContent span').innerHTML = coins[i].symbol;
         document.querySelector('.inputMoney span').innerHTML = coins[i].symbol;
+        document.querySelector('.out-money span').innerHTML = coins[i].symbol;
+
     })
 })
 
 // 계좌관리 내 코인별 보유자산
-
-
-
 
 coins.forEach((coin, index) => {
     if (listDescrip[index]) {
         listDescrip[index].querySelector('.name').innerHTML = coin.name;
 
     }
-})
-
-// function MyCoin(coin, unit, percentage, quantity) {
-//     this.coin = coin;
-//     this.unit = unit;
-//     this.percentage = percentage;
-//     this.quantity = quantity;
-// }
-
-// let KRW = new MyCoin('원화', 'KRW', '0.00%', '0 KRW');
-// let BTC = new MyCoin('비트코인', 'BTC', '100.00%', '0.000567 BTC');
-
-// let coins = [KRW, BTC];
-
-// coins.forEach((coin, index) => {
-//     listDescrip[index].querySelector('.percent').innerHTML = coin.percentage;
-//     listDescrip[index].querySelector('.haveNum').innerHTML = coin.quantity;
-//     listDescrip[index].querySelector('.name').innerHTML = coin.coin;
-// })
-
-
-
-
-
+});
 
 
 // 계좌관리 내 입출금 섹터
@@ -141,7 +146,7 @@ let historyLabel = document.getElementById('history');
 chargeBox.style.display = 'block';
 withdrawBox.style.display = 'none';
 historyBox.style.display = 'none';
-chargeLabel.style.backgroundColor = 'rgb(199, 199, 199)';
+chargeLabel.style.backgroundColor = 'rgb(241, 236, 236)';
 chargeLabel.style.fontWeight = 'bold';
 
 function switchTabs(activeTab) {
@@ -159,15 +164,15 @@ function switchTabs(activeTab) {
 
     if (activeTab === 'charge') {
         chargeBox.style.display = 'block';
-        chargeLabel.style.backgroundColor = 'rgb(199, 199, 199)';
+        chargeLabel.style.backgroundColor = 'rgb(241, 236, 236)';
         chargeLabel.style.fontWeight = 'bold';
     } else if (activeTab === 'withdraw') {
         withdrawBox.style.display = 'block';
-        withdrawLabel.style.backgroundColor = 'rgb(199, 199, 199)';
+        withdrawLabel.style.backgroundColor = 'rgb(241, 236, 236)';
         withdrawLabel.style.fontWeight = 'bold';
     } else if (activeTab === 'history') {
         historyBox.style.display = 'block';
-        historyLabel.style.backgroundColor = 'rgb(199, 199, 199)';
+        historyLabel.style.backgroundColor = 'rgb(241, 236, 236)';
         historyLabel.style.fontWeight = 'bold';
     }
 }
@@ -185,47 +190,34 @@ historyTab.onclick = function () {
 };
 
 
-// function setActiveStyles(label, box) {
-//     label.style.backgroundColor = 'rgb(199, 199, 199)';
-//     label.style.fontWeight = 'bold';
-//     box.style.display = 'block';
-// }
+const dummyDataAccount = [
+    {
+        name: '입금',
+        price: '1,000,000 KRW',
+        state: '입금완료',
+        date: '2023.04.13 10:02'
+    },
+    {
+        name: '출금',
+        price: '50,000 KRW',
+        state: '출금완료',
+        date: '2023.04.13 10:30'
+    }
+];
 
-// function resetStyles(label) {
-//     label.style.backgroundColor = '';
-//     label.style.fontWeight = '';
-// }
+localStorage.setItem('userAccountInformation', JSON.stringify(dummyDataAccount));
 
-// function switchTabs(activeTab) {
-//     resetStyles(chargeLabel);
-//     resetStyles(withdrawLabel);
-//     resetStyles(historyLabel);
+let historyList = document.querySelectorAll('.history-tab ul');
+let accounts = JSON.parse(localStorage.getItem('userAccountInformation'));
 
-//     chargeBox.style.display = 'none';
-//     withdrawBox.style.display = 'none';
-//     historyBox.style.display = 'none';
+accounts.forEach((account, index) => {
+    if (historyList[index]) {
+        historyList[index].querySelector('.Name').innerHTML = account.name;
+        historyList[index].querySelector('.Money').innerHTML = account.price;
+        historyList[index].querySelector('.state').innerHTML = account.state;
+        historyList[index].querySelector('.Date').innerHTML = account.date;
 
-//     if (activeTab === 'charge') {
-//         setActiveStyles(chargeLabel, chargeBox);
-//     } else if (activeTab === 'withdraw') {
-//         setActiveStyles(withdrawLabel, withdrawBox);
-//     } else if (activeTab === 'history') {
-//         setActiveStyles(historyLabel, historyBox);
-//     }
-// }
+    }
+})
 
-// chargeTab.onclick = function () {
-//     switchTabs('charge');
-// };
-
-// withdrawTab.onclick = function () {
-//     switchTabs('withdraw');
-// };
-
-// historyTab.onclick = function () {
-//     switchTabs('history');
-// };
-
-// // Set initial styles
-// setActiveStyles(chargeLabel, chargeBox);
 

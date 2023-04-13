@@ -5,6 +5,7 @@ class User {
     email,
     password,
     isAdmin,
+    accountNumber,
     coin = null,
     tradeSum = 0,
     account = 0
@@ -14,6 +15,7 @@ class User {
     this.email = email;
     this.password = password;
     this.isAdmin = isAdmin;
+    this.accountNumber = accountNumber;
     this.coin = coin;
     this.tradeSum = tradeSum;
     this.account = account;
@@ -24,13 +26,16 @@ class Coin {
   constructor(
     name,
     symbol,
+    quantity,
     currentPrice,
     marketCap,
+    //총 체결량
     circulatingSupply,
     userId
   ) {
     this.name = name;
     this.symbol = symbol;
+    this.quantity = quantity;
     this.currentPrice = currentPrice;
     this.marketCap = marketCap;
     this.circulatingSupply = circulatingSupply;
@@ -203,70 +208,77 @@ const dummyDataUser = [
 
 let dummyDataCoin = [
   {
-    name: "gyunilCoin",
+    name: "원화(KRW)",
+    symbol: "KRW",
+    currentPrice: "",
+    marketCap: "",
+    circulatingSupply: "",
+  },
+  {
+    name: "경일코인(GIC)",
     symbol: "GIC",
     currentPrice: "100",
     marketCap: "20000000",
     circulatingSupply: "3000",
   },
   {
-    name: "dducksangCoin",
+    name: "떡상코인(DSC)",
     symbol: "DSC",
     currentPrice: "500",
     marketCap: "100000000",
     circulatingSupply: "4504",
   },
   {
-    name: "hangangCoin",
+    name: "한강코인(HGC)",
     symbol: "HGC",
     currentPrice: "10",
     marketCap: "30000000",
     circulatingSupply: "10203",
   },
   {
-    name: "gukbbongCoin",
+    name: "국뽕코인(GBC)",
     symbol: "GBC",
     currentPrice: "230",
     marketCap: "20120000",
     circulatingSupply: "8000",
   },
   {
-    name: "pepeCoin",
+    name: "페페코인(PPC)",
     symbol: "PPC",
     currentPrice: "680",
     marketCap: "200000000",
     circulatingSupply: "15200",
   },
   {
-    name: "solarCoin",
+    name: "솔라코인(SLC)",
     symbol: "SLC",
     currentPrice: "20",
     marketCap: "80000000",
     circulatingSupply: "9900",
   },
   {
-    name: "suzumeCoin",
+    name: "스즈메코인(SZC)",
     symbol: "SZC",
     currentPrice: "430",
     marketCap: "102003000",
     circulatingSupply: "7600",
   },
   {
-    name: "daiginCoin",
+    name: "다이진코인(DGC)",
     symbol: "DGC",
     currentPrice: "1200",
     marketCap: "400002121",
     circulatingSupply: "23000",
   },
   {
-    name: "uzzulCoin",
+    name: "우쭐코인(UZC)",
     symbol: "UZC",
     currentPrice: "92",
     marketCap: "67002123",
     circulatingSupply: "6729",
   },
   {
-    name: "viralCoin",
+    name: "바이럴코인(VRC)",
     symbol: "VRC",
     currentPrice: "230",
     marketCap: "85000000",
@@ -277,17 +289,16 @@ let dummyDataCoin = [
 let requestSignUpUser = [{}];
 
 // -------------------csh
-let peterCoin={
-  gyunil : new Coin('gyunil','GIC','100','21'),
-  suzumeCoin : new Coin('suzume','SZC','430','22')
+let peterCoin = {
+  gyunil: new Coin('gyunil', 'GIC', '1.2', '100', '21'),
+  suzumeCoin: new Coin('suzume', 'SZC', '0.003', '430', '22')
 }
-let peter = new User(1, "peter", "email@naver.com", "password", 0, peterCoin , 3, 10000);
+let peter = new User(21, "peter", "email@naver.com", "password", 0, "11*****416 국민 김피터", peterCoin, 3, 10000);
 
 
 // console.log(Object.keys(peterCoin));
 
 window.localStorage.setItem("link", JSON.stringify(peter));
-window.localStorage.setItem("link2", JSON.stringify(dummyDataUser));
 
 // console.log(dummyDataUser[0]);
 

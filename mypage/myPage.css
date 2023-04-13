@@ -281,6 +281,11 @@ body.active::before{
     top: 15px;
 }
 
+.accountList{
+    overflow-y: scroll;
+    height: 86%;
+}
+
 .list-title{
     list-style: none;
     display: flex;
@@ -292,6 +297,7 @@ body.active::before{
     text-align: center;
     line-height: 2.2;
     font-size: 13px;
+    
 }
 
 .list-title .name,
@@ -301,7 +307,6 @@ body.active::before{
 
 .list-descrip .name{
     border: none;
-    border-top: 1px solid rgb(214, 214, 214);
     border-bottom: 1px solid rgb(214, 214, 214);
     font-weight: bold;
 }
@@ -311,6 +316,10 @@ body.active::before{
     width: 110px;
 }
 
+.list-descrip .percent{
+    border-top: none;
+}
+
 .list-title .haveNum,
 .list-descrip .haveNum{
     width: 160px;
@@ -318,7 +327,6 @@ body.active::before{
 
 .list-descrip .haveNum{
     border: none;
-    border-top: 1px solid rgb(214, 214, 214);
     border-bottom: 1px solid rgb(214, 214, 214);
     font-weight: bold;
 }
