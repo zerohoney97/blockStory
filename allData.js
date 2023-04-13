@@ -200,6 +200,13 @@ const dummyDataUser = [
     password: "Password!@20",
     isAdmin: false,
   },
+  {
+    id: 21,
+    name: "gwanrisa",
+    email: "owner@never.com",
+    password: "q1w2e3R$",
+    isAdmin: true,
+  },
 ];
 
 let dummyDataCoin = [
@@ -277,7 +284,9 @@ let dummyDataCoin = [
 
 let requestSignUpUser = [{}];
 
-
-
-localStorage.setItem("userInformation", JSON.stringify(dummyDataUser));
-localStorage.setItem("coinInformation", JSON.stringify(dummyDataCoin));
+if (localStorage.getItem("userInformation")) {
+  console.log("정보 있음");
+} else {
+  localStorage.setItem("userInformation", JSON.stringify(dummyDataUser));
+  localStorage.setItem("coinInformation", JSON.stringify(dummyDataCoin));
+}

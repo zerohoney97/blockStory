@@ -15,7 +15,6 @@ const adminUserData = JSON.parse(localStorage.getItem("admin"));
 
 // 이메일 중복 확인 변수
 let validateDuplicate = false;
-console.log(adminUserData);
 // 이메일과 패스워드에서 커서가 벗어났을 때 실행하는 함수
 email.addEventListener("blur", () => {
   validateInputBlurEmail();
