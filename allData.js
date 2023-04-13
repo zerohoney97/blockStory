@@ -5,21 +5,20 @@ class User {
     email,
     password,
     isAdmin,
-    accountNumber,     //+
+    accountNumber, //+
     coin = null,
     tradeSum = 0,
     account = 0
-
   ) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.password = password;
     this.isAdmin = isAdmin;
-    this.accountNumber = accountNumber;     //+
+    this.accountNumber = accountNumber; //+
     this.coin = coin;
     this.tradeSum = tradeSum;
-    this.account = account;   
+    this.account = account;
   }
 }
 
@@ -27,7 +26,7 @@ class Coin {
   constructor(
     name,
     symbol,
-    quantity,   //+
+    quantity, //+
     currentPrice,
     marketCap,
     circulatingSupply,
@@ -35,7 +34,7 @@ class Coin {
   ) {
     this.name = name;
     this.symbol = symbol;
-    this.quantity = quantity;    //+
+    this.quantity = quantity; //+
     this.currentPrice = currentPrice;
     this.marketCap = marketCap;
     this.circulatingSupply = circulatingSupply;
@@ -204,6 +203,13 @@ const dummyDataUser = [
     password: "Password!@20",
     isAdmin: false,
   },
+  {
+    id: 21,
+    name: "gwanrisa",
+    email: "owner@never.com",
+    password: "q1w2e3R$",
+    isAdmin: true,
+  },
 ];
 
 let dummyDataCoin = [
@@ -292,11 +298,20 @@ let dummyDataCoin = [
 let requestSignUpUser = [{}];
 
 // -------------------csh
-let peterCoin={
-  gyunil : new Coin('gyunil','GIC','100','21'),
-  suzumeCoin : new Coin('suzume','SZC','430','22')
-}
-let peter = new User(1, "peter", "email@naver.com", "password", 0, peterCoin , 3, 10000);
+let peterCoin = {
+  gyunil: new Coin("gyunil", "GIC", "100", "21"),
+  suzumeCoin: new Coin("suzume", "SZC", "430", "22"),
+};
+let peter = new User(
+  1,
+  "peter",
+  "email@naver.com",
+  "password",
+  0,
+  peterCoin,
+  3,
+  10000
+);
 let John = dummyDataUser[0];
 
 // console.log(John);
@@ -316,11 +331,11 @@ let John = dummyDataUser[0];
 // window.localStorage.setItem("link2", JSON.stringify(dummyDataUser));
 window.localStorage.setItem("link3", JSON.stringify(dummyDataCoin));
 
-
-
 // -----------------------------
 
-
-
-localStorage.setItem("userInformation", JSON.stringify(dummyDataUser));
-localStorage.setItem("coinInformation", JSON.stringify(dummyDataCoin));
+if (localStorage.getItem("userInformation")) {
+  console.log("정보 있음");
+} else {
+  localStorage.setItem("userInformation", JSON.stringify(dummyDataUser));
+  localStorage.setItem("coinInformation", JSON.stringify(dummyDataCoin));
+}

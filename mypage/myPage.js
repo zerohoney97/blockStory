@@ -135,7 +135,7 @@ console.log(JSON.parse(link3)[0].name);
 // let BTC = new MyCoin('비트코인', 'BTC', '100.00%', '0.000567 BTC');
 // let coins = [KRW, BTC];
 
-let coins = JSON.parse(link3);
+// let coins = JSON.parse(link3);
 
 coins.forEach((coin, index) => {
     if (listDescrip[index]) {
