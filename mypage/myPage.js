@@ -90,16 +90,31 @@ function MyCoin(coin, unit, percentage, quantity) {
     this.quantity = quantity;
 }
 
-let KRW = new MyCoin('원화', 'KRW', '0.00%', '0 KRW');
-let BTC = new MyCoin('비트코인', 'BTC', '100.00%', '0.000567 BTC');
+let link3 = window.localStorage.getItem("link3");
+console.log(JSON.parse(link3)[0]);
+// console.log(link3[0]);
 
-let coins = [KRW, BTC];
+console.log(JSON.parse(link3)[0].name);
+
+// let KRW = new MyCoin('원화', 'KRW', '0.00%', '0 KRW');
+// let BTC = new MyCoin('비트코인', 'BTC', '100.00%', '0.000567 BTC');
+// let coins = [KRW, BTC];
+
+let coins = JSON.parse(link3);
 
 coins.forEach((coin, index) => {
-    listDescrip[index].querySelector('.percent').innerHTML = coin.percentage;
-    listDescrip[index].querySelector('.haveNum').innerHTML = coin.quantity;
-    listDescrip[index].querySelector('.name').innerHTML = coin.coin;
+    console.log(coin);
+    // console.log("index: ",index);
+    listDescrip[index].querySelector('.name').innerHTML = coin.name;
+    // listDescrip[index].querySelector('.percent').innerHTML = coin.name;
+    listDescrip[index].querySelector('.haveNum').innerHTML = 0;
 })
+
+// coins.forEach((coin, index) => {
+//     listDescrip[index].querySelector('.percent').innerHTML = coin.percentage;
+//     listDescrip[index].querySelector('.haveNum').innerHTML = coin.quantity;
+//     listDescrip[index].querySelector('.name').innerHTML = coin.coin;
+// })
 
 
 
@@ -119,32 +134,6 @@ const coinDummy = [
 
 localStorage.setItem("userCoinData", JSON.stringify(coinDummy));
 
-// 계좌관리 내 코인별 보유자산
-
-// let krwBox = document.querySelector('.KRW-trade');
-// let btcBox = document.querySelector('.BTC-trade');
-
-// krwBox.style.display = 'block';
-// btcBox.style.display = 'none';
-
-// function coinTab(openTab) {
-//     krwBox.style.display = 'none';
-//     btcBox.style.display = 'none';
-
-//     if (openTab === listDescrip[0]) {
-//         krwBox.style.display = 'block';
-//     } else if (openTab === listDescrip[1]) {
-//         btcBox.style.display = 'block';
-//     }
-// }
-
-// listDescrip[0].onclick = function () {
-//     openTab(listDescrip[0]);
-// }
-
-// listDescrip[1].onclick = function () {
-//     openTab(listDescrip[1]);
-// }
 
 
 // 계좌관리 내 입출금 섹터
