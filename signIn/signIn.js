@@ -8,7 +8,7 @@ document.querySelector(".sign-in-button").addEventListener("click", () => {
     alert("로그인 되었습니다.");
     location.href = "/main/main.html";
   }else{
-    
+    // q1w2e3R$
   }
 });
 const validateMember = () => {
