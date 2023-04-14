@@ -444,7 +444,8 @@ body.active::before{
     cursor: pointer;
 }
 
-.applyInput:active{
+.applyInput:active,
+.applyout:active{
     transform: scale(0.98);
 }
 
@@ -501,6 +502,10 @@ body.active::before{
 .Name{
     width: 50px;
     color: red;
+}
+
+.withdraw-text{
+    color: blue;
 }
 
 .Money{
