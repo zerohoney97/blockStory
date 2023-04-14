@@ -301,9 +301,9 @@ function getCurrentTime() {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
-        // hour12: false,
+        hour12: false,
     });
-    return now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+    return dateFormatter.format(now);
 }
 
 
@@ -328,6 +328,11 @@ function addToHistory(name, money, state) {
     if (name === '출금') {
         nameList.classList.add('withdraw-text');
     }
+
+    const newEntry = { name, money, state, date: getCurrentTime() };
+    let history = JSON.parse(localStorage.getItem('history')) || [];
+    history.push(newEntry);
+    localStorage.setItem('history', JSON.stringify(history));
 }
 
 depositButton.addEventListener('click', () => {
@@ -340,3 +345,11 @@ withdrawButton.addEventListener('click', () => {
     addToHistory('출금', amount, '출금완료');
 });
 
+function loadHistory() {
+    const history = JSON.parse(localStorage.getItem('history')) || [];
+    history.forEach((entry) => {
+        addToHistory(entry.name, entry.money, entry.state);
+    });
+}
+
+loadHistory();
