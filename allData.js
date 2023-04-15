@@ -5,7 +5,7 @@ class User {
     email,
     password,
     isAdmin,
-    accountNumber, //+
+    accountNumber,
     coin = null,
     tradeSum = 0,
     account = 0
@@ -15,7 +15,7 @@ class User {
     this.email = email;
     this.password = password;
     this.isAdmin = isAdmin;
-    this.accountNumber = accountNumber; //+
+    this.accountNumber = accountNumber;
     this.coin = coin;
     this.tradeSum = tradeSum;
     this.account = account;
@@ -23,21 +23,9 @@ class User {
 }
 
 class Coin {
-  constructor(
-    name,
-    symbol,
-    quantity, //+
-    currentPrice,
-    marketCap,
-    circulatingSupply,
-    userId
-  ) {
-    this.name = name;
-    this.symbol = symbol;
-    this.quantity = quantity; //+
-    this.currentPrice = currentPrice;
-    this.marketCap = marketCap;
-    this.circulatingSupply = circulatingSupply;
+  constructor(coinobj, quantity, userId) {
+    this.coinObj = coinObj;
+    this.quantity = quantity;
     this.userId = userId;
   }
 }
@@ -218,76 +206,73 @@ let dummyDataCoin = [
     symbol: "KRW",
     currentPrice: "",
     marketCap: "",
-    // 시가총액
     circulatingSupply: "",
   },
   {
-    name: "gyunilCoin",
+    name: "경일코인(GIC)",
     symbol: "GIC",
     currentPrice: "100",
     marketCap: "20000000",
-    // 시가총액
     circulatingSupply: "3000",
-    // 총 체결량
   },
   {
-    name: "dducksangCoin",
+    name: "떡상코인(DSC)",
     symbol: "DSC",
     currentPrice: "500",
     marketCap: "100000000",
     circulatingSupply: "4504",
   },
   {
-    name: "hangangCoin",
+    name: "한강코인(HGC)",
     symbol: "HGC",
     currentPrice: "10",
     marketCap: "30000000",
     circulatingSupply: "10203",
   },
   {
-    name: "gukbbongCoin",
+    name: "국뽕코인(GBC)",
     symbol: "GBC",
     currentPrice: "230",
     marketCap: "20120000",
     circulatingSupply: "8000",
   },
   {
-    name: "pepeCoin",
+    name: "페페코인(PPC)",
     symbol: "PPC",
     currentPrice: "680",
     marketCap: "200000000",
     circulatingSupply: "15200",
   },
   {
-    name: "solarCoin",
+    name: "솔라코인(SLC)",
     symbol: "SLC",
     currentPrice: "20",
     marketCap: "80000000",
     circulatingSupply: "9900",
   },
   {
-    name: "suzumeCoin",
+    name: "스즈메코인(SZC)",
     symbol: "SZC",
     currentPrice: "430",
     marketCap: "102003000",
     circulatingSupply: "7600",
   },
   {
-    name: "daiginCoin",
+    name: "다이진코인(DGC)",
     symbol: "DGC",
     currentPrice: "1200",
     marketCap: "400002121",
     circulatingSupply: "23000",
   },
   {
-    name: "uzzulCoin",
+    name: "우쭐코인(UZC)",
     symbol: "UZC",
     currentPrice: "92",
     marketCap: "67002123",
     circulatingSupply: "6729",
   },
   {
-    name: "viralCoin",
+    name: "바이럴코인(VRC)",
     symbol: "VRC",
     currentPrice: "230",
     marketCap: "85000000",
@@ -295,47 +280,48 @@ let dummyDataCoin = [
   },
 ];
 
+let coinObj = {
+  GIC: dummyDataCoin[1],
+  DSC: dummyDataCoin[2],
+  HGC: dummyDataCoin[3],
+  GBC: dummyDataCoin[4],
+  PPC: dummyDataCoin[5],
+  SLC: dummyDataCoin[6],
+  SZC: dummyDataCoin[7],
+  DGC: dummyDataCoin[8],
+  UZC: dummyDataCoin[9],
+  VRC: dummyDataCoin[10],
+};
+
+let { GIC, DSC, HGC, GBC, PPC, SLC, SZC, DGC, UZC, VRC } = coinObj;
+
 let requestSignUpUser = [{}];
 
-// -------------------csh
-let peterCoin = {
-  gyunil: new Coin("gyunil", "GIC", "100", "21"),
-  suzumeCoin: new Coin("suzume", "SZC", "430", "22"),
+let tempUserCoin = {
+  1: new Coin(GIC,2,22),
+  2:new Coin(SLC,20,22),
+  
 };
-let peter = new User(
-  1,
-  "peter",
-  "email@naver.com",
-  "password",
-  0,
-  peterCoin,
-  3,
-  10000
+// -------------------csh---새로운 객체로 수정
+let tempUser = new User(
+  22,
+  "leejaeyong",
+  "dragon@gmail.com",
+  "q1w2e3R$",
+  "false",
+  "12345",
+  "",
+  210,
+  2000000000
 );
-let John = dummyDataUser[0];
 
-// console.log(John);
-// John.value = "somevalue";
-// console.log(John);
+// console.log(Object.keys(peterCoin));
 
-// John.name = "james";
-// John.key.add
+window.localStorage.setItem("link", JSON.stringify(peter));
 
-// console.log(Object.keys(peterCoin) );
-// console.log(Object.values(peterCoin)[0].name);
-
-// console.log(peterCoin);
-
-// 일단 대기
-// window.localStorage.setItem("link", JSON.stringify(peter));
-// window.localStorage.setItem("link2", JSON.stringify(dummyDataUser));
-window.localStorage.setItem("link3", JSON.stringify(dummyDataCoin));
+// console.log(dummyDataUser[0]);
 
 // -----------------------------
 
-if (localStorage.getItem("userInformation")) {
-  console.log("정보 있음");
-} else {
-  localStorage.setItem("userInformation", JSON.stringify(dummyDataUser));
-  localStorage.setItem("coinInformation", JSON.stringify(dummyDataCoin));
-}
+localStorage.setItem("userInformation", JSON.stringify(dummyDataUser));
+localStorage.setItem("coinInformation", JSON.stringify(dummyDataCoin));

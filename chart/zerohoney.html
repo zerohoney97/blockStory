@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./chart.css" />
+  </head>
+  <body>
+    <div id="chart"></div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script>
+    var options = {
+      series: [
+        {
+          name: "candle",
+          type: "candlestick",
+          data: [
+            {
+              x: new Date(1000),
+              y: [51.98, 56.29, 51.59, 53.85],
+            },
+            {
+              x: new Date(2000),
+              y: [53.66, 54.99, 51.35, 52.95],
+            },
+            {
+              x: new Date(3000),
+              y: [52.76, 57.35, 52.15, 57.03],
+            },
+          ],
+        },
+      ],
+      chart: {
+        height: 350,
+        type: "line",
+      },
+      title: {
+        text: "CandleStick Chart",
+        align: "left",
+      },
+      stroke: {
+        width: [3, 1],
+      },
+      tooltip: {
+        shared: true,
+        custom: [
+          function ({ seriesIndex, dataPointIndex, w }) {
+            return w.globals.series[seriesIndex][dataPointIndex];
+          },
+          function ({ seriesIndex, dataPointIndex, w }) {
+            var o = w.globals.seriesCandleO[seriesIndex][dataPointIndex];
+            var h = w.globals.seriesCandleH[seriesIndex][dataPointIndex];
+            var l = w.globals.seriesCandleL[seriesIndex][dataPointIndex];
+            var c = w.globals.seriesCandleC[seriesIndex][dataPointIndex];
+            return "";
+          },
+        ],
+      },
+      xaxis: {
+        type: "datetime",
+      },
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    setTimeout(() => {
+      options.series[0].data.push({
+        x: new Date(4000),
+        y: [500.76, 900.35, 400.15, 650.03],
+      });
+      chart.updateOptions(options);
+    }, 3000);
+    chart.render();
+
+
+
+
+
+    
+    // function getRan() {
+    //   let randomNum = Math.floor(Math.random() * 10 + 1);
+
+    //   if (randomNum >= 4 && randomNum <= 6) {
+    //     return randomNum;
+    //   } else if (randomNum >= 2 && randomNum <= 9) {
+    //     let temp = Math.floor(Math.random() * 10 + 1);
+    //     if (temp < 4) {
+    //       return randomNum;
+    //     } else {
+    //       return getRan();
+    //     }
+    //   } else {
+    //     let temp = Math.floor(Math.random() * 10 + 1);
+    //     if (temp < 2) {
+    //       return randomNum;
+    //     } else {
+    //       return getRan();
+    //     }
+    //   }
+    // }
+
+    // for (let i = 0; i < 100; i++) {
+    //   console.log(getRan());
+    // }
+
+  </script>
+</html>
