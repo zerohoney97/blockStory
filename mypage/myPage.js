@@ -45,7 +45,7 @@ if (storageNic) {
 
 
 
-
+// ---------------------------------------------- 계좌 관리 ---------------------------------------------------------
 
 let accountPopup = document.querySelector('.bankAccount');
 let closeAccount = document.querySelector('.close_account');
@@ -145,6 +145,7 @@ let accountNum = document.querySelectorAll('.thisBank');
 let myCoin = document.querySelector('.myCoin');
 let myMoney = document.querySelector('.myMoney');
 let listDescrip = document.querySelectorAll('.list-descrip');
+let coinQuantity = document.querySelector('.list-descrip .haveNum');
 let Peter = JSON.parse(localStorage.getItem('link'));
 
 accountNum.forEach(function (element) {
@@ -153,7 +154,7 @@ accountNum.forEach(function (element) {
 // console.log(accountNum);
 console.log(Peter);
 console.log(Peter.name);
-console.log(Peter.coin.gyunil.quantity);
+console.log(Peter.coin.gyunil);
 
 
 if (Peter) {
@@ -161,17 +162,17 @@ if (Peter) {
     totalMoney.innerHTML = Peter.account;
     myMoney.innerHTML = Peter.account;
     myCoin.innerHTML = Peter.coin.gyunil.quantity;
-    // coinQuantity.innerHTML = Peter.coin.gyunil.quantity;
+    coinQuantity.innerHTML = Peter.coin.gyunil.quantity;
 }
 
-//--------------------------------
+//-------------------------------------------
 
 
 // 계좌관리 내 코인소유량 표시
 
 let coinName = document.querySelector('.list-descrip .name');
 let coinPercentage = document.querySelector('.list-descrip .percent');
-let coinQuantity = document.querySelector('.list-descrip .haveNum');
+
 
 
 
@@ -290,10 +291,15 @@ withdrawInput.addEventListener('keypress', nonNum);
 
 
 
-
-
 // 입출금 신청시 입출금 내역에 저장되는 함수
 
+function loadFromLocalStorage(key, defaultValue) {
+    const storedValue = localStorage.getItem(key);
+    return storedValue === null ? defaultValue : parseFloat(storedValue);
+}
+
+totalMoney.textContent = loadFromLocalStorage('totalMoney', 0);
+myMoney.textContent = loadFromLocalStorage('myMoney', 0);
 
 function getCurrentTime() {
     const now = new Date();
@@ -310,7 +316,7 @@ function getCurrentTime() {
 }
 
 
-function addToHistory(name, money, state) {
+function addToHistory(name, money, state, timestamp, saveToLocalStorage = false) {
     const ul = document.createElement('ul');
     const nameList = document.createElement('li');
     const moneyList = document.createElement('li');
@@ -323,37 +329,60 @@ function addToHistory(name, money, state) {
     nameList.textContent = name;
     moneyList.textContent = money;
     stateList.textContent = state;
-    dateList.textContent = getCurrentTime();
+    dateList.textContent = timestamp;
 
     ul.append(nameList, moneyList, stateList, dateList);
     historyList.appendChild(ul);
 
+    // '출금'이라는 텍스트에 빨강색을 입히기 위해 추가한 코드
     if (name === '출금') {
         nameList.classList.add('withdraw-text');
     }
-    //window.localStorage.clear();
-    const newEntry = { name, money, state, date: getCurrentTime() };
-    let history = JSON.parse(localStorage.getItem('history')) || [];
-    history.push(newEntry);
-    localStorage.setItem('history', JSON.stringify(history));
+    // window.localStorage.clear();
+    if (saveToLocalStorage) {
+        const newEntry = { name, money, state, date: getCurrentTime() };
+        let history = JSON.parse(localStorage.getItem('history')) || [];
+        history.push(newEntry);
+        localStorage.setItem('history', JSON.stringify(history));
+    }
 }
 
+
+// '입금신청' 버튼 이벤트
 depositButton.addEventListener('click', () => {
-    const amount = depositInput.value;
-    addToHistory('입금', amount, '입금완료');
+    const amount = parseFloat(depositInput.value);
+    const timestamp = getCurrentTime();
+    addToHistory('입금', amount, '입금완료', timestamp, true);
+
+    const currentTotal = parseFloat(totalMoney.textContent);
+    const currentMyMoney = parseFloat(myMoney.textContent);
+    totalMoney.textContent = (currentTotal + amount);
+    myMoney.textContent = (currentMyMoney + amount);
+    localStorage.setItem('totalMoney', totalMoney.textContent);
+    localStorage.setItem('myMoney', myMoney.textContent);
 });
 
+// '출금신청' 버튼 이벤트
 withdrawButton.addEventListener('click', () => {
     const amount = withdrawInput.value;
-    addToHistory('출금', amount, '출금완료');
+    const timestamp = getCurrentTime();
+    addToHistory('출금', amount, '출금완료', timestamp, true);
+
+    const currentTotal = parseFloat(totalMoney.textContent);
+    const currentMyMoney = parseFloat(myMoney.textContent);
+    totalMoney.textContent = (currentTotal - amount);
+    myMoney.textContent = (currentMyMoney - amount);
+    localStorage.setItem('totalMoney', totalMoney.textContent);
+    localStorage.setItem('myMoney', myMoney.textContent);
 });
 
-// function loadHistory() {
-//     const history = JSON.parse(localStorage.getItem('history')) || [];
-//     history.forEach((entry) => {
-//         addToHistory(entry.name, entry.money, entry.state);
-//     });
-// }
+function loadHistory() {
+    const history = JSON.parse(localStorage.getItem('history')) || [];
+    historyList.innerHTML = '';
+    history.forEach((entry) => {
+        addToHistory(entry.name, entry.money, entry.state, entry.date);
+    });
+}
 
-// loadHistory();
+loadHistory();
 
