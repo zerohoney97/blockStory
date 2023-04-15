@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Chart</title>
+
+    <link href="../../assets/styles.css" rel="stylesheet" />
+
+    <style>
+      
+        #chart {
+      max-width: 650px;
+      margin: 35px auto;
+    }
+      
+    </style>
+
+    <script>
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>'
+        )
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>'
+        )
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>'
+        )
+    </script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    
+
+    <script>
+      // Replace Math.random() with a pseudo-random number generator to get reproducible results in e2e tests
+      // Based on https://gist.github.com/blixt/f17b47c62508be59987b
+      var _seed = 42;
+      Math.random = function() {
+        _seed = _seed * 16807 % 2147483647;
+        return (_seed - 1) / 2147483646;
+      };
+    </script>
+
+    <script src="../../assets/ohlc.js"></script>
+  </head>
+
+  <body>
+     <div id="chart"></div>
+
+    <script>
+      
+        var options = {
+          series: [ {
+          name: 'candle',
+          type: 'candlestick',
+          data: [
+            {
+              x: new Date('2023-04-13 14:42:00'),
+              y: [6629.81, 6650.5, 6623.04, 6633.33]
+            },
+            {
+              x: new Date('2023-04-13 14:42:05'),
+              y: [6632.01, 6643.59, 6620, 6630.11]
+            },
+            {
+              x: new Date('2023-04-13 14:42:10'),
+              y: [6630.71, 6648.95, 6623.34, 6635.65]
+            },
+            {
+              x: new Date('2023-04-13 14:42:15'),
+              y: [6635.65, 6651, 6629.67, 6638.24]
+            },
+            {
+              x: new Date('2023-04-13 14:42:20'),
+              y: [6638.24, 6640, 6620, 6624.47]
+            },
+            {
+              x: new Date('2023-04-13 14:42:25'),
+              y: [6624.53, 6636.03, 6621.68, 6624.31]
+            },
+            {
+              x: new Date('2023-04-13 14:42:30'),
+              y: [6624.61, 6632.2, 6617, 6626.02]
+            },
+            {
+              x: new Date('2023-04-13 14:42:35'),
+              y: [6627, 6627.62, 6584.22, 6603.02]
+            },
+            {
+              x: new Date('2023-04-13 14:42:40'),
+              y: [6605, 6608.03, 6598.95, 6604.01]
+            },
+            {
+              x: new Date('2023-04-13 14:42:45'),
+              y: [6604.5, 6614.4, 6602.26, 6608.02]
+            },
+            {
+              x: new Date('2023-04-13 14:42:50'),
+              y: [6608.02, 6610.68, 6601.99, 6608.91]
+            },
+        
+          ]
+        }],
+          chart: {
+          height: 350,
+          type: 'line',
+        },
+        title: {
+          text: 'CandleStick Chart',
+          align: 'left'
+        },
+        stroke: {
+          width: [3, 1]
+        },
+        tooltip: {
+          shared: true,
+          custom: [function({seriesIndex, dataPointIndex, w}) {
+            return w.globals.series[seriesIndex][dataPointIndex]
+          }, function({ seriesIndex, dataPointIndex, w }) {
+            var o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]
+            var h = w.globals.seriesCandleH[seriesIndex][dataPointIndex]
+            var l = w.globals.seriesCandleL[seriesIndex][dataPointIndex]
+            var c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]
+            return (
+              '<div class="apexcharts-tooltip-candlestick">' +
+              '<div>Open: <span class="value">' +
+              o +
+              '</span></div>' +
+              '<div>High: <span class="value">' +
+              h +
+              '</span></div>' +
+              '<div>Low: <span class="value">' +
+              l +
+              '</span></div>' +
+              '<div>Close: <span class="value">' +
+              c +
+              '</span></div>' +
+              '</div>'
+            )
+          }]
+        },
+        xaxis: {
+          type: 'datetime',
+          labels: {
+            format:  "mm:ss"
+          },
+          tickInterval: 5000,
+          tickAmount: 11
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+      
+        const date = new Date('13:10:10');
+        console.log(date.getTime());
+
+      
+    </script>
+
+    
+  </body>
+</html>

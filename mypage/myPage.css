@@ -283,7 +283,7 @@ body.active::before{
 
 .accountList{
     overflow-y: scroll;
-    height: 86%;
+    height: 82%;
 }
 
 .list-title{
@@ -367,11 +367,6 @@ body.active::before{
 
 .change-to-won{
     font-size: 14px;
-    font-weight: 100;
-}
-
-.haveMoney span{
-    font-size: 12px;
     font-weight: 100;
 }
 
