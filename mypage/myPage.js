@@ -1,4 +1,5 @@
 
+// ----------------------------------------------------닉네임 변경---------------------------------------------------
 
 let nickName = document.querySelector('.accessInfo span');
 let changNicBtn = document.querySelector('.changeNic');
@@ -16,6 +17,8 @@ function popup() {
 closeBtn.addEventListener('click', () => {
     document.body.classList.remove('active');
     nickPopup.classList.remove('active');
+    document.querySelector('.inputNic').value = '';
+    document.querySelector('.cautionText').innerHTML = '';
 })
 
 // 닉네임 변경 진행하는 함수
@@ -29,12 +32,17 @@ subBtn.onclick = function () {
     let inputNic = document.querySelector('.inputNic').value;
 
     if (!isNickname(inputNic)) {
-        document.querySelector('.cautionText').innerHTML = '닉네임 형식이 올바르지 않습니다.<br>(최소 2자 최대 12자 및 특수문자/띄어쓰기 불가)';
+        document.querySelector('.cautionText').innerHTML = '닉네임 형식이 올바르지 않습니다.';
+        document.querySelector('.cautionText').style.color = 'red';
     } else {
         document.body.classList.remove('active');
         nickPopup.classList.remove('active');
         nickName.innerHTML = inputNic;
         localStorage.setItem('nickname', inputNic);
+
+        // 팝업창 닫았을 때, 모든 값 초기화
+        document.querySelector('.inputNic').value = '';
+        document.querySelector('.cautionText').innerHTML = '';
     }
 }
 
@@ -113,36 +121,60 @@ findCoin.addEventListener('input', handleSearch);
 
 
 // 계좌관리 내 코인별 보유자산
-
+let myCoin = document.querySelector('.myCoin');
 function renderCoinList() {
-
-
     coins.forEach((coin) => {
         let ul = document.createElement('ul');
-        let nameList = document.createElement('li')
-        let percentList = document.createElement('li')
-        let haveNumList = document.createElement('li')
+        let nameList = document.createElement('li');
+        let percentList = document.createElement('li');
+        let haveNumList = document.createElement('li');
+        let iHaveCoin = document.createElement('strong');
+        let coinToKrw = document.createElement('p');
+        let myCoinUnit = document.createElement('span');
+        let haveCoinUnit = document.createElement('div');
         ul.classList.add('list-descrip');
         nameList.classList.add('name');
         percentList.classList.add('percent');
         haveNumList.classList.add('haveNum');
+        haveCoinUnit.classList.add('haveCoinUnit');
+
+        parentContainer.appendChild(ul);
+        ul.append(nameList, percentList, haveNumList);
+        haveNumList.append(haveCoinUnit);
+        haveCoinUnit.append(iHaveCoin, myCoinUnit);
+        haveNumList.append(coinToKrw);
+        iHaveCoin.append(document.createTextNode('0 '));
+
+        coinToKrw.style.fontSize = '14px';
+        haveNumList.style.display = 'flex';
+        haveNumList.style.flexDirection = 'column';
+        haveNumList.style.alignItems = 'flex-end';
+        myCoinUnit.style.fontWeight = 'bold';
 
         nameList.innerHTML = coin.name;
         percentList.innerHTML = '0.00%';
-        haveNumList.innerHTML = '0';
+        myCoinUnit.innerHTML = ` ${coin.symbol}`;
+        coinToKrw.innerHTML = `${coin.currentPrice} KRW`;
 
-        ul.append(nameList, percentList, haveNumList);
-        parentContainer.appendChild(ul);
-
+        // peter가 보유한 코인에만 수량을 나타내는 함수
+        for (const key in peter.coin) {
+            if (peter.coin[key].symbol === coin.symbol) {
+                iHaveCoin.innerHTML = peter.coin[key].quantity;
+                myCoin.innerHTML = peter.coin[key].quantity;
+                break;
+            }
+        }
     })
 }
 renderCoinList();
+
+
 
 //------------Peter User test----------------
 
 let totalMoney = document.querySelector('.moneyNum');
 let accountNum = document.querySelectorAll('.thisBank');
-let myCoin = document.querySelector('.myCoin');
+
 let myMoney = document.querySelector('.myMoney');
 let listDescrip = document.querySelectorAll('.list-descrip');
 let coinQuantity = document.querySelector('.list-descrip .haveNum');
@@ -151,18 +183,13 @@ let Peter = JSON.parse(localStorage.getItem('link'));
 accountNum.forEach(function (element) {
     element.innerHTML = Peter.accountNumber;
 });
-// console.log(accountNum);
-console.log(Peter);
-console.log(Peter.name);
-console.log(Peter.coin.gyunil);
-
 
 if (Peter) {
     nickName.innerHTML = Peter.name;
     totalMoney.innerHTML = Peter.account;
     myMoney.innerHTML = Peter.account;
-    myCoin.innerHTML = Peter.coin.gyunil.quantity;
-    coinQuantity.innerHTML = Peter.coin.gyunil.quantity;
+    // myCoin.innerHTML = Peter.coin.gyunil.quantity;
+    // coinQuantity.innerHTML = coins[i].currentPrice;
 }
 
 //-------------------------------------------
@@ -172,9 +199,6 @@ if (Peter) {
 
 let coinName = document.querySelector('.list-descrip .name');
 let coinPercentage = document.querySelector('.list-descrip .percent');
-
-
-
 
 listDescrip.forEach((a, i) => {
     listDescrip[0].style.backgroundColor = 'rgb(241, 236, 236)';
@@ -197,7 +221,9 @@ listDescrip.forEach((a, i) => {
 
     })
 })
-console.log(coins[1]);
+console.log(coins);
+console.log(coins[1].symbol);
+
 
 
 
@@ -354,6 +380,11 @@ depositButton.addEventListener('click', () => {
     const timestamp = getCurrentTime();
     addToHistory('입금', amount, '입금완료', timestamp, true);
 
+    if (isNaN(amount)) {
+        alert('입금 금액을 입력하세요');
+        return;
+    }
+
     const currentTotal = parseFloat(totalMoney.textContent);
     const currentMyMoney = parseFloat(myMoney.textContent);
     totalMoney.textContent = (currentTotal + amount);
@@ -364,9 +395,14 @@ depositButton.addEventListener('click', () => {
 
 // '출금신청' 버튼 이벤트
 withdrawButton.addEventListener('click', () => {
-    const amount = withdrawInput.value;
+    const amount = parseFloat(withdrawInput.value);
     const timestamp = getCurrentTime();
     addToHistory('출금', amount, '출금완료', timestamp, true);
+
+    if (isNaN(amount)) {
+        alert('출금 금액을 입력하세요');
+        return;
+    }
 
     const currentTotal = parseFloat(totalMoney.textContent);
     const currentMyMoney = parseFloat(myMoney.textContent);
@@ -375,6 +411,7 @@ withdrawButton.addEventListener('click', () => {
     localStorage.setItem('totalMoney', totalMoney.textContent);
     localStorage.setItem('myMoney', myMoney.textContent);
 });
+
 
 function loadHistory() {
     const history = JSON.parse(localStorage.getItem('history')) || [];
@@ -385,4 +422,3 @@ function loadHistory() {
 }
 
 loadHistory();
-
