@@ -23,7 +23,7 @@ class User {
 }
 
 class Coin {
-  constructor(coinobj, quantity, userId) {
+  constructor(coinObj, quantity, userId) {
     this.coinObj = coinObj;
     this.quantity = quantity;
     this.userId = userId;
