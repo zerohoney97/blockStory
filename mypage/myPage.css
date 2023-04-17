@@ -346,6 +346,11 @@ body.active::before{
     top: 15px;
 }
 
+.accountList{
+    overflow-y: scroll;
+    height: 86%;
+}
+
 .list-title{
     list-style: none;
     display: flex;
@@ -357,6 +362,7 @@ body.active::before{
     text-align: center;
     line-height: 2.2;
     font-size: 13px;
+    
 }
 
 .list-title .name,
@@ -366,7 +372,6 @@ body.active::before{
 
 .list-descrip .name{
     border: none;
-    border-top: 1px solid rgb(214, 214, 214);
     border-bottom: 1px solid rgb(214, 214, 214);
     font-weight: bold;
 }
@@ -376,6 +381,10 @@ body.active::before{
     width: 110px;
 }
 
+.list-descrip .percent{
+    border-top: none;
+}
+
 .list-title .haveNum,
 .list-descrip .haveNum{
     width: 160px;
@@ -383,7 +392,6 @@ body.active::before{
 
 .list-descrip .haveNum{
     border: none;
-    border-top: 1px solid rgb(214, 214, 214);
     border-bottom: 1px solid rgb(214, 214, 214);
     font-weight: bold;
 }
@@ -412,15 +420,19 @@ body.active::before{
     line-height: 2.5;
 }
 
-.haveMoney{
+.haveMoney, .haveCoin, .change-to-won{
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
-    border-bottom: 1px solid rgb(199, 199, 199);
-    height: 45px;
+    padding: 0 20px; 
+    height: 32px;
     line-height: 2.5;
     font-weight: bold;
     font-size: 17px;
+}
+
+.change-to-won{
+    font-size: 14px;
+    font-weight: 100;
 }
 
 .haveMoney span{
@@ -443,6 +455,7 @@ body.active::before{
     width: 140px;
     height: 50px;
     border-bottom: 1px solid rgb(199, 199, 199);
+    border-top: 1px solid rgb(199, 199, 199);
     text-align: center;
     font-size: 15px;
     line-height: 3;
@@ -496,7 +509,8 @@ body.active::before{
     cursor: pointer;
 }
 
-.applyInput:active{
+.applyInput:active,
+.applyout:active{
     transform: scale(0.98);
 }
 
@@ -553,6 +567,10 @@ body.active::before{
 .Name{
     width: 50px;
     color: red;
+}
+
+.withdraw-text{
+    color: blue;
 }
 
 .Money{
