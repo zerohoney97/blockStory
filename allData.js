@@ -8,7 +8,19 @@ class User {
     accountNumber,
     coin = null,
     tradeSum = 0,
-    account = 0
+    account = 0,
+    coinVolume = {
+      GIC: 0,
+      DSC: 0,
+      HGC: 0,
+      GBC: 0,
+      PPC: 0,
+      SLC: 0,
+      SZC: 0,
+      DGC: 0,
+      UZC: 0,
+      VRC: 0,
+    } //가지고 있는 코인의 전체 개수
   ) {
     this.id = id;
     this.name = name;
@@ -19,6 +31,7 @@ class User {
     this.coin = coin;
     this.tradeSum = tradeSum;
     this.account = account;
+    this.coinVolume = coinVolume;
   }
 }
 
@@ -297,10 +310,7 @@ let { GIC, DSC, HGC, GBC, PPC, SLC, SZC, DGC, UZC, VRC } = coinObj;
 
 let requestSignUpUser = [{}];
 
-let tempUserCoin = [
-   new Coin(GIC, 2, 22),
-   new Coin(SLC, 20, 22),
-]
+let tempUserCoin = [new Coin(GIC, 2, 22), new Coin(SLC, 20, 22)];
 // -------------------csh---새로운 객체로 수정
 let tempUser = new User(
   22,
