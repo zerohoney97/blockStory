@@ -23,22 +23,9 @@ class User {
 }
 
 class Coin {
-  constructor(
-    name,
-    symbol,
-    quantity,
-    currentPrice,
-    marketCap,
-    //총 체결량
-    circulatingSupply,
-    userId
-  ) {
-    this.name = name;
-    this.symbol = symbol;
+  constructor(coinObj, quantity, userId) {
+    this.coinObj = coinObj;
     this.quantity = quantity;
-    this.currentPrice = currentPrice;
-    this.marketCap = marketCap;
-    this.circulatingSupply = circulatingSupply;
     this.userId = userId;
   }
 }
@@ -204,6 +191,13 @@ const dummyDataUser = [
     password: "Password!@20",
     isAdmin: false,
   },
+  {
+    id: 21,
+    name: "gwanrisa",
+    email: "owner@never.com",
+    password: "q1w2e3R$",
+    isAdmin: true,
+  },
 ];
 
 let dummyDataCoin = [
@@ -286,25 +280,141 @@ let dummyDataCoin = [
   },
 ];
 
+let coinPriceRange = [
+  {
+    name: '원화',
+    max: '',
+    min: '',
+    // 낮은 확률로 출력될 값
+    lowRateMax: '',
+    lowRateMin: ''
+  },
+  {
+    name: '경일코인',
+    max: dummyDataCoin[1].currentPrice * 3.5,
+    min: dummyDataCoin[1].currentPrice * 0.3,
+    // 낮은 확률로 출력될 값
+    lowRateMax: dummyDataCoin[1].currentPrice * 2,
+    lowRateMin: dummyDataCoin[1].currentPrice * 0.4
+  },
+  {
+    name: '떡상코인',
+    max: dummyDataCoin[2].currentPrice * 3.5,
+    min: dummyDataCoin[2].currentPrice * 0.3,
+    // 낮은 확률로 출력될 값
+    lowRateMax: dummyDataCoin[2].currentPrice * 2,
+    lowRateMin: dummyDataCoin[2].currentPrice * 0.4
+  },
+  {
+    name: '한강코인',
+    max: dummyDataCoin[3].currentPrice * 3.5,
+    min: dummyDataCoin[3].currentPrice * 0.3,
+    // 낮은 확률로 출력될 값
+    lowRateMax: dummyDataCoin[3].currentPrice * 2,
+    lowRateMin: dummyDataCoin[3].currentPrice * 0.4
+  },
+  {
+    name: '국뽕코인',
+    max: dummyDataCoin[4].currentPrice * 3.5,
+    min: dummyDataCoin[4].currentPrice * 0.3,
+    // 낮은 확률로 출력될 값
+    lowRateMax: dummyDataCoin[4].currentPrice * 2,
+    lowRateMin: dummyDataCoin[4].currentPrice * 0.4
+  },
+  {
+    name: '페페코인',
+    max: dummyDataCoin[5].currentPrice * 3.5,
+    min: dummyDataCoin[5].currentPrice * 0.3,
+    // 낮은 확률로 출력될 값
+    lowRateMax: dummyDataCoin[5].currentPrice * 2,
+    lowRateMin: dummyDataCoin[5].currentPrice * 0.4
+  },
+  {
+    name: '솔라코인',
+    max: dummyDataCoin[6].currentPrice * 3.5,
+    min: dummyDataCoin[6].currentPrice * 0.3,
+    // 낮은 확률로 출력될 값
+    lowRateMax: dummyDataCoin[6].currentPrice * 2,
+    lowRateMin: dummyDataCoin[6].currentPrice * 0.4
+  },
+  {
+    name: '스즈메코인',
+    max: dummyDataCoin[7].currentPrice * 3.5,
+    min: dummyDataCoin[7].currentPrice * 0.3,
+    // 낮은 확률로 출력될 값
+    lowRateMax: dummyDataCoin[7].currentPrice * 2,
+    lowRateMin: dummyDataCoin[7].currentPrice * 0.4
+  },
+  {
+    name: '다이진코인',
+    max: dummyDataCoin[8].currentPrice * 3.5,
+    min: dummyDataCoin[8].currentPrice * 0.3,
+    // 낮은 확률로 출력될 값
+    lowRateMax: dummyDataCoin[8].currentPrice * 2,
+    lowRateMin: dummyDataCoin[8].currentPrice * 0.4
+  },
+  {
+    name: '우쭐코인',
+    max: dummyDataCoin[9].currentPrice * 3.5,
+    min: dummyDataCoin[9].currentPrice * 0.3,
+    // 낮은 확률로 출력될 값
+    lowRateMax: dummyDataCoin[9].currentPrice * 2,
+    lowRateMin: dummyDataCoin[9].currentPrice * 0.4
+  },
+  {
+    name: '바이럴코인',
+    max: dummyDataCoin[10].currentPrice * 3.5,
+    min: dummyDataCoin[10].currentPrice * 0.3,
+    // 낮은 확률로 출력될 값
+    lowRateMax: dummyDataCoin[10].currentPrice * 2,
+    lowRateMin: dummyDataCoin[10].currentPrice * 0.4
+  }
+]
+
+let coinObj = {
+  GIC: dummyDataCoin[1],
+  DSC: dummyDataCoin[2],
+  HGC: dummyDataCoin[3],
+  GBC: dummyDataCoin[4],
+  PPC: dummyDataCoin[5],
+  SLC: dummyDataCoin[6],
+  SZC: dummyDataCoin[7],
+  DGC: dummyDataCoin[8],
+  UZC: dummyDataCoin[9],
+  VRC: dummyDataCoin[10],
+};
+
+let { GIC, DSC, HGC, GBC, PPC, SLC, SZC, DGC, UZC, VRC } = coinObj;
+
 let requestSignUpUser = [{}];
 
-// -------------------csh
-let peterCoin = {
-  gyunil: new Coin('gyunil', 'GIC', '1.2', '100', '21'),
-  suzumeCoin: new Coin('suzume', 'SZC', '0.003', '430', '22')
-}
-let peter = new User(21, "peter", "email@naver.com", "password", 0, "11*****416 국민 김피터", peterCoin, 3, 10000);
-
+let tempUserCoin = {
+  1: new Coin(GIC, 2, 22),
+  2: new Coin(SLC, 20, 22),
+};
+// -------------------csh---새로운 객체로 수정
+let tempUser = new User(
+  22,
+  "leejaeyong",
+  "dragon@gmail.com",
+  "q1w2e3R$",
+  "false",
+  "12345",
+  "",
+  210,
+  2000000000
+);
 
 // console.log(Object.keys(peterCoin));
 
-window.localStorage.setItem("link", JSON.stringify(peter));
 
 // console.log(dummyDataUser[0]);
 
 // -----------------------------
 
-
-
-localStorage.setItem("userInformation", JSON.stringify(dummyDataUser));
+localStorage.setItem(
+  "userInformation",
+  JSON.stringify([...dummyDataUser, tempUser])
+);
 localStorage.setItem("coinInformation", JSON.stringify(dummyDataCoin));
+localStorage.setItem("priceRangeInfo", JSON.stringify(coinPriceRange));
