@@ -298,9 +298,8 @@ let { GIC, DSC, HGC, GBC, PPC, SLC, SZC, DGC, UZC, VRC } = coinObj;
 let requestSignUpUser = [{}];
 
 let tempUserCoin = {
-  1: new Coin(GIC,2,22),
-  2:new Coin(SLC,20,22),
-  
+  1: new Coin(GIC, 2, 22),
+  2: new Coin(SLC, 20, 22),
 };
 // -------------------csh---새로운 객체로 수정
 let tempUser = new User(
@@ -317,11 +316,13 @@ let tempUser = new User(
 
 // console.log(Object.keys(peterCoin));
 
-window.localStorage.setItem("link", JSON.stringify(peter));
 
 // console.log(dummyDataUser[0]);
 
 // -----------------------------
 
-localStorage.setItem("userInformation", JSON.stringify(dummyDataUser));
+localStorage.setItem(
+  "userInformation",
+  JSON.stringify([...dummyDataUser, tempUser])
+);
 localStorage.setItem("coinInformation", JSON.stringify(dummyDataCoin));
