@@ -1,3 +1,4 @@
+
 let email = document.querySelector("#email");
 let password = document.querySelector("#password");
 let userDataArray = JSON.parse(localStorage.getItem("userInformation"));

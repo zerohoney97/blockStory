@@ -1,3 +1,4 @@
+
 let image = document.getElementById("dotIcon");
 let image2 = document.getElementById("arrowIcon");
 let image3 = document.getElementById("bellIcon");
@@ -5,11 +6,47 @@ let image4 = document.getElementById("coinIcon");
 let appimg = document.getElementById("appImg");
 let appimg2 = document.getElementById("appImg2");
 let imageSub = document.getElementById("danTa");
+let popupBtn = document.querySelector(".popup-btn");
+let popupEvent = document.querySelector(".event-btn");
+let popupCookie = getCookie("event-popup");
+
+function popupOpen(){
+  let popup = document.querySelector('.popup-wrap');
+  if(popup.classList.contains("is-on")){
+      popup.classList.remove("is-on");
+  }else{
+      popup.classList.add("is-on");
+  }
+}
+
+popupBtn.addEventListener("click",popupOpen);
+
+
+if(popupCookie ==undefined)
+{
+  popupOpen();
+}
+function getCookie(c_name)
+{
+ var i,x,y,ARRcookies=document.cookie.split(";");
+ for (i=0;i<ARRcookies.length;i++)
+ {
+   x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+   y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+   x=x.replace(/^\s+|\s+$/g,"");
+   if (x==c_name)
+   {
+     return unescape(y);
+   }
+ }
+}
+
 
 appimg.style.display = "none";
 appimg2.style.display = "none";
 imageSub.style.display = "none";
 
+ 
 function dot() {
   image.src = "./img/lock.png";
   image2.src = "./img/dot.png";
