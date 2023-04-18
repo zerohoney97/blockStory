@@ -56,7 +56,7 @@
             </div>
             <div class="searchCoin">
                 <input type="text" class="findCoin" placeholder="코인명/심볼검색">
-                <a href="#" class="findImg"><img src="./1093183.png" alt=""></a>
+                <button class="searchCoinBtn"><img src="./1093183.png"></button>
             </div>
             <div class="accountList">
                 <ul class="list-title">
@@ -64,14 +64,7 @@
                     <li class="percent">보유비중</li>
                     <li class="haveNum">보유수량(보유금액)</li>
                 </ul>
-                <div class="container">
-
-                </div>
-                <!-- <ul class="list-descrip">
-                    <li class="name">원화(KRW)</li>
-                    <li class="percent"></li>
-                    <li class="haveNum"></li>
-                </ul> -->
+                <div class="container"></div>
             </div>
         </div>
 
@@ -80,11 +73,11 @@
             <div class="tradeName"><span>KRW</span> 입출금</div>
             <div class="haveMoney">
                 <p>보유금액</p>
-                <p>0 KRW</p>
+                <p class="moneyUnit"><span class="myMoney">0</span> KRW</p>
             </div>
             <div class="haveCoin">
                 <p>보유수량</p>
-                <p>0 <span>BTC</span></p>
+                <p><span class="myCoin">0</span> <span class="coinUnit">BTC</span></p>
             </div>
             <div class="change-to-won">
                 <p>평가금액</p>
@@ -114,7 +107,6 @@
             <div class="withdraw-tab">
                 <div class="user-out-account">
                     <p class="out-account">출금계좌</p>
-                    <!-- <input class="out-account-num" type="text" placeholder="신한 11*****3314"> -->
                     <div class="out-account-num thisBank">신한 11*****3314</div>
                 </div>
                 <div class="user-out-money">
