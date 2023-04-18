@@ -8,7 +8,19 @@ class User {
     accountNumber,
     coin = null,
     tradeSum = 0,
-    account = 0
+    account = 0,
+    coinVolume = {
+      GIC: 0,
+      DSC: 0,
+      HGC: 0,
+      GBC: 0,
+      PPC: 0,
+      SLC: 0,
+      SZC: 0,
+      DGC: 0,
+      UZC: 0,
+      VRC: 0,
+    } //가지고 있는 코인의 전체 개수
   ) {
     this.id = id;
     this.name = name;
@@ -19,6 +31,7 @@ class User {
     this.coin = coin;
     this.tradeSum = tradeSum;
     this.account = account;
+    this.coinVolume = coinVolume;
   }
 }
 
@@ -29,7 +42,6 @@ class Coin {
     this.userId = userId;
   }
 }
-
 class IssuePost {
   constructor(userName, userId, title, content, time) {
     this.userName = userName;
@@ -198,6 +210,13 @@ const dummyDataUser = [
     password: "q1w2e3R$",
     isAdmin: true,
   },
+  {
+    id: 21,
+    name: "gwanrisa",
+    email: "owner@never.com",
+    password: "q1w2e3R$",
+    isAdmin: true,
+  },
 ];
 
 let dummyDataCoin = [
@@ -282,79 +301,79 @@ let dummyDataCoin = [
 
 let coinPriceRange = [
   {
-    name: '원화',
-    max: '',
-    min: '',
+    name: "원화",
+    max: "",
+    min: "",
     // 낮은 확률로 출력될 값
-    lowRateMax: '',
-    lowRateMin: ''
+    lowRateMax: "",
+    lowRateMin: "",
   },
   {
-    name: '경일코인',
+    name: "경일코인",
     max: dummyDataCoin[1].currentPrice * 3.5,
     min: dummyDataCoin[1].currentPrice * 0.3,
     // 낮은 확률로 출력될 값
     lowRateMax: dummyDataCoin[1].currentPrice * 2,
-    lowRateMin: dummyDataCoin[1].currentPrice * 0.4
+    lowRateMin: dummyDataCoin[1].currentPrice * 0.4,
   },
   {
-    name: '떡상코인',
+    name: "떡상코인",
     max: dummyDataCoin[2].currentPrice * 25,
     min: dummyDataCoin[2].currentPrice * 0.2,
     // 낮은 확률로 출력될 값
     lowRateMax: dummyDataCoin[2].currentPrice * 3,
-    lowRateMin: dummyDataCoin[2].currentPrice * 0.6
+    lowRateMin: dummyDataCoin[2].currentPrice * 0.6,
   },
   {
-    name: '한강코인',
+    name: "한강코인",
     max: dummyDataCoin[3].currentPrice * 7,
     min: dummyDataCoin[3].currentPrice * 0.2,
     // 낮은 확률로 출력될 값
     lowRateMax: dummyDataCoin[3].currentPrice * 5,
-    lowRateMin: dummyDataCoin[3].currentPrice * 0.4
+    lowRateMin: dummyDataCoin[3].currentPrice * 0.4,
   },
   {
-    name: '국뽕코인',
+    name: "국뽕코인",
     max: dummyDataCoin[4].currentPrice * 3.5,
     min: dummyDataCoin[4].currentPrice * 0.3,
     // 낮은 확률로 출력될 값
     lowRateMax: dummyDataCoin[4].currentPrice * 2,
-    lowRateMin: dummyDataCoin[4].currentPrice * 0.4
+    lowRateMin: dummyDataCoin[4].currentPrice * 0.4,
   },
   {
-    name: '페페코인',
+    name: "페페코인",
     max: dummyDataCoin[5].currentPrice * 6,
     min: dummyDataCoin[5].currentPrice * 0.2,
     // 낮은 확률로 출력될 값
     lowRateMax: dummyDataCoin[5].currentPrice * 2,
-    lowRateMin: dummyDataCoin[5].currentPrice * 0.4
+    lowRateMin: dummyDataCoin[5].currentPrice * 0.4,
   },
   {
-    name: '솔라코인',
+    name: "솔라코인",
     max: dummyDataCoin[6].currentPrice * 3.5,
     min: dummyDataCoin[6].currentPrice * 0.3,
     // 낮은 확률로 출력될 값
     lowRateMax: dummyDataCoin[6].currentPrice * 2,
-    lowRateMin: dummyDataCoin[6].currentPrice * 0.4
+    lowRateMin: dummyDataCoin[6].currentPrice * 0.4,
   },
   {
-    name: '스즈메코인',
+    name: "스즈메코인",
     max: dummyDataCoin[7].currentPrice * 3.5,
     min: dummyDataCoin[7].currentPrice * 0.3,
     // 낮은 확률로 출력될 값
     lowRateMax: dummyDataCoin[7].currentPrice * 2,
-    lowRateMin: dummyDataCoin[7].currentPrice * 0.4
+    lowRateMin: dummyDataCoin[7].currentPrice * 0.4,
   },
   {
-    name: '다이진코인',
+    name: "다이진코인",
     max: dummyDataCoin[8].currentPrice * 3.5,
     min: dummyDataCoin[8].currentPrice * 0.3,
     // 낮은 확률로 출력될 값
     lowRateMax: dummyDataCoin[8].currentPrice * 2,
-    lowRateMin: dummyDataCoin[8].currentPrice * 0.4
+    lowRateMin: dummyDataCoin[8].currentPrice * 0.4,
   },
   {
-    name: '우쭐코인',
+    name: "우쭐코인",
     max: dummyDataCoin[9].currentPrice * 3.5,
     min: dummyDataCoin[9].currentPrice * 0.31,
     // 낮은 확률로 출력될 값
@@ -362,14 +381,14 @@ let coinPriceRange = [
     lowRateMin: dummyDataCoin[9].currentPrice * 0.41
   },
   {
-    name: '바이럴코인',
+    name: "바이럴코인",
     max: dummyDataCoin[10].currentPrice * 3.5,
     min: dummyDataCoin[10].currentPrice * 0.3,
     // 낮은 확률로 출력될 값
     lowRateMax: dummyDataCoin[10].currentPrice * 2,
-    lowRateMin: dummyDataCoin[10].currentPrice * 0.4
-  }
-]
+    lowRateMin: dummyDataCoin[10].currentPrice * 0.4,
+  },
+];
 
 let coinObj = {
   GIC: dummyDataCoin[1],
@@ -388,10 +407,7 @@ let { GIC, DSC, HGC, GBC, PPC, SLC, SZC, DGC, UZC, VRC } = coinObj;
 
 let requestSignUpUser = [{}];
 
-let tempUserCoin = {
-  1: new Coin(GIC, 2, 22),
-  2: new Coin(SLC, 20, 22),
-};
+let tempUserCoin = [new Coin(GIC, 2, 22), new Coin(SLC, 20, 22)];
 // -------------------csh---새로운 객체로 수정
 let tempUser = new User(
   22,
@@ -400,21 +416,28 @@ let tempUser = new User(
   "q1w2e3R$",
   "false",
   "12345",
-  "",
+  tempUserCoin,
   210,
   2000000000
 );
 
+console.log(tempUser);
+
 // console.log(Object.keys(peterCoin));
 
+// window.localStorage.setItem("link", JSON.stringify(peter));
 
 // console.log(dummyDataUser[0]);
 
 // -----------------------------
 
-localStorage.setItem(
-  "userInformation",
-  JSON.stringify([...dummyDataUser, tempUser])
-);
+if (localStorage.getItem("userInformation")) {
+} else {
+  localStorage.setItem(
+    "userInformation",
+    JSON.stringify([...dummyDataUser, tempUser])
+  );
+}
+
 localStorage.setItem("coinInformation", JSON.stringify(dummyDataCoin));
 localStorage.setItem("priceRangeInfo", JSON.stringify(coinPriceRange));
