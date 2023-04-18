@@ -34,6 +34,7 @@ subBtn.onclick = function () {
     if (!isNickname(inputNic)) {
         document.querySelector('.cautionText').innerHTML = '닉네임 형식이 올바르지 않습니다.';
         document.querySelector('.cautionText').style.color = 'red';
+        subBtn.style.marginTop = '83px';
     } else {
         document.body.classList.remove('active');
         nickPopup.classList.remove('active');
@@ -157,13 +158,13 @@ function renderCoinList() {
         coinToKrw.innerHTML = `${coin.currentPrice} KRW`;
 
         // peter가 보유한 코인에만 수량을 나타내는 함수
-        for (const key in peter.coin) {
-            if (peter.coin[key].symbol === coin.symbol) {
-                iHaveCoin.innerHTML = peter.coin[key].quantity;
-                myCoin.innerHTML = peter.coin[key].quantity;
-                break;
-            }
-        }
+        // for (const key in peter.coin) {
+        //     if (peter.coin[key].symbol === coin.symbol) {
+        //         iHaveCoin.innerHTML = peter.coin[key].quantity;
+        //         myCoin.innerHTML = peter.coin[key].quantity;
+        //         break;
+        //     }
+        // }
     })
 }
 renderCoinList();
@@ -180,17 +181,17 @@ let listDescrip = document.querySelectorAll('.list-descrip');
 let coinQuantity = document.querySelector('.list-descrip .haveNum');
 let Peter = JSON.parse(localStorage.getItem('link'));
 
-accountNum.forEach(function (element) {
-    element.innerHTML = Peter.accountNumber;
-});
+// accountNum.forEach(function (element) {
+//     element.innerHTML = Peter.accountNumber;
+// });
 
-if (Peter) {
-    nickName.innerHTML = Peter.name;
-    totalMoney.innerHTML = Peter.account;
-    myMoney.innerHTML = Peter.account;
-    // myCoin.innerHTML = Peter.coin.gyunil.quantity;
-    // coinQuantity.innerHTML = coins[i].currentPrice;
-}
+// if (Peter) {
+//     nickName.innerHTML = Peter.name;
+//     totalMoney.innerHTML = Peter.account;
+//     myMoney.innerHTML = Peter.account;
+//     // myCoin.innerHTML = Peter.coin.gyunil.quantity;
+//     // coinQuantity.innerHTML = coins[i].currentPrice;
+// }
 
 //-------------------------------------------
 

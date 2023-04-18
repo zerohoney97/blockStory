@@ -324,7 +324,7 @@ let coinPriceRange = [
   {
     name: '페페코인',
     max: dummyDataCoin[5].currentPrice * 6,
-    min: dummyDataCoin[5].currentPrice * 0.7,
+    min: dummyDataCoin[5].currentPrice * 0.2,
     // 낮은 확률로 출력될 값
     lowRateMax: dummyDataCoin[5].currentPrice * 2,
     lowRateMin: dummyDataCoin[5].currentPrice * 0.4
@@ -356,10 +356,10 @@ let coinPriceRange = [
   {
     name: '우쭐코인',
     max: dummyDataCoin[9].currentPrice * 3.5,
-    min: dummyDataCoin[9].currentPrice * 0.3,
+    min: dummyDataCoin[9].currentPrice * 0.31,
     // 낮은 확률로 출력될 값
     lowRateMax: dummyDataCoin[9].currentPrice * 2,
-    lowRateMin: dummyDataCoin[9].currentPrice * 0.4
+    lowRateMin: dummyDataCoin[9].currentPrice * 0.41
   },
   {
     name: '바이럴코인',
