@@ -425,7 +425,7 @@ console.log(tempUser);
 
 // console.log(Object.keys(peterCoin));
 
-window.localStorage.setItem("link", JSON.stringify(peter));
+// window.localStorage.setItem("link", JSON.stringify(peter));
 
 // console.log(dummyDataUser[0]);
 
