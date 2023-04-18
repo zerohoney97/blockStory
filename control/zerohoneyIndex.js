@@ -2,12 +2,17 @@
 let tempCurrentPrice = 1000;
 let tradingVolume = 8;
 //임시 데이터인 이재용을 가져와 nowLogin 변경
-localStorage.setItem(
-  "nowLogin",
-  JSON.stringify(JSON.parse(localStorage.getItem("userInformation"))[21])
-);
+setLocalStorage('nowLogin',getLocalStorage('userInformation',22));
+
+
+// localStorage.setItem(
+//   "nowLogin",
+//   JSON.stringify(JSON.parse(localStorage.getItem("userInformation"))[21])
+// );
+
+
 // nowLogin을 가져온다. 실제 페이지에선 실제 데이터를 가져오지만, 현재는 임시데이터를 가져오게 된다.
-let loginUser = JSON.parse(localStorage.getItem("nowLogin"));
+let loginUser = getLocalStorage('nowLogin');
 
 // 유저가 거래했다는 임의의 코인 실제 코인도 이와 똑같은 형식으로 정의돼야 작동된다.
 let tradeCoin = new Coin(SZC, 5, loginUser.id);
@@ -78,7 +83,8 @@ const calculateBuy = (userId, userAccount, tradeCoinReal) => {
     }
   );
   //   최종 수정된 newUserData가 들어오게 된다.
-  localStorage.setItem("userInformation", JSON.stringify(newUserData));
+  setLocalStorage('userInformation',newUserData);
+  // localStorage.setItem("userInformation", JSON.stringify(newUserData));
 
   console.log(newUserData);
 };
@@ -120,8 +126,9 @@ const calculateSell = (userId, userAccount, tradeCoinReal) => {
     }
   );
   //   최종 수정된 newUserData가 들어오게 된다.
-  localStorage.setItem("userInformation", JSON.stringify(newUserData));
+  setLocalStorage('userInformation',newUserData);
+  // localStorage.setItem("userInformation", JSON.stringify(newUserData));
 
   console.log(newUserData);
 };
-// calculateSell(id, account);
+calculateBuy(id, account);
