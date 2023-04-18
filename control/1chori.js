@@ -11,7 +11,7 @@ function YaxisRange(coin) {
     const lowRateMin = coin.lowRateMin;
     const lowRateMax = coin.lowRateMax;
     let randomPrice = Math.floor(Math.random() * (max - min + 1) + min);
-    console.log(min, max, lowRateMin, lowRateMax);
+    // console.log(min, max, lowRateMin, lowRateMax);
 
     // 특정 범위의 값 10%확률로 출력
     const tenPercent = Math.random();

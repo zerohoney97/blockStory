@@ -299,18 +299,18 @@ let coinPriceRange = [
   },
   {
     name: '떡상코인',
-    max: dummyDataCoin[2].currentPrice * 3.5,
-    min: dummyDataCoin[2].currentPrice * 0.3,
+    max: dummyDataCoin[2].currentPrice * 25,
+    min: dummyDataCoin[2].currentPrice * 0.2,
     // 낮은 확률로 출력될 값
-    lowRateMax: dummyDataCoin[2].currentPrice * 2,
-    lowRateMin: dummyDataCoin[2].currentPrice * 0.4
+    lowRateMax: dummyDataCoin[2].currentPrice * 3,
+    lowRateMin: dummyDataCoin[2].currentPrice * 0.6
   },
   {
     name: '한강코인',
-    max: dummyDataCoin[3].currentPrice * 3.5,
-    min: dummyDataCoin[3].currentPrice * 0.3,
+    max: dummyDataCoin[3].currentPrice * 7,
+    min: dummyDataCoin[3].currentPrice * 0.2,
     // 낮은 확률로 출력될 값
-    lowRateMax: dummyDataCoin[3].currentPrice * 2,
+    lowRateMax: dummyDataCoin[3].currentPrice * 5,
     lowRateMin: dummyDataCoin[3].currentPrice * 0.4
   },
   {
@@ -323,8 +323,8 @@ let coinPriceRange = [
   },
   {
     name: '페페코인',
-    max: dummyDataCoin[5].currentPrice * 3.5,
-    min: dummyDataCoin[5].currentPrice * 0.3,
+    max: dummyDataCoin[5].currentPrice * 6,
+    min: dummyDataCoin[5].currentPrice * 0.7,
     // 낮은 확률로 출력될 값
     lowRateMax: dummyDataCoin[5].currentPrice * 2,
     lowRateMin: dummyDataCoin[5].currentPrice * 0.4
