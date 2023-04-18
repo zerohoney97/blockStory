@@ -1,4 +1,5 @@
 
+// ----------------------------------------------------닉네임 변경---------------------------------------------------
 
 let nickName = document.querySelector('.accessInfo span');
 let changNicBtn = document.querySelector('.changeNic');
@@ -16,6 +17,8 @@ function popup() {
 closeBtn.addEventListener('click', () => {
     document.body.classList.remove('active');
     nickPopup.classList.remove('active');
+    document.querySelector('.inputNic').value = '';
+    document.querySelector('.cautionText').innerHTML = '';
 })
 
 // 닉네임 변경 진행하는 함수
@@ -29,12 +32,17 @@ subBtn.onclick = function () {
     let inputNic = document.querySelector('.inputNic').value;
 
     if (!isNickname(inputNic)) {
-        document.querySelector('.cautionText').innerHTML = '닉네임 형식이 올바르지 않습니다.<br>(최소 2자 최대 12자 및 특수문자/띄어쓰기 불가)';
+        document.querySelector('.cautionText').innerHTML = '닉네임 형식이 올바르지 않습니다.';
+        document.querySelector('.cautionText').style.color = 'red';
     } else {
         document.body.classList.remove('active');
         nickPopup.classList.remove('active');
         nickName.innerHTML = inputNic;
         localStorage.setItem('nickname', inputNic);
+
+        // 팝업창 닫았을 때, 모든 값 초기화
+        document.querySelector('.inputNic').value = '';
+        document.querySelector('.cautionText').innerHTML = '';
     }
 }
 
@@ -43,29 +51,13 @@ if (storageNic) {
     nickName.innerHTML = storageNic;
 }
 
-//------------Peter User test----------------
 
-let totalMoney = document.querySelector('.moneyNum');
-let accountNum = document.querySelectorAll('.thisBank');
-let Peter = JSON.parse(localStorage.getItem('link'));
 
-accountNum.forEach(function (element) {
-    element.innerHTML = Peter.accountNumber;
-});
-// console.log(accountNum);
-console.log(Peter);
-console.log(Peter.name);
-console.log(Peter.coin.gyunil.name);
-
-if (Peter) {
-    nickName.innerHTML = Peter.name;
-    totalMoney.innerHTML = Peter.account;
-}
-
-//--------------------------------
+// ---------------------------------------------- 계좌 관리 ---------------------------------------------------------
 
 let accountPopup = document.querySelector('.bankAccount');
 let closeAccount = document.querySelector('.close_account');
+let parentContainer = document.querySelector('.container');
 let coins = JSON.parse(localStorage.getItem('coinInformation'));
 
 
@@ -88,6 +80,40 @@ closeAccount.addEventListener('click', () => {
 
 // 코인 검색 기능
 
+const findCoin = document.querySelector('.findCoin');
+const searchButton = document.querySelector('.searchCoinBtn');
+
+function searchCoin(query) {
+    const lists = parentContainer.querySelectorAll('.list-descrip');
+    lists.forEach((list) => {
+        const nameElement = list.querySelector('.name');
+        const isKoreanConsonant = /^[ㄱ-ㅎ]$/;
+
+        if (isKoreanConsonant.test(query)) {
+            // 검색어가 한글 자음인 경우
+            const regExp = new RegExp('[' + query + ']', 'gi');
+            if (regExp.test(nameElement.textContent)) {
+                list.style.display = 'flex';
+            } else {
+                list.style.display = 'none';
+            }
+        } else {
+            // 검색어가 일반 텍스트인 경우
+            if (nameElement.textContent.toLowerCase().includes(query.toLowerCase())) {
+                list.style.display = 'flex';
+            } else {
+                list.style.display = 'none';
+            }
+        }
+    });
+}
+
+function handleSearch() {
+    const query = findCoin.value;
+    searchCoin(query);
+}
+
+findCoin.addEventListener('input', handleSearch);
 
 
 
@@ -95,36 +121,84 @@ closeAccount.addEventListener('click', () => {
 
 
 // 계좌관리 내 코인별 보유자산
-
+let myCoin = document.querySelector('.myCoin');
 function renderCoinList() {
-    let parentContainer = document.querySelector('.container');
-
     coins.forEach((coin) => {
         let ul = document.createElement('ul');
-        let nameList = document.createElement('li')
-        let percentList = document.createElement('li')
-        let haveNumList = document.createElement('li')
+        let nameList = document.createElement('li');
+        let percentList = document.createElement('li');
+        let haveNumList = document.createElement('li');
+        let iHaveCoin = document.createElement('strong');
+        let coinToKrw = document.createElement('p');
+        let myCoinUnit = document.createElement('span');
+        let haveCoinUnit = document.createElement('div');
         ul.classList.add('list-descrip');
         nameList.classList.add('name');
         percentList.classList.add('percent');
         haveNumList.classList.add('haveNum');
+        haveCoinUnit.classList.add('haveCoinUnit');
+
+        parentContainer.appendChild(ul);
+        ul.append(nameList, percentList, haveNumList);
+        haveNumList.append(haveCoinUnit);
+        haveCoinUnit.append(iHaveCoin, myCoinUnit);
+        haveNumList.append(coinToKrw);
+        iHaveCoin.append(document.createTextNode('0 '));
+
+        coinToKrw.style.fontSize = '14px';
+        haveNumList.style.display = 'flex';
+        haveNumList.style.flexDirection = 'column';
+        haveNumList.style.alignItems = 'flex-end';
+        myCoinUnit.style.fontWeight = 'bold';
 
         nameList.innerHTML = coin.name;
-        ul.append(nameList, percentList, haveNumList);
-        parentContainer.appendChild(ul);
+        percentList.innerHTML = '0.00%';
+        myCoinUnit.innerHTML = ` ${coin.symbol}`;
+        coinToKrw.innerHTML = `${coin.currentPrice} KRW`;
 
+        // peter가 보유한 코인에만 수량을 나타내는 함수
+        for (const key in peter.coin) {
+            if (peter.coin[key].symbol === coin.symbol) {
+                iHaveCoin.innerHTML = peter.coin[key].quantity;
+                myCoin.innerHTML = peter.coin[key].quantity;
+                break;
+            }
+        }
     })
 }
 renderCoinList();
+
+
+
+//------------Peter User test----------------
+
+let totalMoney = document.querySelector('.moneyNum');
+let accountNum = document.querySelectorAll('.thisBank');
+
+let myMoney = document.querySelector('.myMoney');
+let listDescrip = document.querySelectorAll('.list-descrip');
+let coinQuantity = document.querySelector('.list-descrip .haveNum');
+let Peter = JSON.parse(localStorage.getItem('link'));
+
+accountNum.forEach(function (element) {
+    element.innerHTML = Peter.accountNumber;
+});
+
+if (Peter) {
+    nickName.innerHTML = Peter.name;
+    totalMoney.innerHTML = Peter.account;
+    myMoney.innerHTML = Peter.account;
+    // myCoin.innerHTML = Peter.coin.gyunil.quantity;
+    // coinQuantity.innerHTML = coins[i].currentPrice;
+}
+
+//-------------------------------------------
 
 
 // 계좌관리 내 코인소유량 표시
 
 let coinName = document.querySelector('.list-descrip .name');
 let coinPercentage = document.querySelector('.list-descrip .percent');
-let coinQuantity = document.querySelector('.list-descrip .haveNum');
-let listDescrip = document.querySelectorAll('.list-descrip');
-
 
 listDescrip.forEach((a, i) => {
     listDescrip[0].style.backgroundColor = 'rgb(241, 236, 236)';
@@ -137,15 +211,19 @@ listDescrip.forEach((a, i) => {
             }
         });
 
+        // 코인을 선택했을 때, 해당 코인 심볼로 바뀌는 함수
         listDescrip[i].style.backgroundColor = 'rgb(241, 236, 236)';
         document.querySelector('.tradeName span').innerHTML = coins[i].symbol;
-        document.querySelector('.haveCoin span').innerHTML = coins[i].symbol;
+        document.querySelector('.haveCoin .coinUnit').innerHTML = coins[i].symbol;
         document.querySelector('.tradeContent span').innerHTML = coins[i].symbol;
         document.querySelector('.inputMoney span').innerHTML = coins[i].symbol;
         document.querySelector('.out-money span').innerHTML = coins[i].symbol;
 
     })
 })
+console.log(coins);
+console.log(coins[1].symbol);
+
 
 
 
@@ -212,6 +290,57 @@ historyTab.onclick = function () {
 };
 
 
+// 로컬스토리지에 저장된 입출금내역 불러오는 테스트
+
+// const dummyDataAccount = [
+//     {
+//         name: '입금',
+//         price: '1,000,000 KRW',
+//         state: '입금완료',
+//         date: '2023.04.13 10:02'
+//     },
+//     {
+//         name: '출금',
+//         price: '50,000 KRW',
+//         state: '출금완료',
+//         date: '2023.04.13 10:30'
+//     }
+// ];
+
+// localStorage.setItem('userAccountInformation', JSON.stringify(dummyDataAccount));
+
+// let historyList = document.querySelectorAll('.history-tab ul');
+// let accounts = JSON.parse(localStorage.getItem('userAccountInformation'));
+
+// accounts.forEach((account, index) => {
+//     if (historyList[index]) {
+//         historyList[index].querySelector('.Name').innerHTML = account.name;
+//         historyList[index].querySelector('.Money').innerHTML = account.price;
+//         historyList[index].querySelector('.state').innerHTML = account.state;
+//         historyList[index].querySelector('.Date').innerHTML = account.date;
+
+//     }
+// })
+
+
+// 유저 입출금내역 저장
+
+// function addList() {
+//     let value = window.localStorage.getItem('입출금내역');
+//     let depositBtn = document.querySelector('.applyInput');
+//     let withdrawBtn = document.querySelector('.applyout');
+//     let depositInput = document.querySelector('.inputMoney input');
+//     let withdrawInput = document.querySelector('.out-money-num');
+//     let historyList = document.querySelector('.history-tab ul');
+//     console.log(depositInput, withdrawInput, historyList);
+
+//     if (window.localStorage.length == 0) {
+//         window.localStorage.setItem('입출금내역', `{'name' : '입금', 'money : `)
+//     } else {
+
+//     }
+// }
+// addList();
 
 
 
@@ -225,10 +354,15 @@ const withdrawButton = document.querySelector('.applyout');
 const historyList = document.querySelector('.history-tab');
 
 
+
+
 // 입출금 입력창에 숫자만 입력 가능하도록 하는 함수
 
 function nonNum(event) {
-    if (event.which < 48 || event.which > 57) {
+    const charCode = event.which;
+    const char = String.fromCharCode(charCode);
+
+    if (!/^[0-9.]+$/.test(char) || (char === '.' && event.target.value.indexOf('.') !== -1)) {
         event.preventDefault();
     }
 }
@@ -240,6 +374,13 @@ withdrawInput.addEventListener('keypress', nonNum);
 
 // 입출금 신청시 입출금 내역에 저장되는 함수
 
+function loadFromLocalStorage(key, defaultValue) {
+    const storedValue = localStorage.getItem(key);
+    return storedValue === null ? defaultValue : parseFloat(storedValue);
+}
+
+totalMoney.textContent = loadFromLocalStorage('totalMoney', 0);
+myMoney.textContent = loadFromLocalStorage('myMoney', 0);
 
 function getCurrentTime() {
     const now = new Date();
@@ -256,7 +397,7 @@ function getCurrentTime() {
 }
 
 
-function addToHistory(name, money, state) {
+function addToHistory(name, money, state, timestamp, saveToLocalStorage = false) {
     const ul = document.createElement('ul');
     const nameList = document.createElement('li');
     const moneyList = document.createElement('li');
@@ -269,35 +410,69 @@ function addToHistory(name, money, state) {
     nameList.textContent = name;
     moneyList.textContent = money;
     stateList.textContent = state;
-    dateList.textContent = getCurrentTime();
+    dateList.textContent = timestamp;
 
     ul.append(nameList, moneyList, stateList, dateList);
     historyList.appendChild(ul);
 
+    // '출금'이라는 텍스트에 빨강색을 입히기 위해 추가한 코드
     if (name === '출금') {
         nameList.classList.add('withdraw-text');
     }
-
-    const newEntry = { name, money, state, date: getCurrentTime() };
-    let history = JSON.parse(localStorage.getItem('history')) || [];
-    history.push(newEntry);
-    localStorage.setItem('history', JSON.stringify(history));
+    // window.localStorage.clear();
+    if (saveToLocalStorage) {
+        const newEntry = { name, money, state, date: getCurrentTime() };
+        let history = JSON.parse(localStorage.getItem('history')) || [];
+        history.push(newEntry);
+        localStorage.setItem('history', JSON.stringify(history));
+    }
 }
 
+
+// '입금신청' 버튼 이벤트
 depositButton.addEventListener('click', () => {
-    const amount = depositInput.value;
-    addToHistory('입금', amount, '입금완료');
+    const amount = parseFloat(depositInput.value);
+    const timestamp = getCurrentTime();
+    addToHistory('입금', amount, '입금완료', timestamp, true);
+
+    if (isNaN(amount)) {
+        alert('입금 금액을 입력하세요');
+        return;
+    }
+
+    const currentTotal = parseFloat(totalMoney.textContent);
+    const currentMyMoney = parseFloat(myMoney.textContent);
+    totalMoney.textContent = (currentTotal + amount);
+    myMoney.textContent = (currentMyMoney + amount);
+    localStorage.setItem('totalMoney', totalMoney.textContent);
+    localStorage.setItem('myMoney', myMoney.textContent);
 });
 
+// '출금신청' 버튼 이벤트
 withdrawButton.addEventListener('click', () => {
-    const amount = withdrawInput.value;
-    addToHistory('출금', amount, '출금완료');
+    const amount = parseFloat(withdrawInput.value);
+    const timestamp = getCurrentTime();
+    addToHistory('출금', amount, '출금완료', timestamp, true);
+
+    if (isNaN(amount)) {
+        alert('출금 금액을 입력하세요');
+        return;
+    }
+
+    const currentTotal = parseFloat(totalMoney.textContent);
+    const currentMyMoney = parseFloat(myMoney.textContent);
+    totalMoney.textContent = (currentTotal - amount);
+    myMoney.textContent = (currentMyMoney - amount);
+    localStorage.setItem('totalMoney', totalMoney.textContent);
+    localStorage.setItem('myMoney', myMoney.textContent);
 });
+
 
 function loadHistory() {
     const history = JSON.parse(localStorage.getItem('history')) || [];
+    historyList.innerHTML = '';
     history.forEach((entry) => {
-        addToHistory(entry.name, entry.money, entry.state);
+        addToHistory(entry.name, entry.money, entry.state, entry.date);
     });
 }
 

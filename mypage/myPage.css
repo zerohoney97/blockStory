@@ -327,6 +327,7 @@ body.active::before{
 
 .searchCoin{
     position: relative;
+    height: 50px;
 }
 
 .searchCoin .findCoin{
@@ -347,8 +348,12 @@ body.active::before{
 }
 
 .accountList{
+    height: 85%;
+}
+
+.container{
     overflow-y: scroll;
-    height: 86%;
+    height: 664px;
 }
 
 .list-title{
@@ -393,7 +398,7 @@ body.active::before{
 .list-descrip .haveNum{
     border: none;
     border-bottom: 1px solid rgb(214, 214, 214);
-    font-weight: bold;
+    padding-right: 20px;;
 }
 
 .list-descrip{
@@ -432,11 +437,6 @@ body.active::before{
 
 .change-to-won{
     font-size: 14px;
-    font-weight: 100;
-}
-
-.haveMoney span{
-    font-size: 12px;
     font-weight: 100;
 }
 
