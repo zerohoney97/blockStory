@@ -131,4 +131,5 @@ const calculateSell = (userId, userAccount, tradeCoinReal) => {
 
   console.log(newUserData);
 };
-calculateBuy(id, account);
+calculateSell(id, account);
+checkLoginUSer()
