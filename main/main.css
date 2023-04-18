@@ -299,6 +299,7 @@ position: relative;
     display: block;
     float: right;
     position: relative;
+    right: 15px;
 }
 .popup-wrap .popup .popup-btn::after,
 .popup-wrap .popup .popup-btn::before{
