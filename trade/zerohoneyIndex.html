@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./zerohoneyIndex.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="left-container">
+        <div class="chart"></div>
+        <div class="board-trade-conatainer">
+          <div class="board"></div>
+          <div class="sell-buy">
+            <ul>
+              <li>매수</li>
+              <li>매도</li>
+              <li>간편주문</li>
+              <li>거래내역</li>
+            </ul>
+            <hr />
+            <div class="buy-container">
+              <div class="order-type-container">
+                <span style="margin-right: 80px">주문 구분</span>
+                <input type="radio" id="fixPrice" name="price-check" />
+                <label for="fixPrice">지정가</label>
+                <input type="radio" id="marketPrice" name="price-check" />
+                <label for="marketPrice">시장가</label>
+                <input type="radio" id="reservePrice" name="price-check" />
+                <label for="reservePrice">예약-지정가</label>
+              </div>
+              <div class="order-possible-container">
+                <span>주문 가능</span>
+                <span>0 <span>krw</span></span>
+              </div>
+              <div class="buy-price-container">
+                <span>매수 가격</span>
+                <input type="text" />
+                <span class="control-price">-</span>
+                <span class="control-price">+</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right-container"></div>
+    </div>
+  </body>
+  <script src="../allData.js"></script>
+  <script src="../util.js"></script>
+  <script src="./zerohoneyIndex.js"></script>
+</html>

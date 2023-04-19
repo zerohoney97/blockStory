@@ -1,0 +1,104 @@
+.main-container {
+  width: 1400px;
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+}
+.left-container {
+  width: 70%;
+  height: max-content;
+  border: 1px solid;
+  box-sizing: border-box;
+}
+.chart {
+  width: 100%;
+  height: 630px;
+  border: 1px solid;
+  height: 630px;
+}
+.right-container {
+  width: 30%;
+  box-sizing: border-box;
+  border: 1px solid;
+}
+.board-trade-conatainer {
+  width: 100%;
+  height: 800px;
+  display: flex;
+
+  position: relative;
+}
+.board {
+  width: 50%;
+  height: 800px;
+  border: 1px solid red;
+}
+.sell-buy {
+  width: 50%;
+  height: 800px;
+  border: 1px solid red;
+  position: relative;
+}
+
+/* zerohoney part */
+
+.sell-buy ul {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  position: absolute;
+  top: -15px;
+}
+
+.sell-buy ul li {
+  width: 25%;
+  height: 45px;
+  text-align: center;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sell-buy hr {
+  width: 100%;
+  position: absolute;
+  border: 1px solid silver;
+  top: 45px;
+}
+
+.buy-container {
+  position: absolute;
+  width: 100%;
+  height: 755px;
+  top: 45px;
+  padding: 20px;
+}
+.order-type-container,
+.order-possible-container,
+.buy-price-container {
+  height: 45px;
+}
+.order-possible-container {
+  position: relative;
+}
+
+.order-possible-container span:nth-child(2) {
+  position: absolute;
+  right: 40px;
+}
+
+.buy-price-container span {
+  margin-right: 70px;
+}
+.buy-price-container input {
+    width: 250px;
+    height: 30px;
+}
+
+.buy-price-container .control-price{
+width: 38px;
+height: 38px;
+border: 1px solid #dfe0e5;
+}
