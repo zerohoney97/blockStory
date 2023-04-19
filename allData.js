@@ -209,14 +209,7 @@ const dummyDataUser = [
     email: "owner@never.com",
     password: "q1w2e3R$",
     isAdmin: true,
-  },
-  {
-    id: 21,
-    name: "gwanrisa",
-    email: "owner@never.com",
-    password: "q1w2e3R$",
-    isAdmin: true,
-  },
+  }
 ];
 
 let dummyDataCoin = [
@@ -421,7 +414,7 @@ let tempUser = new User(
   2000000000
 );
 
-console.log(tempUser);
+// console.log(tempUser);
 
 // console.log(Object.keys(peterCoin));
 

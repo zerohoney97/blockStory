@@ -46,7 +46,11 @@ function printRandomValue(startPrice) {
         elapsed += interval;
         if (elapsed >= duration) {
             clearInterval(timer);
+            const minValue = Math.min(...randomPrices);
+            const maxValue = Math.max(...randomPrices);
+            const minMaxArray = [minValue, maxValue];
             console.log("All Random Prices: ", randomPrices); // 5초가 지난 후 모든 랜덤 가격 출력
+            console.log("Lowest and Highest Prices: ", minMaxArray);
             printRandomValue(randomPrices[randomPrices.length - 1]); // 마지막 랜덤 가격을 시작 가격으로 사용하여 함수를 다시 실행
         }
     }, interval);
