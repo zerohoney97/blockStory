@@ -1,3 +1,7 @@
+a{
+    text-decoration: none;
+}
+
 .main-container {
   width: 1400px;
   position: relative;
@@ -60,12 +64,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .sell-buy hr {
   width: 100%;
   position: absolute;
   border: 1px solid silver;
-  top: 45px;
+  top: 38px;
+  z-index: -1;
 }
 
 .buy-container {
@@ -73,11 +79,16 @@
   width: 100%;
   height: 755px;
   top: 45px;
-  padding: 20px;
+  padding: 14px;
+  margin-top: 40px;
 }
 .order-type-container,
 .order-possible-container,
-.buy-price-container {
+.buy-price-container,
+.buy-steem-container,
+.percent-container,
+.all-price-container,
+.btn-container {
   height: 45px;
 }
 .order-possible-container {
@@ -89,16 +100,93 @@
   right: 40px;
 }
 
-.buy-price-container span {
-  margin-right: 70px;
+.buy-price-container > span:nth-child(1) {
+  width: 110px;
+  display: inline-block;
 }
 .buy-price-container input {
-    width: 250px;
-    height: 30px;
+  width: 250px;
+  height: 33px;
+  border: 1px solid #dfe0e5;
 }
 
-.buy-price-container .control-price{
-width: 38px;
-height: 38px;
-border: 1px solid #dfe0e5;
+.buy-price-container .control-price {
+  width: 38px;
+  height: 35px;
+  border: 1px solid #dfe0e5;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: -5px;
+  position: relative;
+}
+
+.buy-price-container .control-price span {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(212, 214, 220);
+}
+.buy-steem-container input {
+  width: 330px;
+  height: 33px;
+  border: 1px solid #dfe0e5;
+}
+
+.buy-steem-container > span:nth-child(1) {
+  width: 110px;
+  display: inline-block;
+}
+
+.percent-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.percent-container span {
+  width: 45px;
+  height: 25px;
+  border: 1px solid #dfe0e5;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.all-price-container input {
+  width: 330px;
+  height: 33px;
+  border: 1px solid #dfe0e5;
+}
+
+.all-price-container > span:nth-child(1) {
+  width: 110px;
+  display: inline-block;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.signup-btn {
+  width: 95px;
+  height: 44px;
+  background-color: #0c3887;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signin-btn {
+  width: 300px;
+  height: 44px;
+  background-color: #1261c4;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
