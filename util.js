@@ -15,7 +15,7 @@ const getLocalStorage = (localStorageName,index) => {
       throw new Error("로컬 스토레이지가 비었습니다!");
     }
   } catch (error) {
-    alert(error);
+    console.log(error);
   }
 };
 

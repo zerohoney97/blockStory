@@ -14,7 +14,7 @@ let popupCookie = getCookie("popup");
 //popup 쿠키 만들기
 checkBox.addEventListener('change', function() {
   if (this.checked) {
-    setCookie("popup",true,864000)
+    setCookie("popup",true,86400)
     console.log('Checkbox is checked!');
   } else {
     console.log('Checkbox is unchecked!');
@@ -36,7 +36,7 @@ if(popupCookie ==undefined)
 {
   popupOpen();
 }else{
-  console.log('쿠키 없지롱')
+  console.log('팝업 삭제')
 }
 function getCookie(c_name)
 {
