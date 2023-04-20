@@ -118,30 +118,43 @@ bookmarkTab.onclick = function () {
 
 function coinWonList() {
     const viewCoin = coins.slice(1); // coins의 첫번째 요소 제거
-    viewCoin.forEach((coin) => {
+    viewCoin.forEach((coin, index) => {
         let wonTab = document.querySelector('.won-tab');
         let coinList = document.createElement('div');
         let bookmark = document.createElement('div');
         let language = document.createElement('div');
-        let Price = document.createElement('div');
+        let price = document.createElement('div');
         let ratio = document.createElement('div');
+        let nameGroup = document.createElement('div');
+        let coinName = document.createElement('p');
+        let wonCoinUnit = document.createElement('span');
+        let priceGroup = document.createElement('p');
+        let won = document.createElement('p');
         let img = document.createElement('img');
         coinList.classList.add('coinList');
         bookmark.classList.add('star');
         language.classList.add('language');
-        Price.classList.add('currentPrice');
+        nameGroup.classList.add('nameGroup');
+        price.classList.add('currentPrice');
+        priceGroup.classList.add('priceGroup');
         ratio.classList.add('ratio');
         img.src = "./grayStar.png";
 
         wonTab.append(coinList);
-        coinList.append(bookmark, language, Price, ratio);
+        coinList.append(bookmark, language, price, ratio);
+        language.append(nameGroup);
+        nameGroup.append(coinName, wonCoinUnit);
         bookmark.appendChild(img);
+        price.append(priceGroup);
+        priceGroup.append(won);
 
-        language.innerHTML = coin.name;
-        Price.innerHTML = coin.currentPrice;
+
+        coinName.innerHTML = coin.name;
+        wonCoinUnit.innerHTML = `${coin.symbol}/KRW`;
+        won.innerHTML = coin.currentPrice;
 
         img.addEventListener('click', clickedImg);
-
+        coinList.setAttribute('data-id', index);
     });
 }
 
@@ -157,22 +170,37 @@ function coinUSDList() {
         let coinList = document.createElement('div');
         let bookmark = document.createElement('div');
         let language = document.createElement('div');
-        let Price = document.createElement('div');
+        let price = document.createElement('div');
         let ratio = document.createElement('div');
+        let nameGroup = document.createElement('div');
+        let coinName = document.createElement('p');
+        let dollarCoinUnit = document.createElement('span');
+        let priceGroup = document.createElement('p');
+        let dollar = document.createElement('p');
+        let won = document.createElement('span');
         let img = document.createElement('img');
         coinList.classList.add('coinList');
         bookmark.classList.add('star');
         language.classList.add('language');
-        Price.classList.add('currentPrice');
+        nameGroup.classList.add('nameGroup');
+        price.classList.add('currentPrice');
+        priceGroup.classList.add('priceGroup');
         ratio.classList.add('ratio');
         img.src = "./grayStar.png";
 
         dollarTab.append(coinList);
-        coinList.append(bookmark, language, Price, ratio);
+        coinList.append(bookmark, language, price, ratio);
+        language.append(nameGroup);
+        nameGroup.append(coinName, dollarCoinUnit);
         bookmark.appendChild(img);
+        price.append(priceGroup);
+        priceGroup.append(dollar, won);
 
-        language.innerHTML = coin.name;
-        Price.innerHTML = (coin.currentPrice / 1320).toFixed(3);
+        coinName.innerHTML = coin.name;
+        dollarCoinUnit.innerHTML = `${coin.symbol}/USDT`;
+        dollar.innerHTML = (coin.currentPrice / 1320).toFixed(3);
+        won.innerHTML = `${coin.currentPrice} KRW`
+
 
         img.addEventListener('click', clickedImg);
         coinList.setAttribute('data-id', index);
@@ -187,19 +215,25 @@ coinUSDList();
 function clickedImg(event) {
     const img = event.target;
     const coinList = img.closest('.coinList');
-    const pTag = document.querySelector('.bookmark-tab p');
+    const pTag = document.querySelector('.noBookmark');
     const listId = coinList.getAttribute('data-id');
+    console.log(img, coinList, pTag, listId);
 
     if (img.src.endsWith("grayStar.png")) {
         img.src = "./yellowStar.png";
 
-        // Hide the p tag
+        // Hide the p tag when a bookmark is added
         pTag.style.display = 'none';
 
         // Clone the list element and append it to the bookmark box
         const clonedList = coinList.cloneNode(true);
         clonedList.setAttribute('data-id', listId);
         bookmarkBox.appendChild(clonedList);
+
+        // Update the cloned list's star image event listener
+        const clonedImg = clonedList.querySelector('img');
+        clonedImg.addEventListener('click', clickedImg);
+
     } else {
         img.src = "./grayStar.png";
 
@@ -228,35 +262,36 @@ function clickedImg(event) {
 
 
 
+
 // 즐겨찾기 탭 ----- 미완성
 
-function bookmarkList(name, currentPrice, listId) {
-    let bookmarkTab = document.querySelector('.bookmark-tab');
-    let coinList = document.createElement('div');
-    let bookmark = document.createElement('div');
-    let language = document.createElement('div');
-    let Price = document.createElement('div');
-    let ratio = document.createElement('div');
-    let img = document.createElement('img');
-    coinList.classList.add('coinList');
-    bookmark.classList.add('star');
-    language.classList.add('language');
-    Price.classList.add('currentPrice');
-    ratio.classList.add('ratio');
+// function bookmarkList(name, currentPrice, listId) {
+//     let bookmarkTab = document.querySelector('.bookmark-tab');
+//     let coinList = document.createElement('div');
+//     let bookmark = document.createElement('div');
+//     let language = document.createElement('div');
+//     let price = document.createElement('div');
+//     let ratio = document.createElement('div');
+//     let img = document.createElement('img');
+//     coinList.classList.add('coinList');
+//     bookmark.classList.add('star');
+//     language.classList.add('language');
+//     price.classList.add('currentPrice');
+//     ratio.classList.add('ratio');
 
-    language.textContent = name;
-    Price.textContent = currentPrice;
+//     language.textContent = name;
+//     price.textContent = currentPrice;
 
-    coinList.setAttribute('data-id', listId);
+//     coinList.setAttribute('data-id', listId);
 
-    bookmarkTab.append(coinList);
-    coinList.append(bookmark, language, Price, ratio);
-    bookmark.appendChild(img);
+//     bookmarkTab.append(coinList);
+//     coinList.append(bookmark, language, price, ratio);
+//     bookmark.appendChild(img);
 
-    img.addEventListener('click', clickedImg);
-}
+//     img.addEventListener('click', clickedImg);
+// }
 
-bookmarkList()
+// bookmarkList()
 
 
 

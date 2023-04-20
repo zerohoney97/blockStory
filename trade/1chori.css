@@ -22,7 +22,7 @@
     position: relative;
 }
 
-.chart{
+#chart{
     border: 1px solid;
     width: 70%;
     height: 500px;
@@ -126,8 +126,8 @@
 
 /* --------------------------코인 리스트--------------------------------- */
 
-.have-tab p,
-.bookmark-tab p{
+.noCoin,
+.noBookmark{
     height: 1000px;
     text-align: center;
     line-height: 20;
@@ -144,21 +144,58 @@
     font-size: 14px;
 }
 
-.star, .language, .currentPrice, .ratio{
-    line-height: 3.5;
+.ratio{
+    line-height: 2.5;
 }
 
+.star{
+    line-height: 3.5;
+} 
 
 .star img{
     width: 20px;
     height: 15px;
     color: gray;
+    cursor: pointer;
 }
 
-.coinList .language{
+.language{
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.currentPrice{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.nameGroup{
+    display: flex;
+    flex-direction: column;
+}
+
+.nameGroup p{
     font-weight: bold;
     text-align: left;
-    
+}
+
+.priceGroup p{
+    font-weight: bold;
+    text-align: right;
+}
+
+.nameGroup span,
+.priceGroup span{
+    text-align: left;
+    font-size: 12px;
+    color: rgb(87, 87, 87);
+}
+
+.priceGroup span{
+    text-align: right;
 }
 
 footer{
