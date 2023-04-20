@@ -33,28 +33,66 @@
               </div>
               <div class="order-possible-container">
                 <span>주문 가능</span>
-                <span>0 <span class="currency-units ">krw</span></span>
+                <span class="account"
+                  >0 <span class="currency-units">krw</span></span
+                >
               </div>
               <div class="buy-price-container">
                 <span>매수 가격</span>
-                <input type="text" />
-                <span class="control-price"><span>-</span> </span>
-                <span class="control-price"><span>+</span></span>
+                <input
+                  type="text"
+                  placeholder="0"
+                  readonly
+                  onfocus="this.blur()"
+                  id="buyPrice"
+                />
+                <span class="control-price"
+                  ><span class="price-subtract">-</span>
+                </span>
+                <span class="control-price"
+                  ><span class="price-add">+</span></span
+                >
               </div>
               <div class="buy-steem-container">
                 <span>주문 수량</span>
-                <input type="text" />
+                <input
+                  type="text"
+                  placeholder="0"
+                  readonly
+                  onfocus="this.blur()"
+                  id="tradeVolume"
+                />
               </div>
               <div class="percent-container">
-                <span >10%</span>
-                <span >25%</span>
-                <span >50%</span>
-                <span >100%</span>
-                <span >직접입력</span>
+                <span value="10">10%</span>
+                <span value="25">25%</span>
+                <span value="50">50%</span>
+                <span value="100">100%</span>
+                <span class="self-input">직접입력</span>
+
+                <div class="self-input-bar">
+                  <input
+                    type="range"
+                    id="progress"
+                    name="progress"
+                    min="0"
+                    max="100"
+                    value="50"
+                    style="width: 300px"
+                  />
+                  <p class="self-input-percent">0%</p>
+                </div>
               </div>
               <div class="all-price-container">
                 <span>주문 총액</span>
-                <input type="text" />
+                <input
+                type="text"
+                placeholder="0"
+                readonly
+                onfocus="this.blur()"
+            
+                id="orderSum"
+              />
               </div>
               <div class="btn-container">
                 <a href="../signUp/signUp.html" class="signup-btn">회원가입</a>
