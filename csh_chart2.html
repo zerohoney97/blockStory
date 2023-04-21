@@ -51,43 +51,80 @@
     <script src="../allData.js"></script>
 
     <script>
+      // dummyDataCoin
       let coins = JSON.parse(localStorage.getItem("coinInformation"));
+      // coinPriceRange
       let priceRange = JSON.parse(localStorage.getItem("priceRangeInfo"));
 
       let randomPrice;
       let randomPrices;
+      let iff = 0;
+      let cp;
+      let num = 8; // 코인 클릭시 코인의 값 가져오기
+      let coinNumber = coins[num];
+
+      let max0 = priceRange[num].max;
+      // console.log(max0);
 
       function YaxisRange(coin) {
-        // const currentPrice = parseFloat(coin.currentPrice);
-        // 코인 가격 범위
-        const min = coin.min; // y축 최솟값
-        const max = coin.max; // y축 최댓값
-        const lowRateMin = coin.lowRateMin;
-        const lowRateMax = coin.lowRateMax;
-        let randomPrice = Math.floor(Math.random() * (max - min + 1) + min);
-        // console.log(min, max, lowRateMin, lowRateMax);
+        // coin ==  coinPriceRange[2]
+        // console.log(iff);
+        const min = coin.min; // y축 최솟값  12500
+        const max = coin.max; // y축 최댓값  100
+        // const lowRateMin = coin.lowRateMin; //1500
+        // const lowRateMax = coin.lowRateMax; //300
 
-        // 특정 범위의 값 10%확률로 출력
-        const tenPercent = Math.random();
-        if (tenPercent <= 0.1) {
-          // 10% 확률(필요시 확률 조정할 것)
-          const zeroTohundred = Math.random(); // 0에서 1 사이의 랜덤한 확률 값을 생성
-          if (Math.random() < zeroTohundred) {
-            randomPrice =
-              Math.floor(Math.random() * (lowRateMin - min + 1)) + min; // 특정 범위 이하의 값 생성
-          } else {
-            randomPrice =
-              Math.floor(Math.random() * (max - lowRateMax + 1)) + lowRateMax; // 특정 범위 이상의 값 생성
-          }
+        if (iff == 0) {
+          cp = Number(coins[num].currentPrice);
         } else {
-          // 90% 확률로 특정 범위 외의 값 생성
-          randomPrice =
-            Math.floor(Math.random() * (lowRateMax - lowRateMin + 1)) +
-            lowRateMin;
+          cp = iff;
         }
+
+        // let chance1 = Math.floor(Math.random() * (max - min + 1) + min);
+        // console.log("뜰수있는 모든 범위",chance1)
+
+        // 1부터 10까지의 랜덤 숫자
+        let ten_chance = Math.floor(Math.random() * 20 + 1);
+
+        if (ten_chance == 10) {
+          // 10%      500기준 min~200 and 10000~max
+          let two = Math.floor(Math.random() * 2 + 1);
+          if (two == 1) {
+            // randomPrice = min;
+
+            // min ~ 10% 까지의 값
+            randomPrice = Math.floor(Math.random() * (max * 0.1) + min);
+          } else {
+            // randomPrice = max;
+
+            // max ~ max밑의 10% 값
+            randomPrice = Math.floor(
+              Math.random() * (max * 0.1 + 1) + max * 0.9,
+            );
+          }
+          console.log("결과값: ", randomPrice);
+        } else {
+          // 90%      500기준 300 ~ 700
+          let half = cp / 2;
+          randomPrice = Math.floor(
+            Math.random() * (cp + half - (cp - half) + 1) + (cp - half),
+          );
+
+          if (randomPrice < min) {
+            randomPrice = min;
+          } else if (randomPrice > max) {
+            // randomPrice = max;
+            // max값보다 큰 값이 나와버리면 max밑20% ~ max 값까지 랜덤값 출력
+            randomPrice = Math.floor(
+              Math.random() * (max * 0.2 + 1) + max * 0.8,
+            );
+          }
+        }
+        iff = randomPrice;
 
         return randomPrice;
       }
+
       function printRandomValue(startPrice) {
         const interval = 1000; // 1초 간격
         const duration = 5000; // 5초 동안
@@ -96,7 +133,8 @@
         randomPrices = [startPrice]; // 랜덤 가격을 저장할 배열 생성
 
         const timer = setInterval(() => {
-          randomPrice = YaxisRange(coinPriceRange[2]);
+          randomPrice = YaxisRange(coinPriceRange[num]);
+          // randomPrice = YaxisRange(coinPriceRange[2]);
           randomPrices.push(randomPrice); // 생성된 랜덤 가격을 배열에 추가
           console.log("Random Price: ", randomPrice);
 
@@ -109,8 +147,6 @@
         }, interval);
       }
 
-      let num = 8; // 코인 클릭시 코인의 값 가져오기
-      let coinNumber = coins[num];
       printRandomValue(parseFloat(coinNumber.currentPrice));
 
       //----------------------------------------------------------------
@@ -201,7 +237,7 @@
         },
         yaxis: {
           min: 0,
-          max: 12000,
+          max: max0,
           // type: "string",
           // label: {
           //   format: "dd MMM yyyy",
@@ -277,8 +313,8 @@
             let average = element1 / randomPrices2.length;
             console.log("평균가: ", average);
             // 이 값을 나중에 매수할때 가져가기
+            // 무헌이꺼랑 합치기~~~~~~~~~~~~
 
-            // ★★★★★★★★★★★★★★
 
             console.log("고가", max1);
             console.log("저가", min1);
@@ -293,13 +329,13 @@
             chart.updateOptions(options);
             val++;
             // ★★★★★
-            if (val == 20) {
-              // 보여주고 싶은 차트의 개수만큼 숫자를 넣으면 됨
-              // ★★★★★
+            // if (val == 20) {
+            //   // 보여주고 싶은 차트의 개수만큼 숫자를 넣으면 됨
+            //   // ★★★★★
 
-              turn2(val);
-              return;
-            }
+            //   turn2(val);
+            //   return;
+            // }
             turn1(val);
             return;
           }
@@ -313,144 +349,8 @@
         turn1(val);
       }
 
-      // const intervalId2 = setInterval(() => {
-      //   // console.log("Random Price: ", randomPrice);
-      //   // console.log("내코드",randomPrice);
-      //   // console.log("\n");
-      //   let time = new Date();
-      //   let minutes = time.getMinutes();
-      //   let seconds = time.getSeconds();
-      //   options.series[0].data[1] = {
-      //     x: minutes + ":" + seconds,
-      //     y: [randomPrices[0], randomPrice, randomPrice, randomPrice],
-      //     // 시가 고가 저가 종가
-      //   };
-      //   chart.updateOptions(options);
-      // }, 6000);
-
-      // let time1 = 6000;
-
-      // const intervalId2 = setInterval(() => {
-      //   let time = new Date();
-      //   let minutes = time.getMinutes();
-      //   let seconds = time.getSeconds();
-      //   // let rn = Math.floor(Math.random() * 3 + 1) * 1000;
-      //   // console.log("내코드: ", randomPrice);
-
-      //   options.series[0].data[1] = {
-      //     x: minutes + ":" + seconds,
-      //     y: [1000, randomPrice, randomPrice, randomPrice],
-      //     // 시가 고가 저가 종가
-      //   };
-      //   chart.updateOptions(options);
-      //   // count 0부터 시작하니까 이 값에 x + 1가 x축 범위임
-      //   if (count == 4) {
-      //     clearInterval(intervalId2);
-      //     return;
-      //   }
-      //   count++;
-      // }, time1);
-
-      // let now1 = 6000;
-      // // count 4 라면 x축 5개니까, 5초흐른후 6000 넣어야함
-      // // count 10 이라면 now1 은 11000
-
-      // while(now1<100000){
-      // setTimeout(() => {
-      //   let time = new Date();
-      //   let minutes = time.getMinutes();
-      //   let seconds = time.getSeconds();
-      //   let rn = Math.floor(Math.random() * 3 + 1) * 1000;
-      //   // console.log(options.series[0].data);
-      //   // console.log(options.series[0].data[0]);
-
-      //   options.series[0].data.splice(0, 1);
-
-      //   // console.log(options.series[0].data);
-      //   // console.log(options.series[0].data[0]);
-
-      //   // options.series[0].data[0] = options.series[0].data[1];
-      //   options.series[0].data[4] = {
-      //     x: minutes + ":" + seconds,
-      //     y: [2000, 2200, 1800, rn],
-      //     // 시가 고가 저가 종가
-      //   };
-      //   chart.updateOptions(options);
-      // }, now1);
-
-      // now1 += 1000;
-      // }
-
       var chart = new ApexCharts(document.querySelector("#chart"), options);
       chart.render();
-
-      // -----------------------------------------------------------------------
-
-      /*
-      // 1번째 생김
-      setTimeout(() => {
-        let time = new Date();
-        let minutes = time.getMinutes();
-        let seconds = time.getSeconds();
-        let rn = Math.floor(Math.random() * 3 + 1) * 1000;
-        // options.series[0].data[0].splice(0, 1);
-        options.series[0].data[0] = {
-          x: minutes + ":" + seconds,
-          y: [1000, 1200, 800, rn],
-          // 시가 고가 저가 종가
-        };
-        chart.updateOptions(options);
-      }, 1000);
-
-      // 2번째 생김
-      setTimeout(() => {
-        let time = new Date();
-        let minutes = time.getMinutes();
-        let seconds = time.getSeconds();
-        let rn = Math.floor(Math.random() * 3 + 1) * 1000;
-        options.series[0].data[1] = {
-          x: minutes + ":" + seconds,
-          y: [1000, 1200, 800, rn],
-          // 시가 고가 저가 종가
-        };
-        chart.updateOptions(options);
-      }, 2000);
-
-      // 3
-      setTimeout(() => {
-        let time = new Date();
-        let minutes = time.getMinutes();
-        let seconds = time.getSeconds();
-        let rn = Math.floor(Math.random() * 3 + 1) * 1000;
-        options.series[0].data[2] = {
-          x: minutes + ":" + seconds,
-          y: [1000, 1200, 800, rn],
-          // 시가 고가 저가 종가
-        };
-        chart.updateOptions(options);
-      }, 3000);
-
-      // while (time9 < 5000) {
-      //   setTimeout(() => {
-      //     let time = new Date();
-      //     let minutes = time.getMinutes();
-      //     let seconds = time.getSeconds();
-      //     let rn = Math.floor(Math.random() * 3 + 1) * 1000;
-      //     options.series[0].data.splice(0, 1);
-      //     // console.log(options.series[0].data);
-
-      //     options.series[0].data[1] = {
-      //       x: minutes + ":" + seconds,
-      //       y: [4000, 3200, 800, rn],
-      //       // 시가 고가 저가 종가
-      //     };
-      //     chart.updateOptions(options);
-      //   }, 3000);
-      //   time9 += 1000;
-      // }
-      // var chart = new ApexCharts(document.querySelector("#chart"), options);
-      // chart.render();
-      */
     </script>
   </body>
 </html>
