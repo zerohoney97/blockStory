@@ -185,6 +185,8 @@
 .priceGroup p{
     font-weight: bold;
     text-align: right;
+    display: flex;
+    flex-direction: column;
 }
 
 .nameGroup span,

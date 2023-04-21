@@ -1,5 +1,5 @@
 let coins = JSON.parse(localStorage.getItem('coinInformation'));
-
+let priceRange = JSON.parse(localStorage.getItem("priceRangeInfo"));
 
 
 // 코인 및 심볼 검색 함수
@@ -114,100 +114,72 @@ bookmarkTab.onclick = function () {
 
 
 
-// 코인 원화 리스트를 보여주는 함수
+// 코인 리스트를 보여주는 함수
+
+const viewCoin = coins.slice(1);
+
+function createCoinList(coin, index, priceContent) {
+    let coinList = document.createElement('div');
+    let bookmark = document.createElement('div');
+    let language = document.createElement('div');
+    let price = document.createElement('div');
+    let ratio = document.createElement('div');
+    let nameGroup = document.createElement('div');
+    let coinName = document.createElement('p');
+    let unit = document.createElement('span');
+    let priceGroup = document.createElement('p');
+    let img = document.createElement('img');
+    coinList.classList.add('coinList');
+    bookmark.classList.add('star');
+    language.classList.add('language');
+    nameGroup.classList.add('nameGroup');
+    price.classList.add('currentPrice');
+    priceGroup.classList.add('priceGroup');
+    ratio.classList.add('ratio');
+    img.src = "./grayStar.png";
+
+    coinList.append(bookmark, language, price, ratio);
+    language.append(nameGroup);
+    nameGroup.append(coinName, unit);
+    bookmark.appendChild(img);
+    price.append(priceGroup);
+    priceGroup.append(priceContent);
+
+    coinName.innerHTML = coin.name;
+    unit.innerHTML = `${coin.symbol}/${priceContent.dataset.currency}`;
+    img.addEventListener('click', clickedImg);
+    coinList.setAttribute('data-id', index);
+
+    return coinList;
+}
 
 function coinWonList() {
-    const viewCoin = coins.slice(1); // coins의 첫번째 요소 제거
     viewCoin.forEach((coin, index) => {
-        let wonTab = document.querySelector('.won-tab');
-        let coinList = document.createElement('div');
-        let bookmark = document.createElement('div');
-        let language = document.createElement('div');
-        let price = document.createElement('div');
-        let ratio = document.createElement('div');
-        let nameGroup = document.createElement('div');
-        let coinName = document.createElement('p');
-        let wonCoinUnit = document.createElement('span');
-        let priceGroup = document.createElement('p');
         let won = document.createElement('p');
-        let img = document.createElement('img');
-        coinList.classList.add('coinList');
-        bookmark.classList.add('star');
-        language.classList.add('language');
-        nameGroup.classList.add('nameGroup');
-        price.classList.add('currentPrice');
-        priceGroup.classList.add('priceGroup');
-        ratio.classList.add('ratio');
-        img.src = "./grayStar.png";
-
-        wonTab.append(coinList);
-        coinList.append(bookmark, language, price, ratio);
-        language.append(nameGroup);
-        nameGroup.append(coinName, wonCoinUnit);
-        bookmark.appendChild(img);
-        price.append(priceGroup);
-        priceGroup.append(won);
-
-
-        coinName.innerHTML = coin.name;
-        wonCoinUnit.innerHTML = `${coin.symbol}/KRW`;
         won.innerHTML = coin.currentPrice;
+        won.dataset.currency = 'KRW';
+        let coinList = createCoinList(coin, index, won);
+        wonBox.append(coinList);
+    });
+}
 
-        img.addEventListener('click', clickedImg);
-        coinList.setAttribute('data-id', index);
+function coinUSDList() {
+    viewCoin.forEach((coin, index) => {
+        let dollar = document.createElement('p');
+        let won = document.createElement('span');
+        dollar.innerHTML = (coin.currentPrice / 1320).toFixed(3);
+        won.innerHTML = `${coin.currentPrice} KRW`;
+        dollar.dataset.currency = 'USDT';
+        let coinList = createCoinList(coin, index, dollar);
+        dollar.append(won);
+        dollarBox.append(coinList);
     });
 }
 
 coinWonList();
-
-
-// 코인 달러 리스트를 보여주는 함수
-
-function coinUSDList() {
-    const viewCoin = coins.slice(1); // coins의 첫번째 요소 제거
-    viewCoin.forEach((coin, index) => {
-        let dollarTab = document.querySelector('.dollar-tab');
-        let coinList = document.createElement('div');
-        let bookmark = document.createElement('div');
-        let language = document.createElement('div');
-        let price = document.createElement('div');
-        let ratio = document.createElement('div');
-        let nameGroup = document.createElement('div');
-        let coinName = document.createElement('p');
-        let dollarCoinUnit = document.createElement('span');
-        let priceGroup = document.createElement('p');
-        let dollar = document.createElement('p');
-        let won = document.createElement('span');
-        let img = document.createElement('img');
-        coinList.classList.add('coinList');
-        bookmark.classList.add('star');
-        language.classList.add('language');
-        nameGroup.classList.add('nameGroup');
-        price.classList.add('currentPrice');
-        priceGroup.classList.add('priceGroup');
-        ratio.classList.add('ratio');
-        img.src = "./grayStar.png";
-
-        dollarTab.append(coinList);
-        coinList.append(bookmark, language, price, ratio);
-        language.append(nameGroup);
-        nameGroup.append(coinName, dollarCoinUnit);
-        bookmark.appendChild(img);
-        price.append(priceGroup);
-        priceGroup.append(dollar, won);
-
-        coinName.innerHTML = coin.name;
-        dollarCoinUnit.innerHTML = `${coin.symbol}/USDT`;
-        dollar.innerHTML = (coin.currentPrice / 1320).toFixed(3);
-        won.innerHTML = `${coin.currentPrice} KRW`
-
-
-        img.addEventListener('click', clickedImg);
-        coinList.setAttribute('data-id', index);
-    });
-}
-
 coinUSDList();
+
+
 
 
 // 관심 코인 리스트에 추가하는 함수
@@ -221,8 +193,6 @@ function clickedImg(event) {
 
     if (img.src.endsWith("grayStar.png")) {
         img.src = "./yellowStar.png";
-
-        // Hide the p tag when a bookmark is added
         pTag.style.display = 'none';
 
         // Clone the list element and append it to the bookmark box
@@ -255,45 +225,35 @@ function clickedImg(event) {
         if (bookmarkBoxItems.length === 0) {
             pTag.style.display = 'block';
         }
+
+        const dollarTabImg = dollarBox.querySelector(`.coinList[data-id="${listId}"] img`);
+        if (dollarTabImg) {
+            dollarTabImg.src = "./grayStar.png";
+        }
     }
 }
 
 
 
 
+// 선택된 코인 목록에 배경색 적용
 
+let coinList = document.querySelectorAll('.coinList');
 
-// 즐겨찾기 탭 ----- 미완성
-
-// function bookmarkList(name, currentPrice, listId) {
-//     let bookmarkTab = document.querySelector('.bookmark-tab');
-//     let coinList = document.createElement('div');
-//     let bookmark = document.createElement('div');
-//     let language = document.createElement('div');
-//     let price = document.createElement('div');
-//     let ratio = document.createElement('div');
-//     let img = document.createElement('img');
-//     coinList.classList.add('coinList');
-//     bookmark.classList.add('star');
-//     language.classList.add('language');
-//     price.classList.add('currentPrice');
-//     ratio.classList.add('ratio');
-
-//     language.textContent = name;
-//     price.textContent = currentPrice;
-
-//     coinList.setAttribute('data-id', listId);
-
-//     bookmarkTab.append(coinList);
-//     coinList.append(bookmark, language, price, ratio);
-//     bookmark.appendChild(img);
-
-//     img.addEventListener('click', clickedImg);
-// }
-
-// bookmarkList()
-
-
+coinList.forEach((item, index) => {
+    wonBox.children[0].style.backgroundColor = 'rgb(241, 236, 236)';
+    dollarBox.children[0].style.backgroundColor = 'rgb(241, 236, 236)';
+    item.addEventListener('click', () => {
+        // 선택되지 않은 인덱스의 배경색 제거
+        viewCoin.forEach((element, idx) => {
+            if (idx !== index) {
+                wonBox.children[idx].style.backgroundColor = '';
+                dollarBox.children[idx].style.backgroundColor = '';
+            }
+            item.style.backgroundColor = 'rgb(241, 236, 236)';
+        });
+    });
+});
 
 
 

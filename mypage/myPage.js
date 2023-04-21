@@ -222,9 +222,6 @@ listDescrip.forEach((a, i) => {
 
     })
 })
-console.log(coins);
-console.log(coins[1].symbol);
-
 
 
 
@@ -242,8 +239,6 @@ let historyBox = document.querySelector('.history-tab');
 let chargeLabel = document.getElementById('charge');
 let withdrawLabel = document.getElementById('withdraw');
 let historyLabel = document.getElementById('history');
-console.log(chargeLabel);
-console.log(chargeTab);
 
 
 chargeBox.style.display = 'block';
