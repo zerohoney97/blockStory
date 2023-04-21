@@ -15,25 +15,32 @@
             <div class="title">Q&A</div>
             <ul class="title_row">
                 <li id="number" style="width: 40px;">No</li>
-                <li id="title" style="width: 216px;">제목</li>
+                <li id="title" style="width: 267px;">제목</li>
                 <li id="writer" style="width: 110px;">작성자</li>
-                <li id="view" style="width: 50px;">조회수</li>
+                <!-- <li id="view" style="width: 50px;">조회수</li> -->
             </ul>
             <div class="sub-container">
                 <div class="list">
                     <div class="num"></div>
-                    <div class="tit"></div>
+                    <div id="tit" class="tit"></div>
                     <div class="writer"></div>
-                    <div class="view"></div>
+                    <!-- <div class="view"></div> -->
                 </div>
+            </div>
+            <!-- 모달창 -->
+            <div class="title-in">
+            <div id="title-con">
+                <div class="content-text" name="">asd</div>
+                <button id="con-close">닫기</button>
+            </div>
             </div>
             <div id="btn">글 쓰기</div>
             <div class="page">
-                <div class="pageNa">
+                <div class="pageNa" id="content">
                     <a id="pre">이전</a>
-                    <a href="#1" value='1' id="page1" class="active current-page">1</a>
-                    <a href="#2" value='2' id="page2" class="current-page">2</a>
-                    <a href="#3" value='3' id="page3" class="current-page">3</a>
+                    <a  value='1' id="page1" class="active current-page">1</a>
+                    <a  value='2' id="page2" class="current-page">2</a>
+                    <a value='3' id="page3" class="current-page">3</a>
                     <a id="next">다음</a>
                 </div>
             </div>
@@ -47,7 +54,10 @@
                             placeholder="내용을 입력해 주세요"></textarea>
                     </span>
                 </div>
-                <button id="close-btn">등록</button>
+            <div style="display: flex;">
+                <button id="add-btn">등록</button>
+                <button id="close-btn">등록취소</button>
+            </div>
             </div>
         </div>
     </div>

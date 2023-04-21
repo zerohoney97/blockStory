@@ -54,18 +54,26 @@ li{
     width: 40px;
     border-right: 1px solid;
     border-bottom: 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .tit{
-    width: 216px;
+    width: 267px;
     border-right: 1px solid;
     border-bottom: 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .writer{
     width: 110px;
-    border-right: 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-bottom: 1px solid;
 }
-.view{
+.slove{
     width: 50px;
     border-bottom: 1px solid;
 }
@@ -125,19 +133,42 @@ li{
     border: 1px solid #cecdce;
     color: #333;
   }
+  #add-btn {
+    display: block;
+    position: absolute;
+    margin: 20px auto;
+    left: 40%;
+    bottom: 5%;
+    background-color: rgb(67, 85, 153);
+    color: white;
+    width: 90px;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 10px 10px -5px black;
+  }
   #close-btn {
     display: block;
     position: absolute;
     margin: 20px auto;
-    left: 50%;
+    left: 60%;
     bottom: 5%;
+    background-color: rgb(67, 85, 153);
+    color: white;
+    width: 100px;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 10px 10px -5px black;
+    
   }
 .page{
     position: absolute;
     left: 50%;
     top: 85%;
     transform: translate(-50%, -50%); 
-    border: 1px solid;
     justify-content: space-around
 }
 .pageNa{
@@ -159,3 +190,44 @@ li{
 .page a:hover:not(.active) {
     background-color: rgb(154, 154, 154);
   }
+#title-con {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+#con-close{
+    display: block;
+    position: absolute;
+    background-color: rgb(67, 85, 153);
+    color: white;
+    width: 100px;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%,-70%);
+    border-radius: 15px;
+    font-size: 15px;
+
+}
+.title-in{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    color: #999;
+    font-size: 13px;
+    font-weight: bold;
+    position: relative;
+}
+.content-text{
+    position: absolute;
+    width: 70%;
+    height: 50%;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%,-10%);
+    background-color: white;
+}
