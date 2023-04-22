@@ -318,6 +318,7 @@ function setBackgroundColor(coinList, box) {
 
 const wonCoinList = wonBox.querySelectorAll('.wonCoinList');
 const dollarCoinList = dollarBox.querySelectorAll('.dollarCoinList');
+console.log(wonCoinList, dollarCoinList);
 
 setBackgroundColor(wonCoinList, wonBox);
 setBackgroundColor(dollarCoinList, dollarBox);
@@ -342,12 +343,16 @@ let randomPrice;
 let randomPrices;
 let iff = 0;
 let cp;
-let allCoinList = document.querySelectorAll('.wonCoinList, .dollarCoinList');
-console.log(allCoinList);
+// let allCoinList = document.querySelectorAll('.wonCoinList, .dollarCoinList');
+// console.log(allCoinList);
 let time = new Date();
 let minutes = time.getMinutes();
 let seconds = time.getSeconds();
 let c_title;
+
+let wonCoinForChart = document.querySelectorAll('.wonCoinList');
+let dollarCoinForChart = document.querySelectorAll('.dollarCoinList');
+console.log(wonCoinForChart, dollarCoinForChart);
 
 
 function displayChart(index) {
@@ -589,7 +594,13 @@ function displayChart(index) {
 }
 
 
-allCoinList.forEach((item, index) => {
+wonCoinForChart.forEach((item, index) => {
+    item.addEventListener("click", () => {
+        displayChart(index);
+    });
+})
+
+dollarCoinForChart.forEach((item, index) => {
     item.addEventListener("click", () => {
         displayChart(index);
     });
