@@ -34,6 +34,7 @@ subBtn.onclick = function () {
     if (!isNickname(inputNic)) {
         document.querySelector('.cautionText').innerHTML = '닉네임 형식이 올바르지 않습니다.';
         document.querySelector('.cautionText').style.color = 'red';
+        subBtn.style.marginTop = '83px';
     } else {
         document.body.classList.remove('active');
         nickPopup.classList.remove('active');
@@ -156,7 +157,7 @@ function renderCoinList() {
         myCoinUnit.innerHTML = ` ${coin.symbol}`;
         coinToKrw.innerHTML = `${coin.currentPrice} KRW`;
 
-        // // peter가 보유한 코인에만 수량을 나타내는 함수
+        // peter가 보유한 코인에만 수량을 나타내는 함수
         // for (const key in peter.coin) {
         //     if (peter.coin[key].symbol === coin.symbol) {
         //         iHaveCoin.innerHTML = peter.coin[key].quantity;
@@ -188,8 +189,8 @@ let coinQuantity = document.querySelector('.list-descrip .haveNum');
 //     nickName.innerHTML = Peter.name;
 //     totalMoney.innerHTML = Peter.account;
 //     myMoney.innerHTML = Peter.account;
-    // myCoin.innerHTML = Peter.coin.gyunil.quantity;
-    // coinQuantity.innerHTML = coins[i].currentPrice;
+//     // myCoin.innerHTML = Peter.coin.gyunil.quantity;
+//     // coinQuantity.innerHTML = coins[i].currentPrice;
 // }
 
 //-------------------------------------------
@@ -221,9 +222,6 @@ listDescrip.forEach((a, i) => {
 
     })
 })
-console.log(coins);
-console.log(coins[1].symbol);
-
 
 
 
@@ -288,59 +286,6 @@ withdrawTab.onclick = function () {
 historyTab.onclick = function () {
     switchTabs('history');
 };
-
-
-// 로컬스토리지에 저장된 입출금내역 불러오는 테스트
-
-// const dummyDataAccount = [
-//     {
-//         name: '입금',
-//         price: '1,000,000 KRW',
-//         state: '입금완료',
-//         date: '2023.04.13 10:02'
-//     },
-//     {
-//         name: '출금',
-//         price: '50,000 KRW',
-//         state: '출금완료',
-//         date: '2023.04.13 10:30'
-//     }
-// ];
-
-// localStorage.setItem('userAccountInformation', JSON.stringify(dummyDataAccount));
-
-// let historyList = document.querySelectorAll('.history-tab ul');
-// let accounts = JSON.parse(localStorage.getItem('userAccountInformation'));
-
-// accounts.forEach((account, index) => {
-//     if (historyList[index]) {
-//         historyList[index].querySelector('.Name').innerHTML = account.name;
-//         historyList[index].querySelector('.Money').innerHTML = account.price;
-//         historyList[index].querySelector('.state').innerHTML = account.state;
-//         historyList[index].querySelector('.Date').innerHTML = account.date;
-
-//     }
-// })
-
-
-// 유저 입출금내역 저장
-
-// function addList() {
-//     let value = window.localStorage.getItem('입출금내역');
-//     let depositBtn = document.querySelector('.applyInput');
-//     let withdrawBtn = document.querySelector('.applyout');
-//     let depositInput = document.querySelector('.inputMoney input');
-//     let withdrawInput = document.querySelector('.out-money-num');
-//     let historyList = document.querySelector('.history-tab ul');
-//     console.log(depositInput, withdrawInput, historyList);
-
-//     if (window.localStorage.length == 0) {
-//         window.localStorage.setItem('입출금내역', `{'name' : '입금', 'money : `)
-//     } else {
-
-//     }
-// }
-// addList();
 
 
 
