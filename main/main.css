@@ -78,6 +78,7 @@ position: relative;
 .pic{
     position: relative;
     margin-top: 80px;
+    
 }
 .pic-text{
     position: absolute;
@@ -300,6 +301,7 @@ position: relative;
     float: right;
     position: relative;
     right: 15px;
+    cursor: pointer;
 }
 .popup-wrap .popup .popup-btn::after,
 .popup-wrap .popup .popup-btn::before{

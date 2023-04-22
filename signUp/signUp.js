@@ -11,7 +11,7 @@ const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
 // 유저데이터를 가져옴
 const userDataArr = JSON.parse(localStorage.getItem("userInformation"));
-const adminUserData = JSON.parse(localStorage.getItem("admin"));
+const adminUserData = JSON.parse(localStorage.getItem("admin"));    
 
 // 이메일 중복 확인 변수
 let validateDuplicate = false;
@@ -127,7 +127,7 @@ function showModalEmail() {
 }
 // 비밀번호 정규식 만족 안할 시 문구 띄워주기
 
-function showModalPassword() {
+function showModalPassword() {  
   const modal = document.querySelector(".validatePassword");
   modal.style.display = "block";
 
