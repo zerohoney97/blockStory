@@ -3,10 +3,11 @@
     height: auto;
 }
 .container{
-    position: relative;
+    position: absolute;
     width: 30%;
     height: 700px;
-    border: 1px solid;
+    top: 42%;
+    margin-left: 10px
 }
 .title{
     display: flex;
