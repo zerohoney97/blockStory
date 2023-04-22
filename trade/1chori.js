@@ -389,6 +389,7 @@ function displayChart(index) {
         } else {
             // 90%      500기준 300 ~ 700
             let half = cp / 2;
+            // ???
             randomPrice = Math.floor(
                 Math.random() * (cp + half - (cp - half) + 1) + (cp - half),
             );
