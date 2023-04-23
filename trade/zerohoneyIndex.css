@@ -15,6 +15,7 @@ a {
   position: absolute;
   top: 43%;
   left: 33%;
+  background-color: white;
 }
 .chart {
   width: 100%;
@@ -52,7 +53,7 @@ a {
   justify-content: space-around;
   padding: 0;
   position: absolute;
-  top: -15px;
+  top: 6px;
 }
 
 .sell-buy ul li {
@@ -64,13 +65,15 @@ a {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  z-index: 1;
 }
 .sell-buy hr {
   width: 100%;
   position: absolute;
   border: 1px solid silver;
-  top: 29px;
-  z-index: -1;
+  top: 49px;
+  z-index: 0;
+
 }
 
 .buy-container {

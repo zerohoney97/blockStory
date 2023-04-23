@@ -4,14 +4,7 @@
     box-sizing: border-box;
 }
 
-.header{
-    width: 100%;
-    height: 80px;
-    position: fixed;
-    background-color: rgb(244, 245, 248);
-    top: 0;
-    z-index: 1;
-}
+
 
 .pageWidth{
     width: 1400px;
@@ -20,12 +13,14 @@
     margin-top: 90px;
     margin-bottom: 10px;
     position: absolute;
+    z-index: 0;
 }
 
 #chart{
     width: 70%;
     height: 500px;
     position: absolute;
+    background-color: white;
 }
 
 .coinInfo{
@@ -34,6 +29,7 @@
     position: sticky;
     float: right;
     top: 90px;
+    background-color: white;
 }
 
 /* ---------------코인/심볼 검색------------------------- */
@@ -203,14 +199,7 @@
     box-sizing: border-box;
 }
 
-.header{
-    width: 100%;
-    height: 80px;
-    position: fixed;
-    background-color: rgb(244, 245, 248);
-    top: 0;
-    z-index: 1;
-}
+
 
 .pageWidth{
     width: 1400px;

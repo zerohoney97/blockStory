@@ -6,8 +6,9 @@
     position: absolute;
     width: 30%;
     height: 700px;
-    top: 42%;
-    margin-left: 10px
+    top: 43%;
+    margin-left: 10px;
+    background-color: white;
 }
 .title{
     display: flex;
@@ -18,12 +19,12 @@
     border-bottom: 1px solid black;
     height: 40px;
 }
-ul{
+.pic-num ul,.title_row{
     padding: 0;
     margin: 0;
     display:inline-block;
 }
-li{
+.pic-num ul li,.title_row li{
     list-style:none;
     border-bottom:solid 1px gray; 
     float:left; 

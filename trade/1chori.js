@@ -196,7 +196,7 @@ function createCoinList(coin, index, priceContent) {
   wonCoinList.setAttribute("data-id", index);
   dollarCoinList.setAttribute("data-id", index);
 
-  console.log(wonSubElements, dollarSubElements);
+  // console.log(wonSubElements, dollarSubElements);
   return { wonCoinList, dollarCoinList };
 }
 
@@ -253,7 +253,7 @@ function clickedImg(event) {
     img.closest(".wonCoinList") || img.closest(".dollarCoinList");
   const pTag = document.querySelector(".noBookmark");
   const listId = coinList.getAttribute("data-id");
-  console.log(img, coinList, pTag, listId);
+  // console.log(img, coinList, pTag, listId);
 
   if (img.src.endsWith("grayStar.png")) {
     img.src = "./yellowStar.png";
@@ -272,7 +272,7 @@ function clickedImg(event) {
 
     // 북마크탭에서 코인 목록 제거
     const listItemToRemove = bookmarkBox.querySelector(`[data-id="${listId}"]`);
-    console.log(listItemToRemove);
+    // console.log(listItemToRemove);
     if (listItemToRemove) {
       bookmarkBox.removeChild(listItemToRemove);
     }
@@ -280,7 +280,7 @@ function clickedImg(event) {
     const wonTabImg = document.querySelector(
       `.wonCoinList[data-id="${listId}"] img`
     );
-    console.log(wonTabImg);
+    // console.log(wonTabImg);
     if (wonTabImg) {
       wonTabImg.src = "./grayStar.png";
     }
@@ -347,7 +347,7 @@ let randomPrices;
 let iff = 0;
 let cp;
 let allCoinList = document.querySelectorAll(".wonCoinList, .dollarCoinList");
-console.log(allCoinList);
+// console.log(allCoinList);
 let time = new Date();
 let minutes = time.getMinutes();
 let seconds = time.getSeconds();
@@ -356,7 +356,7 @@ let c_title;
 function displayChart(index) {
   const num = coins[index + 1];
   c_title = num.name;
-  console.log(c_title);
+  // console.log(c_title);
 
   function YaxisRange(coin) {
     const min = coin.min;
@@ -385,7 +385,7 @@ function displayChart(index) {
         // max ~ max밑의 10% 값
         randomPrice = Math.floor(Math.random() * (max * 0.1 + 1) + max * 0.9);
       }
-      console.log("결과값: ", randomPrice);
+      // console.log("결과값: ", randomPrice);
     } else {
       // 90%      500기준 300 ~ 700
       let half = cp / 2;
@@ -417,13 +417,13 @@ function displayChart(index) {
     timer = setInterval(() => {
       randomPrice = YaxisRange(priceRange[index + 1]);
       randomPrices.push(randomPrice); // 생성된 랜덤 가격을 배열에 추가
-      console.log("Random Price: ", randomPrice);
-      console.log("Random title: ", c_title);
+      // console.log("Random Price: ", randomPrice);
+      // console.log("Random title: ", c_title);
 
       elapsed += interval;
       if (elapsed >= duration) {
         clearInterval(timer);
-        console.log("All Random Prices: ", randomPrices); // 5초가 지난 후 모든 랜덤 가격 출력
+        // console.log("All Random Prices: ", randomPrices); // 5초가 지난 후 모든 랜덤 가격 출력
         // printRandomValue(randomPrices[randomPrices.length - 1]); // 마지막 랜덤 가격을 시작 가격으로 사용하여 함수를 다시 실행
       }
     }, interval);
@@ -546,7 +546,7 @@ function displayChart(index) {
         let min1 = Math.min(...randomPrices2);
 
         // ★★★★★
-        console.log("매수할 배열: ", randomPrices2);
+        // console.log("매수할 배열: ", randomPrices2);
 
         let element1 = 0;
         randomPrices2.forEach((element) => {
@@ -554,14 +554,14 @@ function displayChart(index) {
         });
         // console.log(randomPrices2.length);
         let average = element1 / randomPrices2.length;
-        console.log("평균가: ", average);
+        // console.log("평균가: ", average);
         // 이 값을 나중에 매수할때 가져가기
         // 무헌이꺼랑 합치기~~~~~~~~~~~~
 
-        console.log("고가", max1);
-        console.log("저가", min1);
-        console.log("시가", randomPrices[0]);
-        console.log("종가", randomPrices[5]);
+        // console.log("고가", max1);
+        // console.log("저가", min1);
+        // console.log("시가", randomPrices[0]);
+        // console.log("종가", randomPrices[5]);
 
         options.series[0].data[val] = {
           x: minutes + ":" + seconds,
