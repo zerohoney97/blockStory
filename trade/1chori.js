@@ -142,6 +142,7 @@ function createSubElements(priceContent) {
     let priceGroup = document.createElement('p');
     let img = document.createElement('img');
 
+
     // 아래와 같은 순서대로 태그가 구성되어 있음(coinSection의 하위 태그)
     bookmark.classList.add('star');
 
@@ -206,6 +207,7 @@ function coinWonList() {
         let coinListObj = createCoinList(coin, index, won);
         let wonCoinList = coinListObj.wonCoinList;
         wonBox.append(wonCoinList);
+        console.log(won);
 
         setInterval(() => {  // 현재가 실시간 반영
             won.innerHTML = `${randomPrice} KRW`;
@@ -223,6 +225,7 @@ function coinUSDList() {
         let dollarCoinList = coinListObj.dollarCoinList;
         dollar.append(won);
         dollarBox.append(dollarCoinList);
+        console.log(won, dollar);
 
         setInterval(() => {  // 현재가 실시간 반영
             dollar.innerHTML = (randomPrice / 1320).toFixed(3);
@@ -343,8 +346,6 @@ let randomPrice;
 let randomPrices;
 let iff = 0;
 let cp;
-// let allCoinList = document.querySelectorAll('.wonCoinList, .dollarCoinList');
-// console.log(allCoinList);
 let time = new Date();
 let minutes = time.getMinutes();
 let seconds = time.getSeconds();
