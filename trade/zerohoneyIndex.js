@@ -171,34 +171,29 @@ function getAveragePrice(array) {
     return average;
   }
 }
-setInterval(() => {
-  if (randomPrices.length == 6) {
-    // 평균가가 6초때 나오므로 length가 6일때
-    console.log(coins[coinIndex].currentPrice);
-    // 해당하는 인덱스의 현재가를 평균가로 바꿔줌
-    coins[coinIndex].currentPrice = getAveragePrice(randomPrices);
-    // html에 나타내기 위하여 coinPrice또한 바꿔줌
-    coinPrice = coins[coinIndex].currentPrice;
-    // html수정
-    document.querySelector("#buyPrice").placeholder = coinPrice;
+// setInterval(() => {
+//   if (randomPrices.length == 6) {
+//     // 평균가가 6초때 나오므로 length가 6일때
+//     console.log(coins[coinIndex].currentPrice);
+//     // 해당하는 인덱스의 현재가를 평균가로 바꿔줌
+//     coins[coinIndex].currentPrice = getAveragePrice(randomPrices);
+//     // html에 나타내기 위하여 coinPrice또한 바꿔줌
+//     coinPrice = coins[coinIndex].currentPrice;
+//     // html수정
 
-    setLocalStorage("coinInformation", coins);
-  }
-}, 1000);
+//     setLocalStorage("coinInformation", coins);
+//   }
+// }, 1000);
 
+// 범인 찾았다!!
 allCoinList.forEach((a, index) => {
   a.addEventListener("click", (i) => {
     coinIndex = index + 1;
     // 해당하는 인덱스의 현재가를 평균가로 바꿔줌
-    console.log(coins[coinIndex].currentPrice);
-    // 만약 평균가가 나오지 않았다면(6초전에) 무효
-    if (getAveragePrice(randomPrices)) {
-    } else {
-      coins[coinIndex].currentPrice = getAveragePrice(randomPrices);
-      // html에 나타내기 위하여 coinPrice또한 바꿔줌
-      coinPrice = coins[coinIndex].currentPrice;
-      // html수정
-      document.querySelector("#buyPrice").placeholder = coinPrice;
+    // console.log(coins[coinIndex].currentPrice);
+    // html수정
+    if (average == undefined) {
+      document.querySelector("#buyPrice").placeholder = "종가를 기다리세요";
     }
   });
 });

@@ -2,7 +2,7 @@
 let tempCurrentPrice = 1000;
 let tradingVolume = 8;
 //임시 데이터인 이재용을 가져와 nowLogin 변경
-setLocalStorage('nowLogin',getLocalStorage('userInformation',22));
+setLocalStorage('nowLogin',getLocalStorage('userInformation',21));
 
 
 // localStorage.setItem(
