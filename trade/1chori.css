@@ -4,13 +4,10 @@
     box-sizing: border-box;
 }
 
-
-
 .pageWidth{
     width: 1400px;
-    height: 170vh;
+    height: 1580px;
     margin: 0 auto;
-    margin-top: 90px;
     margin-bottom: 10px;
     position: absolute;
     z-index: 0;
@@ -193,38 +190,7 @@
 .priceGroup span{
     text-align: right;
 }
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-
-
-.pageWidth{
-    width: 1400px;
-    height: 170vh;
-    margin: 0 auto;
-    margin-top: 90px;
-    margin-bottom: 10px;
-    position: absolute;
-}
-
-#chart{
-    border: 1px solid;
-    width: 70%;
-    height: 500px;
-    position: absolute;
-}
-
-.coinInfo{
-    width: 400px;
-    height: 1000px;
-    border: 1px solid;
-    position: sticky;
-    float: right;
-    top: 90px;
-}
 
 /* ---------------코인/심볼 검색------------------------- */
 
