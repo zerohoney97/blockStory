@@ -146,12 +146,7 @@ for (let i = (currentPage - 1) * 10; i < currentPage * 10; i++) {
 
         titleCon.style.display = "block";
     })
-
-
-
-
 }
-// location.reload()
 function index() {
     if (board && board.length > 0) {
         return board.length + 1;
