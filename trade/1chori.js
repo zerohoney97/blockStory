@@ -170,13 +170,13 @@ function createCoinList(coin, index, priceContent) {
     wonSubElements.bookmark,
     wonSubElements.language,
     wonSubElements.price,
-    wonSubElements.ratio
+    wonSubElements.ratio,
   );
   dollarCoinList.append(
     dollarSubElements.bookmark,
     dollarSubElements.language,
     dollarSubElements.price,
-    dollarSubElements.ratio
+    dollarSubElements.ratio,
   );
 
   wonSubElements.bookmark
@@ -204,6 +204,9 @@ function createCoinList(coin, index, priceContent) {
 //----------- 여기까지 태그 추가하는 코드
 
 //---------- 아래부터는 가격과 단위 표현하는 코드
+// let wonBox = document.querySelector(".won-tab");
+// let dollarBox = document.querySelector(".dollar-tab");
+// let wonCoinList = document.createElement("div");
 
 function coinWonList() {
   viewCoin.forEach((coin, index) => {
@@ -220,6 +223,8 @@ function coinWonList() {
   });
 }
 
+let val10 = 0;
+
 function coinUSDList() {
   viewCoin.forEach((coin, index) => {
     let dollar = document.createElement("p");
@@ -231,10 +236,22 @@ function coinUSDList() {
     dollar.append(won);
     dollarBox.append(dollarCoinList);
 
-    setInterval(() => {
+    int10 = setInterval(() => {
       // 현재가 실시간 반영
-      dollar.innerHTML = (randomPrice / 1320).toFixed(3);
-      won.innerHTML = `${randomPrice} KRW`;
+      // dollar.innerHTML = (randomPrice / 1320).toFixed(3);
+      // won.innerHTML = `${randomPrice} KRW`;
+
+      if (val10 == 0) {
+        val10 = 0;
+      } else {
+        val10 = val10;
+      }
+      document.querySelector(
+        `.won-tab [data-id='${val10}'] .currentPrice .priceGroup`,
+      ).innerHTML = `${randomPrice} KRW`;
+      document.querySelector(
+        `.dollar-tab [data-id='${val10}'] .currentPrice .priceGroup`,
+      ).innerHTML = `${(randomPrice / 1320).toFixed(3)} USDT`;
     }, 1000);
   });
 }
@@ -279,7 +296,7 @@ function clickedImg(event) {
     }
 
     const wonTabImg = document.querySelector(
-      `.wonCoinList[data-id="${listId}"] img`
+      `.wonCoinList[data-id="${listId}"] img`,
     );
     // console.log(wonTabImg);
     if (wonTabImg) {
@@ -288,14 +305,14 @@ function clickedImg(event) {
 
     // 북마크탭에 코인이 없으면 p태그 다시 표시
     const bookmarkBoxItems = bookmarkBox.querySelectorAll(
-      ".wonCoinList, .dollarCoinList"
+      ".wonCoinList, .dollarCoinList",
     );
     if (bookmarkBoxItems.length === 0) {
       pTag.style.display = "block";
     }
 
     const dollarTabImg = dollarBox.querySelector(
-      `.dollarCoinList[data-id="${listId}"] img`
+      `.dollarCoinList[data-id="${listId}"] img`,
     );
     if (dollarTabImg) {
       dollarTabImg.src = "./grayStar.png";
@@ -316,6 +333,14 @@ function setBackgroundColor(coinList, box) {
       coinList.forEach((element, idx) => {
         if (idx !== index) {
           box.children[idx].style.backgroundColor = "";
+          // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+          // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+          box.children[idx].querySelector(".currentPrice p").innerHTML = "";
+          // 무헌아 이거 생각하고 랜덤값 넣어야 해~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+          // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+        } else {
+          val10 = index;
         }
         item.style.backgroundColor = "rgb(241, 236, 236)";
       });
@@ -396,9 +421,11 @@ let seconds = time.getSeconds();
 let c_title;
 
 function displayChart(index) {
-  const num = coins[index + 1];
+  if (index >= 10) {
+    index = index % 10;
+  }
+  let num = coins[index + 1];
   c_title = num.name;
-  // console.log(c_title);
 
   function YaxisRange(coin) {
     const min = coin.min;
@@ -433,7 +460,7 @@ function displayChart(index) {
       let half = cp / 2;
       // ???
       randomPrice = Math.floor(
-        Math.random() * (cp + half - (cp - half) + 1) + (cp - half)
+        Math.random() * (cp + half - (cp - half) + 1) + (cp - half),
       );
 
       if (randomPrice < min) {
@@ -632,6 +659,33 @@ function displayChart(index) {
 
 allCoinList.forEach((item, index) => {
   item.addEventListener("click", () => {
+    // csh 하던거 -------------------------------------------
+    // let arr10 = document.querySelectorAll(".language");
+    // arr10.forEach(function(el){
+    //   console.log(el);
+    //   el.addEventListener("click", function(){
+    //     clearInterval(intervalId2);
+    //     clearInterval(timer);
+    //     displayChart(index+1);
+    //   });
+    // })
+    // csh 하던거 -------------------------------------------
+
+
+
+    // let parent1 = document.querySelector(".wonCoinList");
+    // let class1 = [".language", ".currentPrice", ".ratio"];
+    // class1.forEach(function (cl) {
+    //   parent1.querySelectorAll(cl).forEach(function (element) {
+    //     element.addEventListener("click", function () {
+
+    //       // clearInterval(intervalId2);
+    //       // clearInterval(timer);
+    //       // displayChart(index);
+    //     });
+    //   });
+    // });
+
     // ********************************************************************************************
     // *** BUG FIX!: 다른 코인을 클릭시 새로운 차트가 덧붙혀지는 버그가 있었음.
     //             1. intervalId2,timer를 사용하여 해당 코인에 대한 새로운 값을 갱신하였음
