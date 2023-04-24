@@ -19,7 +19,7 @@ function YaxisRange(coin) {
         const zeroTohundred = Math.random();  // 0에서 1 사이의 랜덤한 확률 값을 생성
         if (Math.random() < zeroTohundred) {
             randomPrice = Math.floor(Math.random() * (lowRateMin - min + 1)) + min; // 특정 범위 이하의 값 생성
-        } else {
+        } else { 
             randomPrice = Math.floor(Math.random() * (max - lowRateMax + 1)) + lowRateMax; // 특정 범위 이상의 값 생성
         }
     } else {

@@ -179,7 +179,7 @@ let accountNum = document.querySelectorAll('.thisBank');
 let myMoney = document.querySelector('.myMoney');
 let listDescrip = document.querySelectorAll('.list-descrip');
 let coinQuantity = document.querySelector('.list-descrip .haveNum');
-let Peter = JSON.parse(localStorage.getItem('link'));
+// let Peter = JSON.parse(localStorage.getItem('link'));
 
 // accountNum.forEach(function (element) {
 //     element.innerHTML = Peter.accountNumber;

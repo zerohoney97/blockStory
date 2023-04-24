@@ -414,7 +414,7 @@ let tempUser = new User(
   2000000000
 );
 
-// console.log(tempUser);
+console.log(tempUser);
 
 // console.log(Object.keys(peterCoin));
 
