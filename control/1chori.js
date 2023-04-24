@@ -35,18 +35,22 @@ function printRandomValue(startPrice) {
     const duration = 5000; // 5초 동안
 
     let elapsed = 0;
-    const randomPrices = [startPrice]; // 랜덤 가격을 저장할 배열 생성
+    const randomPrices = [startPrice]; // 시작 가격을 포함하는 randomPrices 배열 생성
 
     const timer = setInterval(() => {
-        const randomPrice = YaxisRange(coinPriceRange[2]);
+        const randomPrice = YaxisRange(priceRange[2]);  // YaxisRange 함수를 호출하여 랜덤 가격 생성
         randomPrices.push(randomPrice); // 생성된 랜덤 가격을 배열에 추가
         console.log("Random Price: ", randomPrice);
 
 
         elapsed += interval;
         if (elapsed >= duration) {
-            clearInterval(timer);
+            clearInterval(timer);  // 경과 시간이 duration에 도달하면 timer를 멈춘다
+            const minValue = Math.min(...randomPrices);
+            const maxValue = Math.max(...randomPrices);
+            const minMaxArray = [minValue, maxValue];
             console.log("All Random Prices: ", randomPrices); // 5초가 지난 후 모든 랜덤 가격 출력
+            console.log("Lowest and Highest Prices: ", minMaxArray);
             printRandomValue(randomPrices[randomPrices.length - 1]); // 마지막 랜덤 가격을 시작 가격으로 사용하여 함수를 다시 실행
         }
     }, interval);

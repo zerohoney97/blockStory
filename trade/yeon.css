@@ -3,10 +3,12 @@
     height: auto;
 }
 .container{
-    position: relative;
+    position: absolute;
     width: 30%;
-    height: 700px;
-    border: 1px solid;
+    height: 800px;
+    top: 43%;
+    margin-left: 10px;
+    background-color: white;
 }
 .title{
     display: flex;
@@ -17,12 +19,12 @@
     border-bottom: 1px solid black;
     height: 40px;
 }
-ul{
+.pic-num ul,.title_row{
     padding: 0;
     margin: 0;
     display:inline-block;
 }
-li{
+.pic-num ul li,.title_row li{
     list-style:none;
     border-bottom:solid 1px gray; 
     float:left; 
@@ -167,7 +169,7 @@ li{
 .page{
     position: absolute;
     left: 50%;
-    top: 85%;
+    top: 90%;
     transform: translate(-50%, -50%); 
     justify-content: space-around
 }
@@ -193,12 +195,13 @@ li{
 #title-con {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     width: 50%;
     height: 50%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 3;
   }
 #con-close{
     display: block;
@@ -230,4 +233,35 @@ li{
     left: 50%;
     transform: translate(-50%,-10%);
     background-color: white;
+}
+.fix-Btn{
+    display: block;
+    position: absolute;
+    text-align: center;
+    margin: 20px auto;
+    left: 1%;
+    background-color: rgb(67, 85, 153);
+    color: white;
+    width: 80px;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 10px 10px -5px black;
+}
+.del-Btn{
+    display: block;
+    position: absolute;
+    text-align: center;
+    top: 20%;
+    left: 1%;
+    margin: 20px auto;
+    background-color: rgb(67, 85, 153);
+    color: rgb(255, 255, 255);
+    width: 80px;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 10px 10px -5px black;
 }
