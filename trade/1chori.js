@@ -192,7 +192,7 @@ function createCoinList(coin, index, priceContent) {
     wonSubElements.unit.innerHTML = `${coin.symbol}/${priceContent.dataset.currency}`;
     dollarSubElements.unit.innerHTML = `${coin.symbol}/${priceContent.dataset.currency}`;
 
-    // 각 코인 목록에 대한 인덱스를 설정
+    // 각 코인 목록에 대한 속성값을 인덱스로 설정
     wonCoinList.setAttribute("data-id", index);
     dollarCoinList.setAttribute("data-id", index);
 
@@ -253,7 +253,7 @@ function clickedImg(event) {
         img.closest(".wonCoinList") || img.closest(".dollarCoinList");
     const pTag = document.querySelector(".noBookmark");
     const listId = coinList.getAttribute("data-id");
-    // console.log(img, coinList, pTag, listId);
+    console.log(listId);
 
     if (img.src.endsWith("grayStar.png")) {
         img.src = "./yellowStar.png";
