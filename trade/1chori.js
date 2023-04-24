@@ -489,6 +489,7 @@ function displayChart(index) {
       //liveTrading에서 계속 갱신되는 coinCurrentArray를 갖고와 randomPrice에 삽입
       //   다른 코인으로 변경해도 coinCurrentArray는 계속 갱신되고 있기 때문에 최신값을 가져올 수 있다.
       randomPrice = coinCurrentArray[index];
+      console.log(randomPrice)
       randomPrices.push(randomPrice); // 생성된 랜덤 가격을 배열에 추가
       // console.log("Random Price: ", randomPrice);
       // console.log("Random title: ", c_title);
