@@ -403,7 +403,6 @@ function displayChart(index) {
       }
     }
     iff = randomPrice;
-
     return randomPrice;
   }
 
@@ -415,7 +414,8 @@ function displayChart(index) {
     randomPrices = [startPrice]; // 랜덤 가격을 저장할 배열 생성
 
     timer = setInterval(() => {
-      randomPrice = YaxisRange(priceRange[index + 1]);
+      console.log(coinCurrentArray);
+      randomPrice = getRandomPrice(coins[index + 1], priceRange[index + 1]);
       randomPrices.push(randomPrice); // 생성된 랜덤 가격을 배열에 추가
       // console.log("Random Price: ", randomPrice);
       // console.log("Random title: ", c_title);
