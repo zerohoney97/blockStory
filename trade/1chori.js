@@ -3,6 +3,8 @@ let priceRange = JSON.parse(localStorage.getItem("priceRangeInfo"));
 let intervalId2;
 let timer;
 let average;
+let randomPrice;
+let randomPrices;
 //--------------------------------------------------------------------------------------------------------
 
 // 코인 및 심볼 검색 함수
@@ -170,13 +172,13 @@ function createCoinList(coin, index, priceContent) {
     wonSubElements.bookmark,
     wonSubElements.language,
     wonSubElements.price,
-    wonSubElements.ratio,
+    wonSubElements.ratio
   );
   dollarCoinList.append(
     dollarSubElements.bookmark,
     dollarSubElements.language,
     dollarSubElements.price,
-    dollarSubElements.ratio,
+    dollarSubElements.ratio
   );
 
   wonSubElements.bookmark
@@ -218,7 +220,16 @@ function coinWonList() {
 
     setInterval(() => {
       // 현재가 실시간 반영
+      //   스코프를 이용해 주어진 함수내에서만 생존하는 변수 생성
+      const wonCoinList = wonBox.querySelectorAll(".wonCoinList");
+
       won.innerHTML = `${randomPrice} KRW`;
+      //   모든 코인의 현재가(원)를 바꿔주는 함수이다. 생성된 코인 리스트의 현재가를 1초마다 바꿔준다.
+
+      wonCoinList.forEach((a, idx) => {
+        wonBox.children[idx].querySelector(".currentPrice p").innerHTML =
+          coinCurrentArray[idx] + "KRW";
+      });
     }, 1000);
   });
 }
@@ -240,6 +251,9 @@ function coinUSDList() {
       // 현재가 실시간 반영
       // dollar.innerHTML = (randomPrice / 1320).toFixed(3);
       // won.innerHTML = `${randomPrice} KRW`;
+      //   스코프를 이용해 주어진 함수내에서만 생존하는 변수 생성
+
+      const dollarCoinList = dollarBox.querySelectorAll(".dollarCoinList");
 
       if (val10 == 0) {
         val10 = 0;
@@ -247,11 +261,17 @@ function coinUSDList() {
         val10 = val10;
       }
       document.querySelector(
-        `.won-tab [data-id='${val10}'] .currentPrice .priceGroup`,
+        `.won-tab [data-id='${val10}'] .currentPrice .priceGroup`
       ).innerHTML = `${randomPrice} KRW`;
       document.querySelector(
-        `.dollar-tab [data-id='${val10}'] .currentPrice .priceGroup`,
+        `.dollar-tab [data-id='${val10}'] .currentPrice .priceGroup`
       ).innerHTML = `${(randomPrice / 1320).toFixed(3)} USDT`;
+      //   모든 코인의 현재가(달려)를 바꿔주는 함수이다. 생성된 코인 리스트의 현재가를 1초마다 바꿔준다.
+      dollarCoinList.forEach((a, idx) => {
+        dollarBox.children[idx].querySelector(
+          ".currentPrice p"
+        ).innerHTML = `${(coinCurrentArray[idx] / 1320).toFixed(3)} USDT`;
+      });
     }, 1000);
   });
 }
@@ -296,7 +316,7 @@ function clickedImg(event) {
     }
 
     const wonTabImg = document.querySelector(
-      `.wonCoinList[data-id="${listId}"] img`,
+      `.wonCoinList[data-id="${listId}"] img`
     );
     // console.log(wonTabImg);
     if (wonTabImg) {
@@ -305,14 +325,14 @@ function clickedImg(event) {
 
     // 북마크탭에 코인이 없으면 p태그 다시 표시
     const bookmarkBoxItems = bookmarkBox.querySelectorAll(
-      ".wonCoinList, .dollarCoinList",
+      ".wonCoinList, .dollarCoinList"
     );
     if (bookmarkBoxItems.length === 0) {
       pTag.style.display = "block";
     }
 
     const dollarTabImg = dollarBox.querySelector(
-      `.dollarCoinList[data-id="${listId}"] img`,
+      `.dollarCoinList[data-id="${listId}"] img`
     );
     if (dollarTabImg) {
       dollarTabImg.src = "./grayStar.png";
@@ -335,7 +355,6 @@ function setBackgroundColor(coinList, box) {
           box.children[idx].style.backgroundColor = "";
           // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
           // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-          box.children[idx].querySelector(".currentPrice p").innerHTML = "";
           // 무헌아 이거 생각하고 랜덤값 넣어야 해~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
           // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
           // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
@@ -347,8 +366,8 @@ function setBackgroundColor(coinList, box) {
     });
   });
 }
-
 const wonCoinList = wonBox.querySelectorAll(".wonCoinList");
+
 const dollarCoinList = dollarBox.querySelectorAll(".dollarCoinList");
 
 setBackgroundColor(wonCoinList, wonBox);
@@ -410,8 +429,6 @@ let num; // 코인 클릭시 코인의 값 가져오기
 // let max0 = priceRange[num].max;
 // console.log(max0);
 
-let randomPrice;
-let randomPrices;
 // 종가에 따라 바뀐 현재 기준가이다. 즉,100원에서 200원이 됐다면 iff는 200원이 되며,YaxisRange에서 cp를 이 iff로 바꿔주는 역할을 하는 부분이 있다.
 let allCoinList = document.querySelectorAll(".wonCoinList, .dollarCoinList");
 // console.log(allCoinList);
@@ -460,7 +477,7 @@ function displayChart(index) {
       let half = cp / 2;
       // ???
       randomPrice = Math.floor(
-        Math.random() * (cp + half - (cp - half) + 1) + (cp - half),
+        Math.random() * (cp + half - (cp - half) + 1) + (cp - half)
       );
 
       if (randomPrice < min) {
@@ -484,12 +501,12 @@ function displayChart(index) {
     randomPrices = [startPrice]; // 랜덤 가격을 저장할 배열 생성
 
     timer = setInterval(() => {
-    //   console.log(coinCurrentArray);
+      //   console.log(coinCurrentArray);
 
       //liveTrading에서 계속 갱신되는 coinCurrentArray를 갖고와 randomPrice에 삽입
       //   다른 코인으로 변경해도 coinCurrentArray는 계속 갱신되고 있기 때문에 최신값을 가져올 수 있다.
       randomPrice = coinCurrentArray[index];
-      console.log(randomPrice)
+      console.log(randomPrice);
       randomPrices.push(randomPrice); // 생성된 랜덤 가격을 배열에 추가
       // console.log("Random Price: ", randomPrice);
       // console.log("Random title: ", c_title);
@@ -630,7 +647,9 @@ function displayChart(index) {
         // console.log(randomPrices2.length);
         average = element1 / randomPrices2.length;
         // 평균가로 매수가격을 바꿔줍니다.
-        document.querySelector("#buyPrice").placeholder = average;
+        if (document.querySelector("#buyPrice")) {
+          document.querySelector("#buyPrice").placeholder = average;
+        } 
         // console.log("평균가: ", average);
         // 이 값을 나중에 매수할때 가져가기
         // 무헌이꺼랑 합치기~~~~~~~~~~~~
@@ -671,8 +690,6 @@ allCoinList.forEach((item, index) => {
     //   });
     // })
     // csh 하던거 -------------------------------------------
-
-
 
     // let parent1 = document.querySelector(".wonCoinList");
     // let class1 = [".language", ".currentPrice", ".ratio"];
