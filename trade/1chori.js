@@ -677,8 +677,8 @@ function displayChart(index) {
     plotOptions: {
       candlestick: {
         colors: {
-          upward: "#3339FF",
-          // downward: "#DF7D46",
+          upward: "#FF0000",
+          downward: "#3339FF",
         },
       },
     },

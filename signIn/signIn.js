@@ -9,7 +9,7 @@ document.querySelector(".sign-in-button").addEventListener("click", () => {
   console.log(password.value);
   if (validateMember()) {
     alert("로그인 되었습니다.");
-    location.href = "/main/main.html";
+    location.href = "../main/main.html";
   } else {
   }
 });
