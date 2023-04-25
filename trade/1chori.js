@@ -126,8 +126,6 @@ bookmarkTab.onclick = function () {
 //----------------------------------------------------------------------------
 
 const viewCoin = coins.slice(1);
-// wonCoinList.setAttribute("data-name", coins[index + 1].name);
-// dollarCoinList.setAttribute("data-name", coins[index + 1].name);
 
 function createSubElements(priceContent) {
   let bookmark = document.createElement("div");
@@ -291,15 +289,13 @@ coinUSDList();
 
 //--------------------------------------------------------------------
 
-
-
-
 function clickedImg(event) {
-
   const img = event.target;
-  const coinList = img.closest(".wonCoinList") || img.closest(".dollarCoinList");
+  const coinList =
+    img.closest(".wonCoinList") || img.closest(".dollarCoinList");
   const pTag = document.querySelector(".noBookmark");
-  const listId = coinList.dataset.name;
+  const listId = coinList.getAttribute("data-id");
+  // console.log(img, coinList, pTag, listId);
 
   if (img.src.endsWith("grayStar.png")) {
     img.src = "./yellowStar.png";
@@ -307,7 +303,7 @@ function clickedImg(event) {
 
     // 코인탭에 있는 코인요소를 복제하여 북마크탭에 추가
     const clonedList = coinList.cloneNode(true);
-    clonedList.dataset.name = listId;
+    clonedList.setAttribute("data-id", listId);
     bookmarkBox.appendChild(clonedList);
 
     // 복제된 코인리스트의 이미지 이벤트 업데이트
@@ -317,7 +313,8 @@ function clickedImg(event) {
     img.src = "./grayStar.png";
 
     // 북마크탭에서 코인 목록 제거
-    const listItemToRemove = bookmarkBox.querySelector(`[data-name="${listId}"]`);
+    const listItemToRemove = bookmarkBox.querySelector(`[data-id="${listId}"]`);
+    // console.log(listItemToRemove);
     if (listItemToRemove) {
       bookmarkBox.removeChild(listItemToRemove);
     }
@@ -346,7 +343,6 @@ function clickedImg(event) {
     }
   }
 }
-
 
 //-----------------------------------------------------------------------------
 
@@ -600,8 +596,8 @@ function displayChart(index) {
   let chart = new ApexCharts(document.querySelector("#chart"), options);
 
   // let time9 = 0;
-  // let count = 0;
   let time0 = 1000;
+  // let count = 0;
 
   turn1(0);
   let start;

@@ -1,5 +1,3 @@
-let loginUser = JSON.parse(localStorage.getItem("nowLogin"));
-console.log(loginUser);
 
 // ----------------------------------------------------닉네임 변경---------------------------------------------------
 
@@ -30,9 +28,9 @@ function isNickname(input) {
 }
 
 
+// csh 닉네임 수정 -------------------------------------------
 subBtn.onclick = function () {
     let inputNic = document.querySelector('.inputNic').value;
-    nickName.innerHTML = loginUser.name;
 
     if (!isNickname(inputNic)) {
         document.querySelector('.cautionText').innerHTML = '닉네임 형식이 올바르지 않습니다.';
@@ -42,7 +40,20 @@ subBtn.onclick = function () {
         document.body.classList.remove('active');
         nickPopup.classList.remove('active');
         nickName.innerHTML = inputNic;
-        localStorage.setItem('nowLogin', inputNic);
+
+        let nowLogin10 = JSON.parse(localStorage.getItem("nowLogin"));
+        let userInformation10 = JSON.parse(localStorage.getItem("userInformation"));
+        let ui10n = (nowLogin10.id) - 1;
+
+        nowLogin10.name = inputNic;
+        userInformation10[ui10n].name = inputNic;
+
+        localStorage.setItem("nowLogin", JSON.stringify(nowLogin10));
+        localStorage.setItem("userInformation", JSON.stringify(userInformation10));
+
+        // localStorage.setItem('nowLogin', inputNic);
+
+        // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 
         // 팝업창 닫았을 때, 모든 값 초기화
         document.querySelector('.inputNic').value = '';
@@ -50,11 +61,17 @@ subBtn.onclick = function () {
     }
 }
 
-let storageNic = localStorage.getItem('nowLogin');
-if (storageNic) {
-    nickName.innerHTML = storageNic.name;
-}
 
+let nowLogin10 = JSON.parse(localStorage.getItem("nowLogin"));
+document.querySelector(".accessInfo p span").innerHTML = nowLogin10.name;
+
+// let storageNic = localStorage.getItem('nowLogin');
+// console.log(storageNic);
+// if (storageNic) {
+//     nickName.innerHTML = storageNic;
+// }
+
+// csh 닉네임 수정 -------------------------------------------
 
 
 // ---------------------------------------------- 계좌 관리 ---------------------------------------------------------
@@ -126,10 +143,37 @@ findCoin.addEventListener('input', handleSearch);
 
 // 계좌관리 내 코인별 보유자산
 let myCoin = document.querySelector('.myCoin');
-let valueAmount = document.querySelector('.change-to-won span');
+let coinToKrwElements = [];
+let coinCurrentPrice = [
+    // 코인의 현재가를 map으로 반환하고 slice로 원화를 잘라줌
+    ...coinsInTradeJS
+        .map((a, i) => {
+            return a.currentPrice;
+        })
+    // .slice(1),
+];
+
+coinStystems.forEach((a, i) => {
+    if (i != 0) {
+        // console.log(i,a)
+        setInterval(() => {
+            // 1초마다 코인의 현재 가격들을 변경 배열에 저장한다.
+            coinCurrentPrice[i] = getRandomPrice(
+                coins[i],
+                coinStystems[i],
+                i
+            );
+            coinsInTradeJS[i].currentPrice = coinCurrentPrice[i]
+
+            setLocalStorage('coinInformation', coinsInTradeJS)
+
+            coinToKrwElements[i].innerHTML = `${coinCurrentPrice[i]} KRW`;
+        }, 1000);
+    }
+});
 
 function renderCoinList() {
-    coins.forEach((coin) => {
+    coins.forEach((coin, i) => {
         let ul = document.createElement('ul');
         let nameList = document.createElement('li');
         let percentList = document.createElement('li');
@@ -160,11 +204,8 @@ function renderCoinList() {
         nameList.innerHTML = coin.name;
         percentList.innerHTML = '0.00%';
         myCoinUnit.innerHTML = ` ${coin.symbol}`;
-        coinToKrw.innerHTML = `${coin.currentPrice} KRW`;
-
-        if (myCoin * coinToKrw == 0) {
-            return valueAmount.innerHTML = 0;
-        }
+        coinToKrw.innerHTML = `${coinCurrentPrice[i]} KRW`;
+        coinToKrwElements.push(coinToKrw);
 
         // peter가 보유한 코인에만 수량을 나타내는 함수
         // for (const key in peter.coin) {
@@ -431,3 +472,4 @@ function loadHistory() {
 }
 
 loadHistory();
+
