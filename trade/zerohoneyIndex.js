@@ -81,12 +81,19 @@ const changeTabContent = (a, i) => {
       loginUser.coinVolume[`${coin.symbol}`];
     document.querySelector(".btn-container").innerHTML =
       '<a class="sell-btn">매도</a>';
+    document.querySelector(".buy-steem-container > span").innerHTML = "현재가";
     let sellBtn = document.querySelector(".sell-btn");
     // 매수시 실행 메소드
     sellBtn.addEventListener("click", () => {
       sellFunction();
     });
     document.querySelector("#sellPrice").placeholder = 0;
+
+    // 만약 매도시 필요없으므로 삭제
+
+    document.querySelectorAll(".percent-container span").forEach((a) => {
+      a.style.display = "none";
+    });
   }
 };
 
@@ -154,17 +161,34 @@ for (let i = 0; i < 4; i++) {
   document
     .querySelectorAll(".percent-container span")
     [i].addEventListener("click", () => {
+      console.log("asd");
+      // 주문수량 변경
       document.querySelector("#tradeVolume").placeholder = document
         .querySelectorAll(".percent-container span")
         [i].getAttribute("value");
-      orderSum.placeholder =
-        (parseFloat(
-          document
-            .querySelectorAll(".percent-container span")
-            [i].getAttribute("value")
-        ) /
-          100) *
-        parseInt(document.querySelector("#buyPrice").placeholder);
+
+      // 만약 매도시 주문총액 계산
+      if (tabItem[1]) {
+        orderSum.placeholder =
+          (parseFloat(
+            document
+              .querySelectorAll(".percent-container span")
+              [i].getAttribute("value")
+          ) /
+            100) *
+          parseInt(document.querySelector("#sellPrice").placeholder);
+      } else {
+        // 만약 매수시 주문총액 계산
+        orderSum.placeholder =
+          (parseFloat(
+            document
+              .querySelectorAll(".percent-container span")
+              [i].getAttribute("value")
+          ) /
+            100) *
+          parseInt(document.querySelector("#buyPrice").placeholder);
+      }
+      // 주문 총액 변경
     });
 }
 //입력이 가능해진 input에 숫자를 입력 할 때마다 실행
@@ -215,10 +239,30 @@ const buyFunction = () => {
   document.querySelector(".account").childNodes[0].nodeValue =
     loginUser.account;
 };
+
 // 매도 함수
 const sellFunction = () => {
   console.log(loginUser.account);
   loginUser.account += parseInt(orderSum.placeholder);
+  let sellCoinVolume = -parseInt(
+    parseInt(orderSum.placeholder) /
+      parseFloat(document.querySelector("#buyPrice").placeholder)
+  );
+  // 소비자가 산 코인을 Coin 생성자로 만들어 push해야함
+  let { coinObj, quantity, userId } = new Coin(
+    dummyDataCoin[coinIndex],
+    sellCoinVolume,
+    loginUser.id
+  );
+  loginUser.coin.push({ coinObj: coinObj, quantity: quantity, userId: userId });
+
+  // 소비자가 이미 갖고있는 코인, 새로산 코인을 여기에 더해야함
+  let alreadyHaveCoin = loginUser["coinVolume"][coin.symbol];
+  loginUser.coinVolume = {
+    ...loginUser.coinVolume,
+    [coin.symbol]: alreadyHaveCoin + sellCoinVolume,
+  };
+  console.log(alreadyHaveCoin);
   console.log(loginUser.account);
   setLoginUser(loginUser);
   let tempUser = getLocalStorage("userInformation").map((a) => {

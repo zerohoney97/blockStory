@@ -184,6 +184,9 @@ function createCoinList(coin, index, priceContent) {
 // let wonBox = document.querySelector(".won-tab");
 // let dollarBox = document.querySelector(".dollar-tab");
 // let wonCoinList = document.createElement("div");
+// ********************************************************************************************
+// *** 현재가, 즉 모든 코인의 가격의 변동을 웹에 나타내주는 함수가 있는 곳입니다!
+// ********************************************************************************************
 
 
 function coinWonList() {
@@ -194,7 +197,7 @@ function coinWonList() {
     var wonCoinList = coinListObj.wonCoinList;
     wonBox.append(wonCoinList);
     setInterval(function () {
-      // 현재가 실시간 반영
+      // ***현재가 실시간 반영***
       //   스코프를 이용해 주어진 함수내에서만 생존하는 변수 생성
       var wonCoinList = wonBox.querySelectorAll(".wonCoinList");
       won.innerHTML = "".concat(randomPrice, " KRW"); //   모든 코인의 현재가(원)를 바꿔주는 함수이다. 생성된 코인 리스트의 현재가를 1초마다 바꿔준다.
@@ -219,7 +222,7 @@ function coinUSDList() {
     dollar.append(won);
     dollarBox.append(dollarCoinList);
     int10 = setInterval(function () {
-      // 현재가 실시간 반영
+      // ***현재가 실시간 반영***
       // dollar.innerHTML = (randomPrice / 1320).toFixed(3);
       // won.innerHTML = `${randomPrice} KRW`;
       //   스코프를 이용해 주어진 함수내에서만 생존하는 변수 생성

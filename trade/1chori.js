@@ -210,6 +210,10 @@ function createCoinList(coin, index, priceContent) {
 // let dollarBox = document.querySelector(".dollar-tab");
 // let wonCoinList = document.createElement("div");
 
+// ********************************************************************************************
+// *** 현재가, 즉 모든 코인의 가격의 변동을 웹에 나타내주는 함수가 있는 곳입니다!
+// ********************************************************************************************
+
 function coinWonList() {
   viewCoin.forEach((coin, index) => {
     let won = document.createElement("p");
@@ -219,7 +223,7 @@ function coinWonList() {
     wonBox.append(wonCoinList);
 
     setInterval(() => {
-      // 현재가 실시간 반영
+      // ***현재가 실시간 반영***
       //   스코프를 이용해 주어진 함수내에서만 생존하는 변수 생성
       const wonCoinList = wonBox.querySelectorAll(".wonCoinList");
 
@@ -248,7 +252,7 @@ function coinUSDList() {
     dollarBox.append(dollarCoinList);
 
     int10 = setInterval(() => {
-      // 현재가 실시간 반영
+      // ***현재가 실시간 반영***
       // dollar.innerHTML = (randomPrice / 1320).toFixed(3);
       // won.innerHTML = `${randomPrice} KRW`;
       //   스코프를 이용해 주어진 함수내에서만 생존하는 변수 생성
@@ -649,7 +653,7 @@ function displayChart(index) {
         // 평균가로 매수가격을 바꿔줍니다.
         if (document.querySelector("#buyPrice")) {
           document.querySelector("#buyPrice").placeholder = average;
-        } 
+        }
         // console.log("평균가: ", average);
         // 이 값을 나중에 매수할때 가져가기
         // 무헌이꺼랑 합치기~~~~~~~~~~~~
