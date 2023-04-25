@@ -211,8 +211,9 @@ function renderCoinList() {
 
         } else {
             iHaveCoin.innerHTML = loginUser.coinVolume[coin.symbol];
+            myCoin.innerHTML = loginUser.coinVolume[coin.symbol];
+
         }
-        console.log(iHaveCoin[0]);
     })
 }
 renderCoinList();
@@ -351,6 +352,8 @@ withdrawInput.addEventListener('keypress', nonNum);
 
 
 // 입출금 신청시 입출금 내역에 저장되는 함수
+let thisCoinUnit = document.querySelector('.haveNum p');
+let thisCoinHave = document.querySelector('.haveCoinUnit strong');
 
 if (loginUser) {
     totalMoney.textContent = loginUser.account || 0;

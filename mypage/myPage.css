@@ -258,7 +258,7 @@ body.active::before{
     background-color: rgb(237, 237, 237);
     width: 100%;
     max-width: 900px;
-    height: 46.042vw;
+    height: 46.042vh;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -353,7 +353,7 @@ body.active::before{
 
 .container{
     overflow-y: scroll;
-    height: 664px;
+    height: 65.802vh;
 }
 
 .list-title{
@@ -409,7 +409,7 @@ body.active::before{
     border: 1px solid rgb(214, 214, 214);
     list-style: none;
     display: flex;
-    height: 60px;
+    height: 7.125vh;
     justify-content: center;
     align-items: center;
 }
