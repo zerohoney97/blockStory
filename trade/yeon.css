@@ -146,8 +146,8 @@
   }
 
   .comment textarea{
-    width: 660px;
-    transform: translate(50px);
+    width: 50%;
+    transform: translate(20px);
     bottom: 60%;
     color: #333;
   }
@@ -166,8 +166,8 @@
   }
   .comment-box{
     position: absolute;
-    width: 660px;
-    height: 100px;
+    width: 60%;
+    height: 70px;
     background-color: white;
     left: 50%;
     bottom: 15%;
