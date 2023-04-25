@@ -96,9 +96,9 @@ addBtn.addEventListener("click", function () {
     numElement.className = "num";
     numElement.innerHTML = obj.num;
 
-//     let titElement = document.createElement("div");
-//     titElement.className = "tit";
-//     titElement.innerHTML = obj.title;
+    let titElement = document.createElement("div");
+    titElement.className = "tit";
+    titElement.innerHTML = obj.title;
 
     let writerElement = document.createElement("div");
     writerElement.className = "writer";
@@ -345,17 +345,17 @@ const changePage = () => {
       numElement.className = "num";
       numElement.innerHTML = board[i].num;
 
-      //       let titElement = document.createElement("div");
-      //       titElement.className = "tit";
-      //       titElement.innerHTML = board[i].title;
+      let titElement = document.createElement("div");
+      titElement.className = "tit";
+      titElement.innerHTML = board[i].title;
 
-      //       let writerElement = document.createElement("div");
-      //       writerElement.className = "writer";
-      //       writerElement.innerHTML = board[i].writer;
+      let writerElement = document.createElement("div");
+      writerElement.className = "writer";
+      writerElement.innerHTML = board[i].writer;
 
-      //       // let viewElement = document.createElement("div");
-      //       // viewElement.className = "view";
-      //       // viewElement.innerHTML = board[i].view
+      // let viewElement = document.createElement("div");
+      // viewElement.className = "view";
+      // viewElement.innerHTML = board[i].view
 
       _list.append(numElement);
       _list.append(titElement);
@@ -365,7 +365,7 @@ const changePage = () => {
       titClass = document.querySelectorAll(".tit");
       titClass[j].addEventListener("click", function () {
         conText.innerHTML = board[i].content;
-        console.log("asd");
+        console.log('asd')
         titleCon.style.display = "block";
       });
       j++;
@@ -390,53 +390,53 @@ const changePage = () => {
       numElement.className = "num";
       numElement.innerHTML = board[i].num;
 
-      //       let titElement = document.createElement("div");
-      //       titElement.className = "tit";
-      //       titElement.innerHTML = board[i].title;
+      let titElement = document.createElement("div");
+      titElement.className = "tit";
+      titElement.innerHTML = board[i].title;
 
-      //       let writerElement = document.createElement("div");
-      //       writerElement.className = "writer";
-      //       writerElement.innerHTML = board[i].writer;
+      let writerElement = document.createElement("div");
+      writerElement.className = "writer";
+      writerElement.innerHTML = board[i].writer;
 
-      //       // let viewElement = document.createElement("div");
-      //       // viewElement.className = "view";
-      //       // viewElement.innerHTML = board[i].view
+      // let viewElement = document.createElement("div");
+      // viewElement.className = "view";
+      // viewElement.innerHTML = board[i].view
 
-      //       _list.append(numElement);
-      //       _list.append(titElement);
-      //       _list.append(writerElement);
-      //       // _list.append(viewElement)
-      //       subContainer.append(_list);
-      //       titClass = document.querySelectorAll(".tit");
-      //       titClass[j].addEventListener("click", function () {
-      //         conText.innerHTML = board[i].content;
-      //         titleCon.style.display = "block";
-      //       });
-      //       j++;
-      //     }
-      //   }
-      // };
-
-      // //----active---
-
-      document.querySelector("#pre").addEventListener("click", function () {
-        currentPage -= 1;
-        if (currentPage < 1) {
-          currentPage = 1;
-        }
-        document.querySelector(".active").classList.remove("active");
-        document.querySelector("#page" + currentPage).classList.add("active");
-        changePage();
+      _list.append(numElement);
+      _list.append(titElement);
+      _list.append(writerElement);
+      // _list.append(viewElement)
+      subContainer.append(_list);
+      titClass = document.querySelectorAll(".tit");
+      titClass[j].addEventListener("click", function () {
+        conText.innerHTML = board[i].content;
+        titleCon.style.display = "block";
       });
-      document.querySelector("#next").addEventListener("click", function () {
-        currentPage += 1;
-        if (currentPage > Math.floor(board.length / 12) + 1) {
-          currentPage = Math.floor(board.length / 12) + 1;
-        }
-        document.querySelector(".active").classList.remove("active");
-        document.querySelector("#page" + currentPage).classList.add("active");
-        changePage();
-      });
+      j++;
+    }
+  }
+};
+
+//----active---
+
+document.querySelector("#pre").addEventListener("click", function () {
+  currentPage -= 1;
+  if (currentPage < 1) {
+    currentPage = 1;
+  }
+  document.querySelector(".active").classList.remove("active");
+  document.querySelector("#page" + currentPage).classList.add("active");
+  changePage();
+});
+document.querySelector("#next").addEventListener("click", function () {
+  currentPage += 1;
+  if (currentPage > Math.floor(board.length / 12) + 1) {
+    currentPage = Math.floor(board.length / 12) + 1;
+  }
+  document.querySelector(".active").classList.remove("active");
+  document.querySelector("#page" + currentPage).classList.add("active");
+  changePage();
+});
 
 //---거래소에서 로그아웃을 누르면 처음main으로 넘어가게 하는함수
 // 관리자일때

@@ -275,12 +275,12 @@ const sellFunction = () => {
     ...loginUser.coinVolume,
     [coin.symbol]: alreadyHaveCoin + sellCoinVolume,
   };
-  console.log(alreadyHaveCoin);
+  console.log(alreadyHaveCoin, "매도");
   console.log(loginUser.account);
   setLoginUser(loginUser);
   let tempUser = getLocalStorage("userInformation").map((a) => {
     if (loginUser.id == a.id) {
-      a.account = loginUser.account;
+      a = loginUser;
       return a;
     } else {
       return a;

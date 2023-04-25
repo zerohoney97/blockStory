@@ -240,12 +240,12 @@ var sellFunction = function sellFunction() {
 
   var alreadyHaveCoin = loginUser["coinVolume"][coin.symbol];
   loginUser.coinVolume = _objectSpread({}, loginUser.coinVolume, _defineProperty({}, coin.symbol, alreadyHaveCoin + sellCoinVolume));
-  console.log(alreadyHaveCoin);
+  console.log(alreadyHaveCoin, "매도");
   console.log(loginUser.account);
   setLoginUser(loginUser);
   var tempUser = getLocalStorage("userInformation").map(function (a) {
     if (loginUser.id == a.id) {
-      a.account = loginUser.account;
+      a = loginUser;
       return a;
     } else {
       return a;

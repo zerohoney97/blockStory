@@ -1,10 +1,10 @@
 .closeDeal{
-    width: 70%;
-    height: 100%;
+    width: 980px;
+    height: 270px;
     max-height: 360px;
     background-color: white;
     position: absolute;
-    top: 1220px;
+    top: 1314px;
 }
 
 .closed-subtitle ul,
