@@ -41,13 +41,10 @@
             color: black;
             display: flex;
             align-items: center;
-          "
-        >
-          <li>거래소</li>
-        </a>
-        <a
-          href="#withdraw"
-          style="
+          ">
+        <li>거래소</li>
+      </a>
+      <a href="#withdraw" style="
             text-decoration: none;
             color: black;
             display: flex;
@@ -223,6 +220,135 @@
           </div>
         </div>
       </div>
+                ">
+              <a href="https://play.google.com/store/apps"><img width="150px" height="50px"
+                  src="./img/스크린샷 2023-04-11 134121.png" alt="" /></a>
+              <a href="https://www.apple.com/kr/app-store/"><img width="150px" height="50px"
+                  src="../main/img/스크린샷 2023-04-11 134146.png" alt="" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="all-container">
+    <!-- 차트 -->
+    <div class="pageWidth">
+      <div id="chart"></div>
+      <div class="coinInfo">
+        <div class="searchCoin">
+          <input type="text" class="findCoin" placeholder="코인명/심볼검색" />
+          <button class="searchCoinBtn">
+            <img src="../mypage/1093183.png" />
+          </button>
+        </div>
+        <div class="allCoinInfo">
+          <div class="MainTitle">
+            <input class="won" type="radio" id="korMoney" checked />
+            <label for="korMoney" id="won">원화</label>
+            <input class="dollar" type="radio" id="usdollar" />
+            <label for="usdollar" id="dollar">USDT</label>
+            <input class="have" type="radio" id="having" />
+            <label for="having" id="have">보유</label>
+            <input class="bookmark" type="radio" id="bookmarking" />
+            <label for="bookmarking" id="bookmark">관심</label>
+          </div>
+        </div>
+        <div class="subTitle">
+          <ul>
+            <li class="starTitle"></li>
+            <li class="languageTitle">한글명</li>
+            <li class="currentPriceTitle">현재가</li>
+            <li class="ratioTitle">전초대비</li>
+          </ul>
+        </div>
+        <div class="coinSection">
+          <div class="won-tab"></div>
+          <div class="dollar-tab"></div>
+          <div class="have-tab">
+            <p class="noCoin">현재 보유중인 코인이 없습니다.</p>
+          </div>
+          <div class="bookmark-tab">
+            <p class="noBookmark">등록된 관심코인이 없습니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 게시판 -->
+    <div class="container">
+      <div class="title">Q&A</div>
+      <ul class="title_row">
+        <li id="number" style="width: 40px">No</li>
+        <li id="title" style="width: 267px">제목</li>
+        <li id="writer" style="width: 110px">작성자</li>
+        <!-- <li id="view" style="width: 50px;">조회수</li> -->
+      </ul>
+      <div class="sub-container">
+        <div class="list">
+
+          <!-- <div class="view"></div> -->
+        </div>
+      </div>
+      <!-- 모달창 -->
+      <div class="title-in">
+        <div id="title-con">
+          <div class="comment">
+            <span>
+              <textarea rows="3" placeholder="댓글을 입력해 주세요" id="commentValue"></textarea>
+              <button id="commentBtn" class="comment-btn">댓글입력</button>
+            </span>
+          </div>
+          <div class="comment-box">
+           
+          </div>
+
+          <div class="content-text" name="">asd</div>
+          <div id="fixBtn" class="fix-Btn">수정</div>
+          <div id="delBtn" class="del-Btn">삭제</div>
+          <button id="con-close">닫기</button>
+        </div>
+      </div>
+      <div id="btn">글 쓰기</div>
+      <div class="page">
+        <div class="pageNa" id="content">
+          <a id="pre">이전</a>
+          <a value="1" id="page1" class="active current-page">1</a>
+          <a value="2" id="page2" class="current-page">2</a>
+          <a value="3" id="page3" class="current-page">3</a>
+          <a id="next">다음</a>
+        </div>
+      </div>
+      <div id="modal">
+        <div class="content">
+          <span>
+            <input class="input-text" type="text" name="" id="text" placeholder="제목을 입력해 주세요" />
+          </span>
+          <span>
+            <textarea class="input-text" style="margin-top: 50px" name="" id="text2" cols="30" rows="10"
+              placeholder="내용을 입력해 주세요"></textarea>
+          </span>
+        </div>
+        <div style="display: flex">
+          <button id="add-btn">등록</button>
+          <button id="close-btn">등록취소</button>
+        </div>
+      </div>
+      <div id="modal2">
+        <div class="content2">
+          <span>
+            <input class="input-text2" type="text" name="" id="text3" placeholder="수정할 제목을 입력해 주세요" />
+          </span>
+          <span>
+            <textarea class="input-text2" style="margin-top: 50px" name="" id="text4" cols="30" rows="10"
+              placeholder="수정할 내용을 입력해 주세요"></textarea>
+          </span>
+        </div>
+        <div style="display: flex">
+          <button id="update-Btn">수정</button>
+          <button id="close-btn2">수정취소</button>
+        </div>
+      </div>
+    </div>
 
       <!-- 매수/매도 -->
       <div class="left-container">
@@ -428,19 +554,17 @@
             list-style: none;
             transform: translateX(-40px);
             cursor: pointer;
-          "
-        >
-          <li>회사소개</li>
-          <li>공지사항</li>
-          <li>이용약관</li>
-          <li>Open API 이용약관</li>
-          <li>개인정보처리방침</li>
-        </ul>
-      </div>
-      <div style="display: flex; flex-direction: column">
-        <h3 style="margin: 0">고객지원</h3>
-        <ul
-          style="
+          ">
+        <li>회사소개</li>
+        <li>공지사항</li>
+        <li>이용약관</li>
+        <li>Open API 이용약관</li>
+        <li>개인정보처리방침</li>
+      </ul>
+    </div>
+    <div style="display: flex; flex-direction: column">
+      <h3 style="margin: 0">고객지원</h3>
+      <ul style="
             list-style: none;
             transform: translateX(-40px);
             cursor: pointer;
