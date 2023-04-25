@@ -460,6 +460,8 @@ function displayChart(index) {
       coins[index + 1].symbol == "GBC" ||
       coins[index + 1].symbol == "DGC"
     ) {
+      console.log("잘못 확인");
+
       if (iff == 0) {
         cp = Number(num.currentPrice);
       } else {
@@ -526,7 +528,7 @@ function displayChart(index) {
       } else {
         cp = iff;
       }
-
+      console.log("경일코인 확인");
       // 1부터 10까지의 랜덤 숫자
       let ten_chance = Math.floor(Math.random() * 20 + 1);
       // 전 가격이 최대라면 1/3 띵 시켜버리고 통과 ㅎㅎ
@@ -537,6 +539,8 @@ function displayChart(index) {
       }
 
       if (ten_chance == 10) {
+        console.log("경일코인 낮은확률 확인");
+
         // 10%      500기준 min~200 and 10000~max
         let two = Math.floor(Math.random() * 2 + 1);
         if (two == 1) {
@@ -552,6 +556,8 @@ function displayChart(index) {
         }
         // console.log("결과값: ", randomPrice);
       } else {
+        console.log("경일코인 좋은 변화 확인");
+
         // 90%      500기준 300 ~ 700
         let half = cp / 2;
         // ???
@@ -774,6 +780,7 @@ function displayChart(index) {
   chart.render();
 }
 
+// 원화 제외하고 시작
 allCoinList.forEach((item, index) => {
   item.addEventListener("click", () => {
     // csh 하던거 -------------------------------------------
@@ -811,6 +818,7 @@ allCoinList.forEach((item, index) => {
     //                가 생성되지 않음
     //             5. 혹시 몰라서 clearInterval로 삭제까지 함***
     // ********************************************************************************************
+    nowCoin=index+1
     clearInterval(intervalId2);
     clearInterval(timer);
     displayChart(index);

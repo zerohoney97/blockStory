@@ -387,6 +387,8 @@ function displayChart(index) {
     var max = coin.max; // 코인에 따른 변화폭 조절 조건문
 
     if (coins[index + 1].symbol == "DSC" || coins[index + 1].symbol == "HGC" || coins[index + 1].symbol == "GBC" || coins[index + 1].symbol == "DGC") {
+      console.log("잘못 확인");
+
       if (iff == 0) {
         cp = Number(num.currentPrice);
       } else {
@@ -446,8 +448,9 @@ function displayChart(index) {
         cp = Number(num.currentPrice);
       } else {
         cp = iff;
-      } // 1부터 10까지의 랜덤 숫자
+      }
 
+      console.log("경일코인 확인"); // 1부터 10까지의 랜덤 숫자
 
       var _ten_chance = Math.floor(Math.random() * 20 + 1); // 전 가격이 최대라면 1/3 띵 시켜버리고 통과 ㅎㅎ
 
@@ -459,7 +462,8 @@ function displayChart(index) {
       }
 
       if (_ten_chance == 10) {
-        // 10%      500기준 min~200 and 10000~max
+        console.log("경일코인 낮은확률 확인"); // 10%      500기준 min~200 and 10000~max
+
         var _two = Math.floor(Math.random() * 2 + 1);
 
         if (_two == 1) {
@@ -473,7 +477,8 @@ function displayChart(index) {
         } // console.log("결과값: ", randomPrice);
 
       } else {
-        // 90%      500기준 300 ~ 700
+        console.log("경일코인 좋은 변화 확인"); // 90%      500기준 300 ~ 700
+
         var _half = cp / 2; // ???
 
 
@@ -581,8 +586,8 @@ function displayChart(index) {
     plotOptions: {
       candlestick: {
         colors: {
-          upward: "#3339FF" // downward: "#DF7D46",
-
+          upward: "#FF0000",
+          downward: "#3339FF"
         }
       }
     }
@@ -671,7 +676,8 @@ function displayChart(index) {
   }
 
   chart.render();
-}
+} // 원화 제외하고 시작
+
 
 allCoinList.forEach(function (item, index) {
   item.addEventListener("click", function () {
@@ -707,6 +713,7 @@ allCoinList.forEach(function (item, index) {
     //                가 생성되지 않음
     //             5. 혹시 몰라서 clearInterval로 삭제까지 함***
     // ********************************************************************************************
+    nowCoin = index + 1;
     clearInterval(intervalId2);
     clearInterval(timer);
     displayChart(index);
