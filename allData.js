@@ -6,7 +6,7 @@ class User {
     password,
     isAdmin,
     accountNumber,
-    coin = null,
+    coin = [],
     tradeSum = 0,
     account = 100000,
     coinVolume = {
