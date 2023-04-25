@@ -153,14 +153,23 @@ slider.addEventListener("input", function () {
 
 var _loop = function _loop(i) {
   document.querySelectorAll(".percent-container span")[i].addEventListener("click", function () {
-    console.log("asd"); // 주문수량 변경
+    // 주문할 퍼센트
+    var percent = parseInt(document.querySelectorAll(".percent-container span")[i].getAttribute("value")) / 100; // 유저가 구매할 돈
 
-    document.querySelector("#tradeVolume").placeholder = document.querySelectorAll(".percent-container span")[i].getAttribute("value"); // 만약 매도시 주문총액 계산
+    var buyAccountPrice = percent * loginUser.account; // 주문 수령
+
+    var howOrderNum = Math.floor(buyAccountPrice / parseInt(document.querySelector("#buyPrice").placeholder)); //주문 총액
+
+    var oderSum = parseInt(document.querySelector("#buyPrice").placeholder) * howOrderNum; // 주문수량 변경
+
+    document.querySelector("#tradeVolume").placeholder = howOrderNum; // 만약 매도시 주문총액 계산
 
     if (tabToggle[1]) {} else {
-      console.log('들어옴'); // 만약 매수시 주문총액 계산
+      console.log("들어옴"); // 만약 매수시 주문총액 계산
 
-      orderSum.placeholder = parseFloat(document.querySelectorAll(".percent-container span")[i].getAttribute("value")) / 100 * parseInt(document.querySelector("#buyPrice").placeholder);
+      console.log(buyAccountPrice);
+      console.log(howOrderNum);
+      orderSum.placeholder = oderSum;
     } // 주문 총액 변경
 
   });
