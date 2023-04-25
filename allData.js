@@ -8,7 +8,7 @@ class User {
     accountNumber,
     coin = null,
     tradeSum = 0,
-    account = 0,
+    account = 100000,
     coinVolume = {
       GIC: 0,
       DSC: 0,

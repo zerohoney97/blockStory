@@ -452,49 +452,140 @@ function displayChart(index) {
     const min = coin.min;
     const max = coin.max;
 
-    if (iff == 0) {
-      cp = Number(num.currentPrice);
-    } else {
-      cp = iff;
-    }
+    // 코인에 따른 변화폭 조절 조건문
 
-    // 1부터 10까지의 랜덤 숫자
-    let ten_chance = Math.floor(Math.random() * 20 + 1);
-
-    if (ten_chance == 10) {
-      // 10%      500기준 min~200 and 10000~max
-      let two = Math.floor(Math.random() * 2 + 1);
-      if (two == 1) {
-        // randomPrice = min;
-
-        // min ~ 10% 까지의 값
-        randomPrice = Math.floor(Math.random() * (max * 0.1) + min);
+    if (
+      coins[index + 1].symbol == "DSC" ||
+      coins[index + 1].symbol == "HGC" ||
+      coins[index + 1].symbol == "GBC" ||
+      coins[index + 1].symbol == "DGC"
+    ) {
+      if (iff == 0) {
+        cp = Number(num.currentPrice);
       } else {
-        // randomPrice = max;
-
-        // max ~ max밑의 10% 값
-        randomPrice = Math.floor(Math.random() * (max * 0.1 + 1) + max * 0.9);
+        cp = iff;
       }
-      // console.log("결과값: ", randomPrice);
+
+      // 1부터 10까지의 랜덤 숫자
+      let ten_chance = Math.floor(Math.random() * 20 + 1);
+
+      if (ten_chance == 10) {
+        // 10%      500기준 min~200 and 10000~max
+        let two = Math.floor(Math.random() * 2 + 1);
+        if (two == 1) {
+          // randomPrice = min;
+
+          // min ~ 10% 까지의 값
+          randomPrice = Math.floor(Math.random() * (max * 0.1) + min);
+        } else {
+          // randomPrice = max;
+
+          // max ~ max밑의 10% 값
+          randomPrice = Math.floor(Math.random() * (max * 0.1 + 1) + max * 0.9);
+        }
+        // console.log("결과값: ", randomPrice);
+      } else {
+        // 90%      500기준 300 ~ 700
+        let half = cp / 2;
+        // ???
+        randomPrice = Math.floor(
+          Math.random() * (cp + half - (cp - half) + 1) + (cp - half)
+        );
+
+        if (randomPrice <= 0) {
+          alert("상-폐");
+          coins[index + 1] = "미국감";
+          loginUser.coinVolume[coins[index + 1]["symbol"]] = 0;
+          let tempUser = JSON.parse(
+            localStorage.getItem("userInformation")
+          ).map((a) => {
+            if (a.id == loginUser.id) {
+              a = loginUser;
+              return a;
+            } else {
+              return a;
+            }
+          });
+
+          localStorage.setItem("userInformation", JSON.stringify(tempUser));
+        } else if (randomPrice > max) {
+          // randomPrice = max;
+          // max값보다 큰 값이 나와버리면 max밑20% ~ max 값까지 랜덤값 출력
+          randomPrice = Math.floor(Math.random() * (max * 0.2 + 1) + max * 0.8);
+        } else if (coins[index + 1] == "미국감") {
+          alert("너희 코인 망했다며?ㅋㅋㅋㅋ");
+          window.history.back();
+        }
+      }
+      iff = randomPrice;
+
+      return randomPrice;
     } else {
-      // 90%      500기준 300 ~ 700
-      let half = cp / 2;
-      // ???
-      randomPrice = Math.floor(
-        Math.random() * (cp + half - (cp - half) + 1) + (cp - half)
-      );
-
-      if (randomPrice < min) {
-        randomPrice = min;
-      } else if (randomPrice > max) {
-        // randomPrice = max;
-        // max값보다 큰 값이 나와버리면 max밑20% ~ max 값까지 랜덤값 출력
-        randomPrice = Math.floor(Math.random() * (max * 0.2 + 1) + max * 0.8);
+      if (iff == 0) {
+        cp = Number(num.currentPrice);
+      } else {
+        cp = iff;
       }
-    }
-    iff = randomPrice;
 
-    return randomPrice;
+      // 1부터 10까지의 랜덤 숫자
+      let ten_chance = Math.floor(Math.random() * 20 + 1);
+      // 전 가격이 최대라면 1/3 띵 시켜버리고 통과 ㅎㅎ
+      if (randomPrice == max) {
+        randomPrice = randomPrice * (7 / 10);
+        iff = randomPrice;
+        return randomPrice;
+      }
+
+      if (ten_chance == 10) {
+        // 10%      500기준 min~200 and 10000~max
+        let two = Math.floor(Math.random() * 2 + 1);
+        if (two == 1) {
+          // randomPrice = min;
+
+          // min ~ 10% 까지의 값
+          randomPrice = Math.floor(cp * 2);
+        } else {
+          // randomPrice = max;
+
+          // max ~ max밑의 10% 값
+          randomPrice = Math.floor(cp * 0.2);
+        }
+        // console.log("결과값: ", randomPrice);
+      } else {
+        // 90%      500기준 300 ~ 700
+        let half = cp / 2;
+        // ???
+        randomPrice = Math.floor(cp + half - (Math.random() * cp + 1));
+
+        if (randomPrice <= 0) {
+          alert("상-폐");
+          coins[index + 1] = "미국감";
+          loginUser.coinVolume[coins[index + 1]["symbol"]] = 0;
+          let tempUser = JSON.parse(
+            localStorage.getItem("userInformation")
+          ).map((a) => {
+            if (a.id == loginUser.id) {
+              a = loginUser;
+              return a;
+            } else {
+              return a;
+            }
+          });
+
+          localStorage.setItem("userInformation", JSON.stringify(tempUser));
+        } else if (randomPrice >= max) {
+          // randomPrice = max;
+          // max값보다 큰 값이 나와버리면 max밑20% ~ max 값까지 랜덤값 출력
+          randomPrice = max;
+        } else if (coins[index + 1] == "미국감") {
+          alert("너희 코인 망했다며?ㅋㅋㅋㅋ");
+          window.history.back();
+        }
+      }
+      iff = randomPrice;
+
+      return randomPrice;
+    }
   }
 
   function printRandomValue(startPrice) {
@@ -510,7 +601,6 @@ function displayChart(index) {
       //liveTrading에서 계속 갱신되는 coinCurrentArray를 갖고와 randomPrice에 삽입
       //   다른 코인으로 변경해도 coinCurrentArray는 계속 갱신되고 있기 때문에 최신값을 가져올 수 있다.
       randomPrice = coinCurrentArray[index];
-      console.log(randomPrice);
       randomPrices.push(randomPrice); // 생성된 랜덤 가격을 배열에 추가
       // console.log("Random Price: ", randomPrice);
       // console.log("Random title: ", c_title);
@@ -653,6 +743,9 @@ function displayChart(index) {
         // 평균가로 매수가격을 바꿔줍니다.
         if (document.querySelector("#buyPrice")) {
           document.querySelector("#buyPrice").placeholder = average;
+        } else {
+          // 평균가를 매도에서 현재가로 넣는 곳
+          document.querySelector("#tradeVolume").placeholder = average;
         }
         // console.log("평균가: ", average);
         // 이 값을 나중에 매수할때 가져가기
