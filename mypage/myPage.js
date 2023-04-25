@@ -1,3 +1,5 @@
+let loginUser = JSON.parse(localStorage.getItem("nowLogin"));
+console.log(loginUser);
 
 // ----------------------------------------------------닉네임 변경---------------------------------------------------
 
@@ -30,6 +32,7 @@ function isNickname(input) {
 
 subBtn.onclick = function () {
     let inputNic = document.querySelector('.inputNic').value;
+    nickName.innerHTML = loginUser.name;
 
     if (!isNickname(inputNic)) {
         document.querySelector('.cautionText').innerHTML = '닉네임 형식이 올바르지 않습니다.';
@@ -39,7 +42,7 @@ subBtn.onclick = function () {
         document.body.classList.remove('active');
         nickPopup.classList.remove('active');
         nickName.innerHTML = inputNic;
-        localStorage.setItem('nickname', inputNic);
+        localStorage.setItem('nowLogin', inputNic);
 
         // 팝업창 닫았을 때, 모든 값 초기화
         document.querySelector('.inputNic').value = '';
@@ -47,9 +50,9 @@ subBtn.onclick = function () {
     }
 }
 
-let storageNic = localStorage.getItem('nickname');
+let storageNic = localStorage.getItem('nowLogin');
 if (storageNic) {
-    nickName.innerHTML = storageNic;
+    nickName.innerHTML = storageNic.name;
 }
 
 
@@ -123,6 +126,8 @@ findCoin.addEventListener('input', handleSearch);
 
 // 계좌관리 내 코인별 보유자산
 let myCoin = document.querySelector('.myCoin');
+let valueAmount = document.querySelector('.change-to-won span');
+
 function renderCoinList() {
     coins.forEach((coin) => {
         let ul = document.createElement('ul');
@@ -156,6 +161,10 @@ function renderCoinList() {
         percentList.innerHTML = '0.00%';
         myCoinUnit.innerHTML = ` ${coin.symbol}`;
         coinToKrw.innerHTML = `${coin.currentPrice} KRW`;
+
+        if (myCoin * coinToKrw == 0) {
+            return valueAmount.innerHTML = 0;
+        }
 
         // peter가 보유한 코인에만 수량을 나타내는 함수
         // for (const key in peter.coin) {

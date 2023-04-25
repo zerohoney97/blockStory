@@ -2,6 +2,7 @@ let coins = JSON.parse(localStorage.getItem("coinInformation"));
 let priceRange = JSON.parse(localStorage.getItem("priceRangeInfo"));
 let intervalId2;
 let timer;
+let average;
 //--------------------------------------------------------------------------------------------------------
 
 // 코인 및 심볼 검색 함수
@@ -123,6 +124,8 @@ bookmarkTab.onclick = function () {
 //----------------------------------------------------------------------------
 
 const viewCoin = coins.slice(1);
+// wonCoinList.setAttribute("data-name", coins[index + 1].name);
+// dollarCoinList.setAttribute("data-name", coins[index + 1].name);
 
 function createSubElements(priceContent) {
     let bookmark = document.createElement("div");
@@ -169,13 +172,13 @@ function createCoinList(coin, index, priceContent) {
         wonSubElements.bookmark,
         wonSubElements.language,
         wonSubElements.price,
-        wonSubElements.ratio
+        wonSubElements.ratio,
     );
     dollarCoinList.append(
         dollarSubElements.bookmark,
         dollarSubElements.language,
         dollarSubElements.price,
-        dollarSubElements.ratio
+        dollarSubElements.ratio,
     );
 
     wonSubElements.bookmark
@@ -192,7 +195,7 @@ function createCoinList(coin, index, priceContent) {
     wonSubElements.unit.innerHTML = `${coin.symbol}/${priceContent.dataset.currency}`;
     dollarSubElements.unit.innerHTML = `${coin.symbol}/${priceContent.dataset.currency}`;
 
-    // 각 코인 목록에 대한 속성값을 인덱스로 설정
+    // 각 코인 목록에 대한 인덱스를 설정
     wonCoinList.setAttribute("data-id", index);
     dollarCoinList.setAttribute("data-id", index);
 
@@ -203,6 +206,11 @@ function createCoinList(coin, index, priceContent) {
 //----------- 여기까지 태그 추가하는 코드
 
 //---------- 아래부터는 가격과 단위 표현하는 코드
+// let wonBox = document.querySelector(".won-tab");
+// let dollarBox = document.querySelector(".dollar-tab");
+// let wonCoinList = document.createElement("div");
+
+
 
 function coinWonList() {
     viewCoin.forEach((coin, index) => {
@@ -219,6 +227,8 @@ function coinWonList() {
     });
 }
 
+let val10 = 0;
+
 function coinUSDList() {
     viewCoin.forEach((coin, index) => {
         let dollar = document.createElement("p");
@@ -230,10 +240,22 @@ function coinUSDList() {
         dollar.append(won);
         dollarBox.append(dollarCoinList);
 
-        setInterval(() => {
+        int10 = setInterval(() => {
             // 현재가 실시간 반영
-            dollar.innerHTML = (randomPrice / 1320).toFixed(3);
-            won.innerHTML = `${randomPrice} KRW`;
+            // dollar.innerHTML = (randomPrice / 1320).toFixed(3);
+            // won.innerHTML = `${randomPrice} KRW`;
+
+            if (val10 == 0) {
+                val10 = 0;
+            } else {
+                val10 = val10;
+            }
+            document.querySelector(
+                `.won-tab [data-id='${val10}'] .currentPrice .priceGroup`,
+            ).innerHTML = `${randomPrice} KRW`;
+            document.querySelector(
+                `.dollar-tab [data-id='${val10}'] .currentPrice .priceGroup`,
+            ).innerHTML = `${(randomPrice / 1320).toFixed(3)} USDT`;
         }, 1000);
     });
 }
@@ -247,13 +269,15 @@ coinUSDList();
 
 //--------------------------------------------------------------------
 
+
+
+
 function clickedImg(event) {
+
     const img = event.target;
-    const coinList =
-        img.closest(".wonCoinList") || img.closest(".dollarCoinList");
+    const coinList = img.closest(".wonCoinList") || img.closest(".dollarCoinList");
     const pTag = document.querySelector(".noBookmark");
-    const listId = coinList.getAttribute("data-id");
-    console.log(listId);
+    const listId = coinList.dataset.name;
 
     if (img.src.endsWith("grayStar.png")) {
         img.src = "./yellowStar.png";
@@ -261,7 +285,7 @@ function clickedImg(event) {
 
         // 코인탭에 있는 코인요소를 복제하여 북마크탭에 추가
         const clonedList = coinList.cloneNode(true);
-        clonedList.setAttribute("data-id", listId);
+        clonedList.dataset.name = listId;
         bookmarkBox.appendChild(clonedList);
 
         // 복제된 코인리스트의 이미지 이벤트 업데이트
@@ -271,36 +295,35 @@ function clickedImg(event) {
         img.src = "./grayStar.png";
 
         // 북마크탭에서 코인 목록 제거
-        const listItemToRemove = bookmarkBox.querySelector(`[data-id="${listId}"]`);
-        // console.log(listItemToRemove);
+        const listItemToRemove = bookmarkBox.querySelector(`[data-name="${listId}"]`);
         if (listItemToRemove) {
             bookmarkBox.removeChild(listItemToRemove);
         }
 
         const wonTabImg = document.querySelector(
-            `.wonCoinList[data-id="${listId}"] img`
+            `.wonCoinList[data-name="${listId}"] img`,
         );
-        // console.log(wonTabImg);
         if (wonTabImg) {
             wonTabImg.src = "./grayStar.png";
         }
 
         // 북마크탭에 코인이 없으면 p태그 다시 표시
         const bookmarkBoxItems = bookmarkBox.querySelectorAll(
-            ".wonCoinList, .dollarCoinList"
+            ".wonCoinList, .dollarCoinList",
         );
         if (bookmarkBoxItems.length === 0) {
             pTag.style.display = "block";
         }
 
         const dollarTabImg = dollarBox.querySelector(
-            `.dollarCoinList[data-id="${listId}"] img`
+            `.dollarCoinList[data-name="${listId}"] img`,
         );
         if (dollarTabImg) {
             dollarTabImg.src = "./grayStar.png";
         }
     }
 }
+
 
 //-----------------------------------------------------------------------------
 
@@ -315,6 +338,14 @@ function setBackgroundColor(coinList, box) {
             coinList.forEach((element, idx) => {
                 if (idx !== index) {
                     box.children[idx].style.backgroundColor = "";
+                    // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+                    // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+                    box.children[idx].querySelector(".currentPrice p").innerHTML = "";
+                    // 무헌아 이거 생각하고 랜덤값 넣어야 해~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+                    // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+                } else {
+                    val10 = index;
                 }
                 item.style.backgroundColor = "rgb(241, 236, 236)";
             });
@@ -328,27 +359,25 @@ const dollarCoinList = dollarBox.querySelectorAll(".dollarCoinList");
 setBackgroundColor(wonCoinList, wonBox);
 setBackgroundColor(dollarCoinList, dollarBox);
 
-
 //-------------------------------------------------------------------------
 
 //                      체                      결
 
 //--------------------------------------------------------------------------
 
-
-const dealContent = document.querySelector('.deal-content');
+const dealContent = document.querySelector(".deal-content");
 
 function addDealContent(time, price, volume, amount) {
-    const ul = document.createElement('ul');
-    const timeList = document.createElement('li');
-    const priceList = document.createElement('li');
-    const volumeList = document.createElement('li');
-    const amountList = document.createElement('li');
+    const ul = document.createElement("ul");
+    const timeList = document.createElement("li");
+    const priceList = document.createElement("li");
+    const volumeList = document.createElement("li");
+    const amountList = document.createElement("li");
 
-    timeList.classList.add('dealTime');
-    priceList.classList.add('dealPrice');
-    volumeList.classList.add('dealVolume');
-    amountList.classList.add('dealAmount');
+    timeList.classList.add("dealTime");
+    priceList.classList.add("dealPrice");
+    volumeList.classList.add("dealVolume");
+    amountList.classList.add("dealAmount");
 
     timeList.textContent = time;
     priceList.textContent = price;
@@ -357,27 +386,21 @@ function addDealContent(time, price, volume, amount) {
 
     dealContent.append(ul);
     ul.append(timeList, priceList, volumeList, amountList);
-
 }
 
 // 코인리스트에 있는 코인 클릭시 체결량의 Symbol이 클릭된 해당 코인의 Symbol로 변경
 
 function changeSymbol(coinList) {
     coinList.forEach((a, i) => {
-        a.addEventListener('click', () => {
-            document.querySelector('.deal-volume span').innerHTML = coins[i + 1].symbol;
-        })
-    })
+        a.addEventListener("click", () => {
+            document.querySelector(".deal-volume span").innerHTML =
+                coins[i + 1].symbol;
+        });
+    });
 }
 
 changeSymbol(wonCoinList);
 changeSymbol(dollarCoinList);
-
-
-
-
-
-
 
 //--------------------------------------------------------------------------------------
 
@@ -395,8 +418,6 @@ let num; // 코인 클릭시 코인의 값 가져오기
 let randomPrice;
 let randomPrices;
 // 종가에 따라 바뀐 현재 기준가이다. 즉,100원에서 200원이 됐다면 iff는 200원이 되며,YaxisRange에서 cp를 이 iff로 바꿔주는 역할을 하는 부분이 있다.
-let iff = 0;
-let cp;
 let allCoinList = document.querySelectorAll(".wonCoinList, .dollarCoinList");
 // console.log(allCoinList);
 let time = new Date();
@@ -405,9 +426,11 @@ let seconds = time.getSeconds();
 let c_title;
 
 function displayChart(index) {
-    const num = coins[index + 1];
+    if (index >= 10) {
+        index = index % 10;
+    }
+    let num = coins[index + 1];
     c_title = num.name;
-    // console.log(c_title);
 
     function YaxisRange(coin) {
         const min = coin.min;
@@ -442,7 +465,7 @@ function displayChart(index) {
             let half = cp / 2;
             // ???
             randomPrice = Math.floor(
-                Math.random() * (cp + half - (cp - half) + 1) + (cp - half)
+                Math.random() * (cp + half - (cp - half) + 1) + (cp - half),
             );
 
             if (randomPrice < min) {
@@ -466,7 +489,12 @@ function displayChart(index) {
         randomPrices = [startPrice]; // 랜덤 가격을 저장할 배열 생성
 
         timer = setInterval(() => {
-            randomPrice = YaxisRange(priceRange[index + 1]);
+            //   console.log(coinCurrentArray);
+
+            //liveTrading에서 계속 갱신되는 coinCurrentArray를 갖고와 randomPrice에 삽입
+            //   다른 코인으로 변경해도 coinCurrentArray는 계속 갱신되고 있기 때문에 최신값을 가져올 수 있다.
+            randomPrice = coinCurrentArray[index];
+            console.log(randomPrice)
             randomPrices.push(randomPrice); // 생성된 랜덤 가격을 배열에 추가
             // console.log("Random Price: ", randomPrice);
             // console.log("Random title: ", c_title);
@@ -552,8 +580,8 @@ function displayChart(index) {
     let chart = new ApexCharts(document.querySelector("#chart"), options);
 
     // let time9 = 0;
-    let time0 = 1000;
     // let count = 0;
+    let time0 = 1000;
 
     turn1(0);
     let start;
@@ -572,6 +600,7 @@ function displayChart(index) {
             let time = new Date();
             let minutes = time.getMinutes();
             let seconds = time.getSeconds();
+
             if (val == 0) {
                 options.series[0].data[0] = {
                     x: minutes + ":" + seconds,
@@ -585,8 +614,8 @@ function displayChart(index) {
                     // 시가 고가 저가 종가
                 };
             }
-
             chart.updateOptions(options);
+
             if (time0 == 6000) {
                 time0 = 1000;
                 clearInterval(intervalId2);
@@ -604,7 +633,9 @@ function displayChart(index) {
                     element1 += element;
                 });
                 // console.log(randomPrices2.length);
-                let average = element1 / randomPrices2.length;
+                average = element1 / randomPrices2.length;
+                // 평균가로 매수가격을 바꿔줍니다.
+                document.querySelector("#buyPrice").placeholder = average;
                 // console.log("평균가: ", average);
                 // 이 값을 나중에 매수할때 가져가기
                 // 무헌이꺼랑 합치기~~~~~~~~~~~~
@@ -634,6 +665,33 @@ function displayChart(index) {
 
 allCoinList.forEach((item, index) => {
     item.addEventListener("click", () => {
+        // csh 하던거 -------------------------------------------
+        // let arr10 = document.querySelectorAll(".language");
+        // arr10.forEach(function(el){
+        //   console.log(el);
+        //   el.addEventListener("click", function(){
+        //     clearInterval(intervalId2);
+        //     clearInterval(timer);
+        //     displayChart(index+1);
+        //   });
+        // })
+        // csh 하던거 -------------------------------------------
+
+
+
+        // let parent1 = document.querySelector(".wonCoinList");
+        // let class1 = [".language", ".currentPrice", ".ratio"];
+        // class1.forEach(function (cl) {
+        //   parent1.querySelectorAll(cl).forEach(function (element) {
+        //     element.addEventListener("click", function () {
+
+        //       // clearInterval(intervalId2);
+        //       // clearInterval(timer);
+        //       // displayChart(index);
+        //     });
+        //   });
+        // });
+
         // ********************************************************************************************
         // *** BUG FIX!: 다른 코인을 클릭시 새로운 차트가 덧붙혀지는 버그가 있었음.
         //             1. intervalId2,timer를 사용하여 해당 코인에 대한 새로운 값을 갱신하였음
@@ -644,7 +702,6 @@ allCoinList.forEach((item, index) => {
         //                가 생성되지 않음
         //             5. 혹시 몰라서 clearInterval로 삭제까지 함***
         // ********************************************************************************************
-
         clearInterval(intervalId2);
         clearInterval(timer);
         displayChart(index);

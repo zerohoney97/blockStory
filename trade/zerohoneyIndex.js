@@ -1,12 +1,15 @@
+// 코인의 순서, 코인을 클릭했을 때 해당 코인의 정보를 불러오기 위한 변수
+let coinIndex = 1;
 let tabItem = document.querySelectorAll(".tab-item");
 let tabToggle = [true, false, false, false];
-let loginUser = getLoginUser();
+let loginUser = JSON.parse(localStorage.getItem("nowLogin"));
+let userInformation = JSON.parse(localStorage.getItem("userInformation"));
 // 가격을 빼는 - 버튼
 let priceSubtract = document.querySelector(".price-subtract");
 // 가격을 더하는 + 버튼
 let priceAdd = document.querySelector(".price-add");
 // 임시 코인
-let coin = SZC;
+let coin = JSON.parse(localStorage.getItem("coinInformation"))[coinIndex];
 let coinPrice = coin.currentPrice;
 // 매수시 직접 입력 버튼
 let selfInput = document.querySelector(".self-input");
@@ -147,8 +150,50 @@ const buyFunction = () => {
       return a;
     }
   });
-  console.log(tempUser)
-//   setLocalStorage("userInformation", []);
+  console.log(tempUser);
+  //   setLocalStorage("userInformation", []);
 };
 
 changeTabContent();
+
+// 콜백 함수 정의
+function getAveragePrice(array) {
+  if (array.length >= 6) {
+    const start = 1;
+    const end = 5;
+
+    // 1~5번 인덱스의 합을 계산
+    const sum = array.slice(start, end + 1).reduce((acc, cur) => acc + cur, 0);
+
+    // 1~5번 인덱스의 개수로 나누어 평균 계산
+    const average = sum / (end - start + 1);
+
+    return average;
+  }
+}
+// setInterval(() => {
+//   if (randomPrices.length == 6) {
+//     // 평균가가 6초때 나오므로 length가 6일때
+//     console.log(coins[coinIndex].currentPrice);
+//     // 해당하는 인덱스의 현재가를 평균가로 바꿔줌
+//     coins[coinIndex].currentPrice = getAveragePrice(randomPrices);
+//     // html에 나타내기 위하여 coinPrice또한 바꿔줌
+//     coinPrice = coins[coinIndex].currentPrice;
+//     // html수정
+
+//     setLocalStorage("coinInformation", coins);
+//   }
+// }, 1000);
+
+// 범인 찾았다!!
+allCoinList.forEach((a, index) => {
+  a.addEventListener("click", (i) => {
+    coinIndex = index + 1;
+    // 해당하는 인덱스의 현재가를 평균가로 바꿔줌
+    // console.log(coins[coinIndex].currentPrice);
+    // html수정
+    if (average == undefined) {
+      document.querySelector("#buyPrice").placeholder = "종가를 기다리세요";
+    }
+  });
+});
