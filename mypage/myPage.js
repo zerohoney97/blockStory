@@ -1,4 +1,5 @@
-
+let loginUser = JSON.parse(localStorage.getItem("nowLogin"));
+console.log(loginUser.coinVolume.GIC);
 // ----------------------------------------------------닉네임 변경---------------------------------------------------
 
 let nickName = document.querySelector('.accessInfo span');
@@ -193,7 +194,7 @@ function renderCoinList() {
         haveNumList.append(haveCoinUnit);
         haveCoinUnit.append(iHaveCoin, myCoinUnit);
         haveNumList.append(coinToKrw);
-        iHaveCoin.append(document.createTextNode('0 '));
+        // iHaveCoin.append(document.createTextNode('0 '));
 
         coinToKrw.style.fontSize = '14px';
         haveNumList.style.display = 'flex';
@@ -206,22 +207,19 @@ function renderCoinList() {
         myCoinUnit.innerHTML = ` ${coin.symbol}`;
         coinToKrw.innerHTML = `${coinCurrentPrice[i]} KRW`;
         coinToKrwElements.push(coinToKrw);
+        if (i == 0) {
 
-        // peter가 보유한 코인에만 수량을 나타내는 함수
-        // for (const key in peter.coin) {
-        //     if (peter.coin[key].symbol === coin.symbol) {
-        //         iHaveCoin.innerHTML = peter.coin[key].quantity;
-        //         myCoin.innerHTML = peter.coin[key].quantity;
-        //         break;
-        //     }
-        // }
+        } else {
+            iHaveCoin.innerHTML = loginUser.coinVolume[coin.symbol];
+            myCoin.innerHTML = loginUser.coinVolume[coin.symbol];
+
+        }
     })
 }
 renderCoinList();
 
 
 
-//------------Peter User test----------------
 
 let totalMoney = document.querySelector('.moneyNum');
 let accountNum = document.querySelectorAll('.thisBank');
@@ -229,21 +227,7 @@ let accountNum = document.querySelectorAll('.thisBank');
 let myMoney = document.querySelector('.myMoney');
 let listDescrip = document.querySelectorAll('.list-descrip');
 let coinQuantity = document.querySelector('.list-descrip .haveNum');
-// let Peter = JSON.parse(localStorage.getItem('link'));
 
-// accountNum.forEach(function (element) {
-//     element.innerHTML = Peter.accountNumber;
-// });
-
-// if (Peter) {
-//     nickName.innerHTML = Peter.name;
-//     totalMoney.innerHTML = Peter.account;
-//     myMoney.innerHTML = Peter.account;
-//     // myCoin.innerHTML = Peter.coin.gyunil.quantity;
-//     // coinQuantity.innerHTML = coins[i].currentPrice;
-// }
-
-//-------------------------------------------
 
 
 // 계좌관리 내 코인소유량 표시
@@ -368,14 +352,16 @@ withdrawInput.addEventListener('keypress', nonNum);
 
 
 // 입출금 신청시 입출금 내역에 저장되는 함수
+let thisCoinUnit = document.querySelector('.haveNum p');
+let thisCoinHave = document.querySelector('.haveCoinUnit strong');
 
-function loadFromLocalStorage(key, defaultValue) {
-    const storedValue = localStorage.getItem(key);
-    return storedValue === null ? defaultValue : parseFloat(storedValue);
+if (loginUser) {
+    totalMoney.textContent = loginUser.account || 0;
+    myMoney.textContent = loginUser.account || 0;
+} else {
+    totalMoney.textContent = 0;
+    myMoney.textContent = 0;
 }
-
-totalMoney.textContent = loadFromLocalStorage('totalMoney', 0);
-myMoney.textContent = loadFromLocalStorage('myMoney', 0);
 
 function getCurrentTime() {
     const now = new Date();
@@ -437,11 +423,26 @@ depositButton.addEventListener('click', () => {
 
     const currentTotal = parseFloat(totalMoney.textContent);
     const currentMyMoney = parseFloat(myMoney.textContent);
-    totalMoney.textContent = (currentTotal + amount);
-    myMoney.textContent = (currentMyMoney + amount);
-    localStorage.setItem('totalMoney', totalMoney.textContent);
-    localStorage.setItem('myMoney', myMoney.textContent);
+    const userAccount = parseFloat(loginUser.account);
+    const updatedTotalMoney = currentTotal + amount;
+    const updatedMyMoney = currentMyMoney + amount;
+
+    totalMoney.textContent = updatedTotalMoney;
+    myMoney.textContent = updatedMyMoney;
+
+    // Update loginUser object
+    // loginUser.totalMoney = updatedTotalMoney;
+    loginUser.account = updatedMyMoney;
+
+    localStorage.setItem('nowLogin', JSON.stringify(loginUser));
+
+    // totalMoney.textContent = (currentTotal + userAccount);
+    // myMoney.textContent = (currentMyMoney + amount);
+    // localStorage.setItem('totalMoney', totalMoney.textContent);
+    // localStorage.setItem('myMoney', myMoney.textContent);
 });
+
+
 
 // '출금신청' 버튼 이벤트
 withdrawButton.addEventListener('click', () => {
@@ -456,10 +457,19 @@ withdrawButton.addEventListener('click', () => {
 
     const currentTotal = parseFloat(totalMoney.textContent);
     const currentMyMoney = parseFloat(myMoney.textContent);
-    totalMoney.textContent = (currentTotal - amount);
-    myMoney.textContent = (currentMyMoney - amount);
-    localStorage.setItem('totalMoney', totalMoney.textContent);
-    localStorage.setItem('myMoney', myMoney.textContent);
+    const updatedTotalMoney = currentTotal - amount;
+    const updatedMyMoney = currentMyMoney - amount;
+    // totalMoney.textContent = (currentTotal - amount);
+    // myMoney.textContent = (currentMyMoney - amount);
+
+    totalMoney.textContent = updatedTotalMoney;
+    myMoney.textContent = updatedMyMoney;
+
+    loginUser.account = updatedMyMoney;
+
+    localStorage.setItem('nowLogin', JSON.stringify(loginUser));
+    // localStorage.setItem('totalMoney', totalMoney.textContent);
+    // localStorage.setItem('myMoney', myMoney.textContent);
 });
 
 
