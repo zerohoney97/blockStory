@@ -357,11 +357,6 @@ function setBackgroundColor(coinList, box) {
       coinList.forEach((element, idx) => {
         if (idx !== index) {
           box.children[idx].style.backgroundColor = "";
-          // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-          // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-          // 무헌아 이거 생각하고 랜덤값 넣어야 해~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-          // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
         } else {
           val10 = index;
         }
@@ -383,28 +378,28 @@ setBackgroundColor(dollarCoinList, dollarBox);
 
 //--------------------------------------------------------------------------
 
-const dealContent = document.querySelector(".deal-content");
+// const dealContent = document.querySelector(".deal-content");
 
-function addDealContent(time, price, volume, amount) {
-  const ul = document.createElement("ul");
-  const timeList = document.createElement("li");
-  const priceList = document.createElement("li");
-  const volumeList = document.createElement("li");
-  const amountList = document.createElement("li");
+// function addDealContent(time, price, volume, amount) {
+//   const ul = document.createElement("ul");
+//   const timeList = document.createElement("li");
+//   const priceList = document.createElement("li");
+//   const volumeList = document.createElement("li");
+//   const amountList = document.createElement("li");
 
-  timeList.classList.add("dealTime");
-  priceList.classList.add("dealPrice");
-  volumeList.classList.add("dealVolume");
-  amountList.classList.add("dealAmount");
+//   timeList.classList.add("dealTime");
+//   priceList.classList.add("dealPrice");
+//   volumeList.classList.add("dealVolume");
+//   amountList.classList.add("dealAmount");
 
-  timeList.textContent = time;
-  priceList.textContent = price;
-  volumeList.textContent = volume;
-  amountList.textContent = amount;
+//   timeList.textContent = time;
+//   priceList.textContent = price;
+//   volumeList.textContent = volume;
+//   amountList.textContent = amount;
 
-  dealContent.append(ul);
-  ul.append(timeList, priceList, volumeList, amountList);
-}
+//   dealContent.append(ul);
+//   ul.append(timeList, priceList, volumeList, amountList);
+// }
 
 // 코인리스트에 있는 코인 클릭시 체결량의 Symbol이 클릭된 해당 코인의 Symbol로 변경
 
