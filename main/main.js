@@ -134,9 +134,10 @@ if (JSON.parse(localStorage.getItem("nowLogin")).isAdmin == true) {
     admin.href = "../admin/admin.html";
     let logOut = document.getElementById("signUp")
     logOut.href="./main.html"
+    let trade = document.getElementById("trade");
+    trade.href ="../trade/assemble.html"
     logOut.onclick = function(){
-        window.localStorage.removeItem('nowLogin');
-        
+     window.localStorage.removeItem('nowLogin');   
     }
 
 }else if(JSON.parse(localStorage.getItem("nowLogin")).isAdmin==false){
@@ -146,6 +147,8 @@ if (JSON.parse(localStorage.getItem("nowLogin")).isAdmin == true) {
     myPage.href = "../mypage/myPage.html";
     let logOut = document.getElementById("logIn")
     logOut.href="./main.html"
+    let trade = document.getElementById("trade");
+    trade.href ="../trade/assemble.html"
     logOut.onclick = function(){
     window.localStorage.removeItem('nowLogin')
     }

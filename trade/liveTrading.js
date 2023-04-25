@@ -23,6 +23,7 @@ coinStystems.forEach((a, i) => {
         i - 1
       );
       coinsInTradeJS[i].currentPrice=coinCurrentArray[i-1]
+      
       setLocalStorage('coinInformation',coinsInTradeJS)
     }, 1000);
   }
