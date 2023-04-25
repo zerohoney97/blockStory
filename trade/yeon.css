@@ -140,13 +140,13 @@
     position: absolute;
     width: 70%;
     left: 50%;
-    bottom: 30%;
+    bottom: 40%;
     transform: translate(-50%);
     color: #333;
   }
 
   .comment textarea{
-    width: 50%;
+    width: 90%;
     transform: translate(20px);
     bottom: 60%;
     color: #333;
@@ -166,8 +166,8 @@
   }
   .comment-box{
     position: absolute;
-    width: 60%;
-    height: 70px;
+    width: 70%;
+    height: 130px;
     background-color: white;
     left: 50%;
     bottom: 15%;
@@ -355,7 +355,7 @@
 .content-text{
     position: absolute;
     width: 70%;
-    height: 50%;
+    height: 40%;
     top: 10%;
     left: 50%;
     transform: translate(-50%,-10%);
