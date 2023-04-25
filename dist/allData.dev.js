@@ -4,7 +4,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var User = function User(id, name, email, password, isAdmin, accountNumber) //가지고 있는 코인의 전체 개수
 {
-  var coin = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : null;
+  var coin = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : [];
   var tradeSum = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : 0;
   var account = arguments.length > 8 && arguments[8] !== undefined ? arguments[8] : 100000;
   var coinVolume = arguments.length > 9 && arguments[9] !== undefined ? arguments[9] : {
