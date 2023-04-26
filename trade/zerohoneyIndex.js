@@ -205,39 +205,39 @@ slider.addEventListener("input", () => {
 for (let i = 0; i < 4; i++) {
   document
     .querySelectorAll(".percent-container span")
-  [i].addEventListener("click", () => {
-    // 주문할 퍼센트
-    let percent =
-      parseInt(
-        document
-          .querySelectorAll(".percent-container span")
-        [i].getAttribute("value")
-      ) / 100;
-    // 유저가 구매할 돈
-    let buyAccountPrice = percent * loginUser.account;
-    // 주문 수령
-    let howOrderNum = Math.floor(
-      buyAccountPrice /
-      parseInt(document.querySelector("#buyPrice").placeholder)
-    );
-    //주문 총액
-    let oderSum =
-      parseInt(document.querySelector("#buyPrice").placeholder) * howOrderNum;
-    // 주문수량 변경
-    document.querySelector("#tradeVolume").placeholder = howOrderNum;
+    [i].addEventListener("click", () => {
+      // 주문할 퍼센트
+      let percent =
+        parseInt(
+          document
+            .querySelectorAll(".percent-container span")
+            [i].getAttribute("value")
+        ) / 100;
+      // 유저가 구매할 돈
+      let buyAccountPrice = percent * loginUser.account;
+      // 주문 수령
+      let howOrderNum = Math.floor(
+        buyAccountPrice /
+          parseInt(document.querySelector("#buyPrice").placeholder)
+      );
+      //주문 총액
+      let oderSum =
+        parseInt(document.querySelector("#buyPrice").placeholder) * howOrderNum;
+      // 주문수량 변경
+      document.querySelector("#tradeVolume").placeholder = howOrderNum;
 
-    // 만약 매도시 주문총액 계산
-    if (tabToggle[1]) {
-    } else {
-      console.log("들어옴");
-      // 만약 매수시 주문총액 계산
-      console.log(buyAccountPrice);
-      console.log(howOrderNum);
+      // 만약 매도시 주문총액 계산
+      if (tabToggle[1]) {
+      } else {
+        console.log("들어옴");
+        // 만약 매수시 주문총액 계산
+        console.log(buyAccountPrice);
+        console.log(howOrderNum);
 
-      orderSum.placeholder = oderSum;
-    }
-    // 주문 총액 변경
-  });
+        orderSum.placeholder = oderSum;
+      }
+      // 주문 총액 변경
+    });
 }
 //입력이 가능해진 input에 숫자를 입력 할 때마다 실행(매수)
 tradeVolume.addEventListener("input", () => {
@@ -250,21 +250,30 @@ tradeVolume.addEventListener("input", () => {
 
 //매수 함수
 const buyFunction = () => {
+  if (loginUser.account - parseInt(orderSum.placeholder) < 0) {
+    alert("일해서 돈 버세요");
+    return;
+  }
   //소비자가 산 코인의 양
   // console.log("체결가격", document.querySelector("#buyPrice").placeholder);
   // console.log("주문총액", parseInt(orderSum.placeholder));
-  
+
   let whatnumber = document.querySelector("#tradeVolume").value;
   let time10 = new Date();
   let minutes10 = time10.getMinutes();
   let seconds10 = time10.getSeconds();
   let time100 = minutes10 + ":" + seconds10;
-  
-  addDealContent(time100, document.querySelector("#buyPrice").placeholder, whatnumber,  parseInt(orderSum.placeholder));
+
+  addDealContent(
+    time100,
+    document.querySelector("#buyPrice").placeholder,
+    whatnumber,
+    parseInt(orderSum.placeholder)
+  );
 
   let buyCoinVolume = parseInt(
     parseInt(orderSum.placeholder) /
-    parseFloat(document.querySelector("#buyPrice").placeholder)
+      parseFloat(document.querySelector("#buyPrice").placeholder)
   );
   // 소비자가 산 코인을 Coin 생성자로 만들어 push해야함
   let { coinObj, quantity, userId } = new Coin(
@@ -281,6 +290,7 @@ const buyFunction = () => {
     [coin.symbol]: alreadyHaveCoin + buyCoinVolume,
   };
   console.log(alreadyHaveCoin);
+
   loginUser.account -= parseInt(orderSum.placeholder);
   console.log(loginUser);
   setLoginUser(loginUser);
@@ -300,39 +310,6 @@ const buyFunction = () => {
   init();
 };
 
-
-// ---------------------------체결 부분 csh
-const dealContent = document.querySelector(".deal-content");
-
-function addDealContent(time, price, volume, amount) {
-  console.log("a", time);
-  console.log("b", price);
-  console.log("c", volume);
-  console.log("d", amount);
-  const ul = document.createElement("ul");
-  const timeList = document.createElement("li");
-  const priceList = document.createElement("li");
-  const volumeList = document.createElement("li");
-  const amountList = document.createElement("li");
-
-  timeList.classList.add("dealTime");
-  priceList.classList.add("dealPrice");
-  volumeList.classList.add("dealVolume");
-  amountList.classList.add("dealAmount");
-
-  timeList.textContent = time;
-  priceList.textContent = price;
-  volumeList.textContent = volume;
-  amountList.textContent = amount;
-
-  dealContent.append(ul);
-  ul.append(timeList, priceList, volumeList, amountList);
-}
-// ---------------------------
-
-
-
-
 // 매도 함수
 const sellFunction = () => {
   let sellCoinVolume = -parseInt(document.querySelector("#sellPrice").value);
@@ -348,6 +325,19 @@ const sellFunction = () => {
     alert("코인을 더 사세요 ㅡㅡ");
     return;
   }
+
+  let whatnumber = document.querySelector("#sellPrice").value;
+  let time10 = new Date();
+  let minutes10 = time10.getMinutes();
+  let seconds10 = time10.getSeconds();
+  let time100 = minutes10 + ":" + seconds10;
+
+  addDealContent(
+    time100,
+    document.querySelector("#tradeVolume").placeholder,
+    whatnumber,
+    parseInt(orderSum.placeholder)
+  );
 
   loginUser.account += parseInt(orderSum.placeholder);
   loginUser.coin.push({ coinObj: coinObj, quantity: quantity, userId: userId });
@@ -376,7 +366,45 @@ const sellFunction = () => {
 
   init();
 };
+// ---------------------------체결 부분 csh
+const dealContent = document.querySelector(".deal-content");
 
+function addDealContent(time, price, volume, amount) {
+  console.log("a", time);
+  console.log("b", price);
+  console.log("c", volume);
+  console.log("d", amount);
+  const ul = document.createElement("ul");
+  const timeList = document.createElement("li");
+  const priceList = document.createElement("li");
+  const volumeList = document.createElement("li");
+  const amountList = document.createElement("li");
+
+  timeList.classList.add("dealTime");
+  priceList.classList.add("dealPrice");
+  volumeList.classList.add("dealVolume");
+  amountList.classList.add("dealAmount");
+
+  timeList.textContent = time;
+  priceList.textContent = price;
+  volumeList.textContent = volume;
+  amountList.textContent = amount;
+
+  if (tabToggle[0]) {
+    timeList.style.color = "red";
+    priceList.style.color = "red";
+    volumeList.style.color = "red";
+    amountList.style.color = "red";
+  } else {
+    timeList.style.color = "blue";
+    priceList.style.color = "blue";
+    volumeList.style.color = "blue";
+    amountList.style.color = "blue";
+  }
+  ul.append(timeList, priceList, volumeList, amountList);
+  dealContent.append(ul);
+}
+// ---------------------------
 changeTabContent();
 
 // 콜백 함수 정의

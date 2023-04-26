@@ -25,10 +25,7 @@ let commentBtn = document.getElementById("commentBtn");
 // 댓글을 담고있는 박스
 let commentBox = document.querySelector('.comment-box')
 
-// **************************************************************************임시 데이터
-setLocalStorage('nowLogin', getLocalStorage('userInformation', 22));
 
-//**************************************************************************
 
 //---페이지 네이션
 let currentPage = 1;

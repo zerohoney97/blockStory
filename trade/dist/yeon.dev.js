@@ -25,10 +25,7 @@ var updateBtn = document.getElementById("update-Btn");
 var input2 = document.getElementById("text3");
 var commentBtn = document.getElementById("commentBtn"); // 댓글을 담고있는 박스
 
-var commentBox = document.querySelector('.comment-box'); // **************************************************************************임시 데이터
-
-setLocalStorage('nowLogin', getLocalStorage('userInformation', 22)); //**************************************************************************
-//---페이지 네이션
+var commentBox = document.querySelector('.comment-box'); //---페이지 네이션
 
 var currentPage = 1;
 var totalCount = 50;
@@ -452,8 +449,7 @@ document.querySelector("#next").addEventListener("click", function () {
   changePage();
 }); //---거래소에서 로그아웃을 누르면 처음main으로 넘어가게 하는함수
 // 관리자일때
-
-console.log(JSON.parse(localStorage.getItem("nowLogin")));
+// console.log(JSON.parse(localStorage.getItem("nowLogin")))
 
 if (JSON.parse(localStorage.getItem("nowLogin")).isAdmin == true) {
   document.getElementById("logOut").innerHTML = "LogOut";

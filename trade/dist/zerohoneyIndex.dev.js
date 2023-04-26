@@ -29,15 +29,15 @@ var output = document.querySelector(".self-input-percent"); //주문 수량 inpu
 
 var tradeVolume = document.querySelector("#tradeVolume"); //주문 총액 input
 
-var orderSum = document.querySelector("#orderSum");
-console.log(loginUser.account);
+var orderSum = document.querySelector("#orderSum"); // console.log(loginUser.account);
+
 slider.addEventListener("input", function () {
   var value = slider.value;
   output.textContent = "Progress: ".concat(value, "%");
 });
 
 if (loginUser) {
-  console.log("sad");
+  // console.log("sad");
   document.querySelector(".btn-container").innerHTML = '<a href="" class="buy-sell-btn">매수</a>';
 }
 
@@ -212,7 +212,20 @@ tradeVolume.addEventListener("input", function () {
 }); //매수 함수
 
 var buyFunction = function buyFunction() {
-  //소비자가 산 코인의 양
+  if (loginUser.account - parseInt(orderSum.placeholder) < 0) {
+    alert("일해서 돈 버세요");
+    return;
+  } //소비자가 산 코인의 양
+  // console.log("체결가격", document.querySelector("#buyPrice").placeholder);
+  // console.log("주문총액", parseInt(orderSum.placeholder));
+
+
+  var whatnumber = document.querySelector("#tradeVolume").value;
+  var time10 = new Date();
+  var minutes10 = time10.getMinutes();
+  var seconds10 = time10.getSeconds();
+  var time100 = minutes10 + ":" + seconds10;
+  addDealContent(time100, document.querySelector("#buyPrice").placeholder, whatnumber, parseInt(orderSum.placeholder));
   var buyCoinVolume = parseInt(parseInt(orderSum.placeholder) / parseFloat(document.querySelector("#buyPrice").placeholder)); // 소비자가 산 코인을 Coin 생성자로 만들어 push해야함
 
   var _ref = new Coin(dummyDataCoin[coinIndex], buyCoinVolume, loginUser.id),
@@ -263,6 +276,12 @@ var sellFunction = function sellFunction() {
     return;
   }
 
+  var whatnumber = document.querySelector("#sellPrice").value;
+  var time10 = new Date();
+  var minutes10 = time10.getMinutes();
+  var seconds10 = time10.getSeconds();
+  var time100 = minutes10 + ":" + seconds10;
+  addDealContent(time100, document.querySelector("#tradeVolume").placeholder, whatnumber, parseInt(orderSum.placeholder));
   loginUser.account += parseInt(orderSum.placeholder);
   loginUser.coin.push({
     coinObj: coinObj,
@@ -286,7 +305,46 @@ var sellFunction = function sellFunction() {
   setLocalStorage("userInformation", tempUser);
   document.querySelector(".account").childNodes[0].nodeValue = loginUser.coinVolume["".concat(coin.symbol)];
   init();
-};
+}; // ---------------------------체결 부분 csh
+
+
+var dealContent = document.querySelector(".deal-content");
+
+function addDealContent(time, price, volume, amount) {
+  console.log("a", time);
+  console.log("b", price);
+  console.log("c", volume);
+  console.log("d", amount);
+  var ul = document.createElement("ul");
+  var timeList = document.createElement("li");
+  var priceList = document.createElement("li");
+  var volumeList = document.createElement("li");
+  var amountList = document.createElement("li");
+  timeList.classList.add("dealTime");
+  priceList.classList.add("dealPrice");
+  volumeList.classList.add("dealVolume");
+  amountList.classList.add("dealAmount");
+  timeList.textContent = time;
+  priceList.textContent = price;
+  volumeList.textContent = volume;
+  amountList.textContent = amount;
+
+  if (tabToggle[0]) {
+    timeList.style.color = "red";
+    priceList.style.color = "red";
+    volumeList.style.color = "red";
+    amountList.style.color = "red";
+  } else {
+    timeList.style.color = "blue";
+    priceList.style.color = "blue";
+    volumeList.style.color = "blue";
+    amountList.style.color = "blue";
+  }
+
+  ul.append(timeList, priceList, volumeList, amountList);
+  dealContent.append(ul);
+} // ---------------------------
+
 
 changeTabContent(); // 콜백 함수 정의
 
