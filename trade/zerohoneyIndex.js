@@ -23,14 +23,14 @@ const output = document.querySelector(".self-input-percent");
 let tradeVolume = document.querySelector("#tradeVolume");
 //주문 총액 input
 let orderSum = document.querySelector("#orderSum");
-console.log(loginUser.account);
+// console.log(loginUser.account);
 slider.addEventListener("input", () => {
   const value = slider.value;
   output.textContent = `Progress: ${value}%`;
 });
 
 if (loginUser) {
-  console.log("sad");
+  // console.log("sad");
   document.querySelector(".btn-container").innerHTML =
     '<a href="" class="buy-sell-btn">매수</a>';
 }
@@ -205,39 +205,39 @@ slider.addEventListener("input", () => {
 for (let i = 0; i < 4; i++) {
   document
     .querySelectorAll(".percent-container span")
-    [i].addEventListener("click", () => {
-      // 주문할 퍼센트
-      let percent =
-        parseInt(
-          document
-            .querySelectorAll(".percent-container span")
-            [i].getAttribute("value")
-        ) / 100;
-      // 유저가 구매할 돈
-      let buyAccountPrice = percent * loginUser.account;
-      // 주문 수령
-      let howOrderNum = Math.floor(
-        buyAccountPrice /
-          parseInt(document.querySelector("#buyPrice").placeholder)
-      );
-      //주문 총액
-      let oderSum =
-        parseInt(document.querySelector("#buyPrice").placeholder) * howOrderNum;
-      // 주문수량 변경
-      document.querySelector("#tradeVolume").placeholder = howOrderNum;
+  [i].addEventListener("click", () => {
+    // 주문할 퍼센트
+    let percent =
+      parseInt(
+        document
+          .querySelectorAll(".percent-container span")
+        [i].getAttribute("value")
+      ) / 100;
+    // 유저가 구매할 돈
+    let buyAccountPrice = percent * loginUser.account;
+    // 주문 수령
+    let howOrderNum = Math.floor(
+      buyAccountPrice /
+      parseInt(document.querySelector("#buyPrice").placeholder)
+    );
+    //주문 총액
+    let oderSum =
+      parseInt(document.querySelector("#buyPrice").placeholder) * howOrderNum;
+    // 주문수량 변경
+    document.querySelector("#tradeVolume").placeholder = howOrderNum;
 
-      // 만약 매도시 주문총액 계산
-      if (tabToggle[1]) {
-      } else {
-        console.log("들어옴");
-        // 만약 매수시 주문총액 계산
-        console.log(buyAccountPrice);
-        console.log(howOrderNum);
+    // 만약 매도시 주문총액 계산
+    if (tabToggle[1]) {
+    } else {
+      console.log("들어옴");
+      // 만약 매수시 주문총액 계산
+      console.log(buyAccountPrice);
+      console.log(howOrderNum);
 
-        orderSum.placeholder = oderSum;
-      }
-      // 주문 총액 변경
-    });
+      orderSum.placeholder = oderSum;
+    }
+    // 주문 총액 변경
+  });
 }
 //입력이 가능해진 input에 숫자를 입력 할 때마다 실행(매수)
 tradeVolume.addEventListener("input", () => {
@@ -251,9 +251,20 @@ tradeVolume.addEventListener("input", () => {
 //매수 함수
 const buyFunction = () => {
   //소비자가 산 코인의 양
+  // console.log("체결가격", document.querySelector("#buyPrice").placeholder);
+  // console.log("주문총액", parseInt(orderSum.placeholder));
+  
+  let whatnumber = document.querySelector("#tradeVolume").value;
+  let time10 = new Date();
+  let minutes10 = time10.getMinutes();
+  let seconds10 = time10.getSeconds();
+  let time100 = minutes10 + ":" + seconds10;
+  
+  addDealContent(time100, document.querySelector("#buyPrice").placeholder, whatnumber,  parseInt(orderSum.placeholder));
+
   let buyCoinVolume = parseInt(
     parseInt(orderSum.placeholder) /
-      parseFloat(document.querySelector("#buyPrice").placeholder)
+    parseFloat(document.querySelector("#buyPrice").placeholder)
   );
   // 소비자가 산 코인을 Coin 생성자로 만들어 push해야함
   let { coinObj, quantity, userId } = new Coin(
@@ -288,6 +299,39 @@ const buyFunction = () => {
     loginUser.account;
   init();
 };
+
+
+// ---------------------------체결 부분 csh
+const dealContent = document.querySelector(".deal-content");
+
+function addDealContent(time, price, volume, amount) {
+  console.log("a", time);
+  console.log("b", price);
+  console.log("c", volume);
+  console.log("d", amount);
+  const ul = document.createElement("ul");
+  const timeList = document.createElement("li");
+  const priceList = document.createElement("li");
+  const volumeList = document.createElement("li");
+  const amountList = document.createElement("li");
+
+  timeList.classList.add("dealTime");
+  priceList.classList.add("dealPrice");
+  volumeList.classList.add("dealVolume");
+  amountList.classList.add("dealAmount");
+
+  timeList.textContent = time;
+  priceList.textContent = price;
+  volumeList.textContent = volume;
+  amountList.textContent = amount;
+
+  dealContent.append(ul);
+  ul.append(timeList, priceList, volumeList, amountList);
+}
+// ---------------------------
+
+
+
 
 // 매도 함수
 const sellFunction = () => {

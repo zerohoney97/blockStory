@@ -67,7 +67,7 @@ function validateInput() {
         JSON.stringify([...adminUserData, newUser])
       );
     }
-    location.href = "/main/main.html";
+    location.href = "../main/main.html";
   }
 
   // JSON객체로 변경후 삽입

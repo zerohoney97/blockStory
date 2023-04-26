@@ -440,7 +440,7 @@ document.querySelector("#next").addEventListener("click", function () {
 
 //---거래소에서 로그아웃을 누르면 처음main으로 넘어가게 하는함수
 // 관리자일때
-console.log(JSON.parse(localStorage.getItem("nowLogin")))
+// console.log(JSON.parse(localStorage.getItem("nowLogin")))
 if (JSON.parse(localStorage.getItem("nowLogin")).isAdmin == true) {
   document.getElementById("logOut").innerHTML = "LogOut"
   document.getElementById("myPage").innerHTML = "Admin"
