@@ -81,6 +81,9 @@ const changeTabContent = (a, i) => {
       // 셀프 입력바 없앰
       document.querySelector(".self-input-bar").style.display = "none";
       document.querySelector(".self-input-percent").style.display = "none";
+
+      // 매수시 buyPrice초기화
+      document.querySelector("#buyPrice").value = "";
     });
   } else if (tabToggle[1]) {
     // 매도시 파는곳의 placeholder는 0고정이다
@@ -202,6 +205,7 @@ slider.addEventListener("input", () => {
     parseInt(document.querySelector("#buyPrice").placeholder);
 });
 
+// 퍼센트 부분
 for (let i = 0; i < 4; i++) {
   document
     .querySelectorAll(".percent-container span")
@@ -223,6 +227,8 @@ for (let i = 0; i < 4; i++) {
       //주문 총액
       let oderSum =
         parseInt(document.querySelector("#buyPrice").placeholder) * howOrderNum;
+      console.log(buyAccountPrice);
+      console.log(howOrderNum);
       // 주문수량 변경
       document.querySelector("#tradeVolume").placeholder = howOrderNum;
 
@@ -258,7 +264,10 @@ const buyFunction = () => {
   // console.log("체결가격", document.querySelector("#buyPrice").placeholder);
   // console.log("주문총액", parseInt(orderSum.placeholder));
 
-  let whatnumber = document.querySelector("#tradeVolume").value;
+  let whatnumber = parseInt(
+    parseInt(orderSum.placeholder) /
+      parseFloat(document.querySelector("#buyPrice").placeholder)
+  );
   let time10 = new Date();
   let minutes10 = time10.getMinutes();
   let seconds10 = time10.getSeconds();

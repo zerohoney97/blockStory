@@ -80,7 +80,9 @@ var changeTabContent = function changeTabContent(a, i) {
       a.style.display = "flex"; // 셀프 입력바 없앰
 
       document.querySelector(".self-input-bar").style.display = "none";
-      document.querySelector(".self-input-percent").style.display = "none";
+      document.querySelector(".self-input-percent").style.display = "none"; // 매수시 buyPrice초기화
+
+      document.querySelector("#buyPrice").value = "";
     });
   } else if (tabToggle[1]) {
     // 매도시 파는곳의 placeholder는 0고정이다
@@ -175,7 +177,7 @@ slider.addEventListener("input", function () {
   var value = slider.value;
   output.textContent = "\uD604\uC7AC \uC218\uB7C9: ".concat(value, "%");
   orderSum.placeholder = parseFloat(value) / 100 * parseInt(document.querySelector("#buyPrice").placeholder);
-});
+}); // 퍼센트 부분
 
 var _loop = function _loop(i) {
   document.querySelectorAll(".percent-container span")[i].addEventListener("click", function () {
@@ -186,7 +188,9 @@ var _loop = function _loop(i) {
 
     var howOrderNum = Math.floor(buyAccountPrice / parseInt(document.querySelector("#buyPrice").placeholder)); //주문 총액
 
-    var oderSum = parseInt(document.querySelector("#buyPrice").placeholder) * howOrderNum; // 주문수량 변경
+    var oderSum = parseInt(document.querySelector("#buyPrice").placeholder) * howOrderNum;
+    console.log(buyAccountPrice);
+    console.log(howOrderNum); // 주문수량 변경
 
     document.querySelector("#tradeVolume").placeholder = howOrderNum; // 만약 매도시 주문총액 계산
 
@@ -220,7 +224,7 @@ var buyFunction = function buyFunction() {
   // console.log("주문총액", parseInt(orderSum.placeholder));
 
 
-  var whatnumber = document.querySelector("#tradeVolume").value;
+  var whatnumber = parseInt(parseInt(orderSum.placeholder) / parseFloat(document.querySelector("#buyPrice").placeholder));
   var time10 = new Date();
   var minutes10 = time10.getMinutes();
   var seconds10 = time10.getSeconds();
