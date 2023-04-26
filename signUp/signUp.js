@@ -11,7 +11,11 @@ const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
 // 유저데이터를 가져옴
 const userDataArr = JSON.parse(localStorage.getItem("userInformation"));
-const adminUserData = JSON.parse(localStorage.getItem("admin"));
+let adminUserData=[];
+
+if (localStorage.getItem("admin")) {
+  adminUserData = JSON.parse(localStorage.getItem("admin"));
+}
 
 // 이메일 중복 확인 변수
 let validateDuplicate = false;
@@ -48,7 +52,7 @@ function validateInput() {
   } else {
     console.log(nickname.value);
     let newUser = new User(
-      userDataArr.length + 1,
+      userDataArr.length + adminUserData.length + 1,
       nickname.value,
       email.value,
       password.value,

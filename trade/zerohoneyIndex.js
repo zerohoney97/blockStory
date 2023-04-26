@@ -63,12 +63,25 @@ const changeTabContent = (a, i) => {
       loginUser.account;
     document.querySelector(".btn-container").innerHTML =
       '<a  class="buy-btn">매수</a>';
+    document.querySelector(".buy-steem-container > span").innerHTML =
+      "주문수량";
     let buyBtn = document.querySelector(".buy-btn");
     // 매수시 실행 메소드
     buyBtn.addEventListener("click", () => {
       buyFunction();
     });
+    // 매수시 + - 버튼 복귀
+    priceSubtract.style.display = "flex";
+    priceAdd.style.display = "flex";
     document.querySelector("#buyPrice").placeholder = coin.currentPrice;
+    // 매수로 왔을시 퍼센트 복귀
+    document.querySelectorAll(".percent-container span").forEach((a) => {
+      a.style.display = "flex";
+
+      // 셀프 입력바 없앰
+      document.querySelector(".self-input-bar").style.display = "none";
+      document.querySelector(".self-input-percent").style.display = "none";
+    });
   } else if (tabToggle[1]) {
     // 매도시 파는곳의 placeholder는 0고정이다
 
@@ -91,11 +104,33 @@ const changeTabContent = (a, i) => {
     // 매도시 buyprice를 바꿔줘야한다.
     document.querySelector("#sellPrice").placeholder = 0;
 
+    // 직접입력을 위한 attribute 삭제
+    document.querySelector("#sellPrice").removeAttribute("readonly");
+    document.querySelector("#sellPrice").removeAttribute("onfocus");
+
+    // 매도시 입력값으로 총액 변경
+    document.querySelector("#sellPrice").addEventListener("input", () => {
+      orderSum.placeholder = Math.floor(
+        parseInt(document.querySelector("#sellPrice").value) *
+          parseFloat(document.querySelector("#tradeVolume").placeholder)
+      );
+    });
+
+    // 매도시 + - 없앰
+    priceSubtract.style.display = "none";
+    priceAdd.style.display = "none";
     // 만약 매도시 필요없으므로 삭제
 
+    // 매도시 퍼센트 없앰
     document.querySelectorAll(".percent-container span").forEach((a) => {
       a.style.display = "none";
     });
+    // 매도시 input속성 다시 입력 못하게 변경
+    document.querySelector("#tradeVolume").setAttribute("readonly", true);
+    document
+      .querySelector("#tradeVolume")
+      .setAttribute("onfocus", "this.blur()");
+    document.querySelector("#tradeVolume").value = "";
   }
 };
 
@@ -204,7 +239,7 @@ for (let i = 0; i < 4; i++) {
       // 주문 총액 변경
     });
 }
-//입력이 가능해진 input에 숫자를 입력 할 때마다 실행
+//입력이 가능해진 input에 숫자를 입력 할 때마다 실행(매수)
 tradeVolume.addEventListener("input", () => {
   let input = document.getElementById("tradeVolume").value;
 
@@ -256,27 +291,31 @@ const buyFunction = () => {
 
 // 매도 함수
 const sellFunction = () => {
-  console.log(loginUser.account);
-  loginUser.account += parseInt(orderSum.placeholder);
-  let sellCoinVolume = -parseInt(
-    document.querySelector("#sellPrice").placeholder
-  );
+  let sellCoinVolume = -parseInt(document.querySelector("#sellPrice").value);
+  // 소비자가 이미 갖고있는 코인, 새로산 코인을 여기에 더해야함
+  let alreadyHaveCoin = loginUser["coinVolume"][coin.symbol];
   // 소비자가 판 quantity는 -이다. 코인을 Coin 생성자로 만들어 push해야함
   let { coinObj, quantity, userId } = new Coin(
     dummyDataCoin[coinIndex],
     sellCoinVolume,
     loginUser.id
   );
+  if (alreadyHaveCoin + sellCoinVolume < 0) {
+    alert("코인을 더 사세요 ㅡㅡ");
+    return;
+  }
+
+  loginUser.account += parseInt(orderSum.placeholder);
   loginUser.coin.push({ coinObj: coinObj, quantity: quantity, userId: userId });
 
-  // 소비자가 이미 갖고있는 코인, 새로산 코인을 여기에 더해야함
-  let alreadyHaveCoin = loginUser["coinVolume"][coin.symbol];
   loginUser.coinVolume = {
     ...loginUser.coinVolume,
     [coin.symbol]: alreadyHaveCoin + sellCoinVolume,
   };
-  console.log(alreadyHaveCoin, "매도");
-  console.log(loginUser.account);
+  console.log(alreadyHaveCoin);
+  console.log(sellCoinVolume);
+
+  console.log(loginUser);
   setLoginUser(loginUser);
   let tempUser = getLocalStorage("userInformation").map((a) => {
     if (loginUser.id == a.id) {
@@ -331,6 +370,10 @@ allCoinList.forEach((a, index) => {
   a.addEventListener("click", (i) => {
     coinIndex = index + 1;
     coin = JSON.parse(localStorage.getItem("coinInformation"))[coinIndex];
+    document.querySelector(".currency-units").innerHTML = coin.symbol;
+
+    document.querySelector(".account").childNodes[0].nodeValue =
+      loginUser.coinVolume[`${coin.symbol}`];
     // 해당하는 인덱스의 현재가를 평균가로 바꿔줌
     // console.log(coins[coinIndex].currentPrice);
     // html수정

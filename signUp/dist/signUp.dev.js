@@ -19,7 +19,12 @@ var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // 패스워�
 var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/; // 유저데이터를 가져옴
 
 var userDataArr = JSON.parse(localStorage.getItem("userInformation"));
-var adminUserData = JSON.parse(localStorage.getItem("admin")); // 이메일 중복 확인 변수
+var adminUserData = [];
+
+if (localStorage.getItem("admin")) {
+  adminUserData = JSON.parse(localStorage.getItem("admin"));
+} // 이메일 중복 확인 변수
+
 
 var validateDuplicate = false; // 이메일과 패스워드에서 커서가 벗어났을 때 실행하는 함수
 
@@ -48,7 +53,7 @@ function validateInput() {
     alert("정보를 정확하게 입력해주세요");
   } else {
     console.log(nickname.value);
-    var newUser = new User(userDataArr.length + 1, nickname.value, email.value, password.value, false, "71629122");
+    var newUser = new User(userDataArr.length + adminUserData.length + 1, nickname.value, email.value, password.value, false, "71629122");
 
     if (adminUserData == null) {
       localStorage.setItem("admin", JSON.stringify([newUser]));

@@ -366,7 +366,9 @@ console.log(tempUser); // console.log(Object.keys(peterCoin));
 // console.log(dummyDataUser[0]);
 // -----------------------------
 
-if (localStorage.getItem("userInformation")) {} else {
+if (localStorage.getItem("userInformation")) {
+  console.log('ㅎㅇ');
+} else {
   localStorage.setItem("userInformation", JSON.stringify([].concat(dummyDataUser, [tempUser])));
 }
 

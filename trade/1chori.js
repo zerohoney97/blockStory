@@ -821,6 +821,7 @@ allCoinList.forEach((item, index) => {
     nowCoin=index+1
     clearInterval(intervalId2);
     clearInterval(timer);
+ 
     displayChart(index);
   });
 });

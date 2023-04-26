@@ -425,6 +425,7 @@ console.log(tempUser);
 // -----------------------------
 
 if (localStorage.getItem("userInformation")) {
+  console.log('ㅎㅇ')
 } else {
   localStorage.setItem(
     "userInformation",
